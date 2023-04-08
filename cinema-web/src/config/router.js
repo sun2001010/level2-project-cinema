@@ -22,6 +22,16 @@ const routes = [
                 path: '/home',
                 name: 'home',
                 component: () => import('../views/home/Index.vue')
+            },
+            {
+                path: '/film',
+                name: 'film',
+                component: () => import('../views/film/Index.vue')
+            },
+            {
+                path: '/cinema',
+                name: 'cinema',
+                component: () => import('../views/cinema/Index.vue')
             }
         ]
     }
