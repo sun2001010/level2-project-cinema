@@ -32,6 +32,11 @@ const routes = [
                 path: '/cinema',
                 name: 'cinema',
                 component: () => import('../views/cinema/Index.vue')
+            },
+            {
+                path: '/rank',
+                name: 'rank',
+                component: () => import('../views/rank/Index.vue')
             }
         ]
     }
