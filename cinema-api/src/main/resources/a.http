@@ -1,0 +1,11 @@
+PUT localhost/admin/register
+Content-Type:application/json
+
+{
+  "aName": "admin",
+  "aPassword": "123",
+  "aSalt": "666",
+  "aConfidentiality": "1999",
+  "aPhone": "120",
+  "aEmail": "999@qq.com"
+}

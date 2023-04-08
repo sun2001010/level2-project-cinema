@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.AdminMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Admin">
+            <id property="aId" column="a_id" jdbcType="INTEGER"/>
+            <result property="aName" column="a_name" jdbcType="VARCHAR"/>
+            <result property="aPassword" column="a_password" jdbcType="VARCHAR"/>
+            <result property="aSalt" column="a_salt" jdbcType="VARCHAR"/>
+            <result property="aConfidentiality" column="a_confidentiality" jdbcType="VARCHAR"/>
+            <result property="aPhone" column="a_phone" jdbcType="VARCHAR"/>
+            <result property="aEmail" column="a_email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        a_id,a_name,a_password,
+        a_salt,a_confidentiality,a_phone,
+        a_email
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where  a_id = #{aId,jdbcType=INTEGER} 
+    </select>
+    <select id="findByAName" resultType="cn.jasonone.bean.Admin">
+        select <include refid="Base_Column_List"></include>
+        from admin where aName = #{aName}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from admin
+        where  a_id = #{aId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="a_id" keyProperty="aId" parameterType="cn.jasonone.bean.Admin" useGeneratedKeys="true">
+        insert into admin
+        ( a_name,a_password
+        ,a_salt,a_confidentiality,a_phone
+        ,a_email)
+        values (#{aName,jdbcType=VARCHAR},md5(#{aPassword,jdbcType=VARCHAR})
+        ,#{aSalt,jdbcType=VARCHAR},#{aConfidentiality,jdbcType=VARCHAR},#{aPhone,jdbcType=VARCHAR}
+        ,#{aEmail,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="a_id" keyProperty="aId" parameterType="cn.jasonone.bean.Admin" useGeneratedKeys="true">
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="aId != null">a_id,</if>
+                <if test="aName != null">a_name,</if>
+                <if test="aPassword != null">a_password,</if>
+                <if test="aSalt != null">a_salt,</if>
+                <if test="aConfidentiality != null">a_confidentiality,</if>
+                <if test="aPhone != null">a_phone,</if>
+                <if test="aEmail != null">a_email,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="aId != null">#{aId,jdbcType=INTEGER},</if>
+                <if test="aName != null">#{aName,jdbcType=VARCHAR},</if>
+                <if test="aPassword != null">#{aPassword,jdbcType=VARCHAR},</if>
+                <if test="aSalt != null">#{aSalt,jdbcType=VARCHAR},</if>
+                <if test="aConfidentiality != null">#{aConfidentiality,jdbcType=VARCHAR},</if>
+                <if test="aPhone != null">#{aPhone,jdbcType=VARCHAR},</if>
+                <if test="aEmail != null">#{aEmail,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Admin">
+        update admin
+        <set>
+                <if test="aName != null">
+                    a_name = #{aName,jdbcType=VARCHAR},
+                </if>
+                <if test="aPassword != null">
+                    a_password = #{aPassword,jdbcType=VARCHAR},
+                </if>
+                <if test="aSalt != null">
+                    a_salt = #{aSalt,jdbcType=VARCHAR},
+                </if>
+                <if test="aConfidentiality != null">
+                    a_confidentiality = #{aConfidentiality,jdbcType=VARCHAR},
+                </if>
+                <if test="aPhone != null">
+                    a_phone = #{aPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="aEmail != null">
+                    a_email = #{aEmail,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   a_id = #{aId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Admin">
+        update admin
+        set 
+            a_name =  #{aName,jdbcType=VARCHAR},
+            a_password =  #{aPassword,jdbcType=VARCHAR},
+            a_salt =  #{aSalt,jdbcType=VARCHAR},
+            a_confidentiality =  #{aConfidentiality,jdbcType=VARCHAR},
+            a_phone =  #{aPhone,jdbcType=VARCHAR},
+            a_email =  #{aEmail,jdbcType=VARCHAR}
+        where   a_id = #{aId,jdbcType=INTEGER} 
+    </update>
+</mapper>
