@@ -68,7 +68,7 @@
     .detail_list_bg {
       width: 100%;
       height: 100%;
-      background: url(/images/movie_1.jpg) 0 40%;
+      background:  0 40%;
       //   background: url(/images/movie_1.jpg) 0 40%;
       filter: blur(20px);
       background-size: cover;
