@@ -29,6 +29,11 @@ const routes = [
                 component: () => import('../views/film/Index.vue')
             },
             {
+                path: '/filmInformation',
+                name: 'filmInformation',
+                component: () => import('../views/film/filmInformation/Index.vue')
+            },
+            {
                 path: '/cinema',
                 name: 'cinema',
                 component: () => import('../views/cinema/Index.vue')
