@@ -34,3 +34,7 @@ http.interceptors.response.use(response=>{
 })
 
 export default http
+export const put=http.put
+export const post=http.post
+export const get=http.get
+export const del=http.delete
