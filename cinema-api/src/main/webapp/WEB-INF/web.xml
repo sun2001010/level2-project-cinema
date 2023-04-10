@@ -11,4 +11,11 @@
         <param-name>jwt_password</param-name>
         <param-value>hm123</param-value>
     </context-param>
+    <context-param>
+        <param-name>login_exclude</param-name>
+        <param-value>
+            /admin/register
+            /admin/login
+        </param-value>
+    </context-param>
 </web-app>
