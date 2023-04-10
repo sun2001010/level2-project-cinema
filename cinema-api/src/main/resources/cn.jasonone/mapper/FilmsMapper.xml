@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.FilmsMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Films">
+            <id property="fId" column="f_id" jdbcType="INTEGER"/>
+            <result property="fName" column="f_name" jdbcType="VARCHAR"/>
+            <result property="fImage" column="f_image" jdbcType="VARCHAR"/>
+            <result property="oType" column="o_type" jdbcType="VARCHAR"/>
+            <result property="director" column="director" jdbcType="VARCHAR"/>
+            <result property="directorImage" column="director_Image" jdbcType="VARCHAR"/>
+            <result property="fContent" column="f_content" jdbcType="VARCHAR"/>
+            <result property="fTime" column="f_time" jdbcType="TIMESTAMP"/>
+            <result property="fPrice" column="f_price" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        f_id,f_name,f_image,
+        o_type,director,director_Image,
+        f_content,f_time,f_price
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from films
+        where  f_id = #{fId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from films
+        where  f_id = #{fId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="f_id" keyProperty="fId" parameterType="cn.jasonone.bean.Films" useGeneratedKeys="true">
+        insert into films
+        ( f_id,f_name,f_image
+        ,o_type,director,director_Image
+        ,f_content,f_time,f_price
+        )
+        values (#{fId,jdbcType=INTEGER},#{fName,jdbcType=VARCHAR},#{fImage,jdbcType=VARCHAR}
+        ,#{oType,jdbcType=VARCHAR},#{director,jdbcType=VARCHAR},#{directorImage,jdbcType=VARCHAR}
+        ,#{fContent,jdbcType=VARCHAR},#{fTime,jdbcType=TIMESTAMP},#{fPrice,jdbcType=DOUBLE}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="f_id" keyProperty="fId" parameterType="cn.jasonone.bean.Films" useGeneratedKeys="true">
+        insert into films
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="fId != null">f_id,</if>
+                <if test="fName != null">f_name,</if>
+                <if test="fImage != null">f_image,</if>
+                <if test="oType != null">o_type,</if>
+                <if test="director != null">director,</if>
+                <if test="directorImage != null">director_Image,</if>
+                <if test="fContent != null">f_content,</if>
+                <if test="fTime != null">f_time,</if>
+                <if test="fPrice != null">f_price,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="fId != null">#{fId,jdbcType=INTEGER},</if>
+                <if test="fName != null">#{fName,jdbcType=VARCHAR},</if>
+                <if test="fImage != null">#{fImage,jdbcType=VARCHAR},</if>
+                <if test="oType != null">#{oType,jdbcType=VARCHAR},</if>
+                <if test="director != null">#{director,jdbcType=VARCHAR},</if>
+                <if test="directorImage != null">#{directorImage,jdbcType=VARCHAR},</if>
+                <if test="fContent != null">#{fContent,jdbcType=VARCHAR},</if>
+                <if test="fTime != null">#{fTime,jdbcType=TIMESTAMP},</if>
+                <if test="fPrice != null">#{fPrice,jdbcType=DOUBLE},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Films">
+        update films
+        <set>
+                <if test="fName != null">
+                    f_name = #{fName,jdbcType=VARCHAR},
+                </if>
+                <if test="fImage != null">
+                    f_image = #{fImage,jdbcType=VARCHAR},
+                </if>
+                <if test="oType != null">
+                    o_type = #{oType,jdbcType=VARCHAR},
+                </if>
+                <if test="director != null">
+                    director = #{director,jdbcType=VARCHAR},
+                </if>
+                <if test="directorImage != null">
+                    director_Image = #{directorImage,jdbcType=VARCHAR},
+                </if>
+                <if test="fContent != null">
+                    f_content = #{fContent,jdbcType=VARCHAR},
+                </if>
+                <if test="fTime != null">
+                    f_time = #{fTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="fPrice != null">
+                    f_price = #{fPrice,jdbcType=DOUBLE},
+                </if>
+        </set>
+        where   f_id = #{fId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Films">
+        update films
+        set 
+            f_name =  #{fName,jdbcType=VARCHAR},
+            f_image =  #{fImage,jdbcType=VARCHAR},
+            o_type =  #{oType,jdbcType=VARCHAR},
+            director =  #{director,jdbcType=VARCHAR},
+            director_Image =  #{directorImage,jdbcType=VARCHAR},
+            f_content =  #{fContent,jdbcType=VARCHAR},
+            f_time =  #{fTime,jdbcType=TIMESTAMP},
+            f_price =  #{fPrice,jdbcType=DOUBLE}
+        where   f_id = #{fId,jdbcType=INTEGER} 
+    </update>
+</mapper>
