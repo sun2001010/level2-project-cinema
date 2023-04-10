@@ -58,7 +58,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
                 <if test="aId != null">#{aId,jdbcType=INTEGER},</if>
                 <if test="aName != null">#{aName,jdbcType=VARCHAR},</if>
-                <if test="aPassword != null">#{aPassword,jdbcType=VARCHAR},</if>
+                <if test="aPassword != null">md5(#{aPassword,jdbcType=VARCHAR}),</if>
                 <if test="aSalt != null">#{aSalt,jdbcType=VARCHAR},</if>
                 <if test="aConfidentiality != null">#{aConfidentiality,jdbcType=VARCHAR},</if>
                 <if test="aPhone != null">#{aPhone,jdbcType=VARCHAR},</if>
@@ -72,7 +72,7 @@
                     a_name = #{aName,jdbcType=VARCHAR},
                 </if>
                 <if test="aPassword != null">
-                    a_password = #{aPassword,jdbcType=VARCHAR},
+                    a_password = md5(#{aPassword,jdbcType=VARCHAR}),
                 </if>
                 <if test="aSalt != null">
                     a_salt = #{aSalt,jdbcType=VARCHAR},
@@ -93,7 +93,7 @@
         update admin
         set 
             a_name =  #{aName,jdbcType=VARCHAR},
-            a_password =  #{aPassword,jdbcType=VARCHAR},
+            a_password =  md5(#{aPassword,jdbcType=VARCHAR}),
             a_salt =  #{aSalt,jdbcType=VARCHAR},
             a_confidentiality =  #{aConfidentiality,jdbcType=VARCHAR},
             a_phone =  #{aPhone,jdbcType=VARCHAR},
