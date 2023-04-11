@@ -42,6 +42,18 @@ const routes = [
                 path: '/rank',
                 name: 'rank',
                 component: () => import('../views/rank/Index.vue')
+            },
+        ]
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../views/admin/Index.vue'),
+        children: [
+            {
+                path: '/userInfo',
+                name: 'userInfo',
+                component: () => import('../views/admin/UserInfo.vue')
             }
         ]
     }
