@@ -1,26 +1,25 @@
 package cn.jasonone.service.impl;
 
 import cn.jasonone.bean.Cinema;
+import cn.jasonone.mapper.CinemaMapper;
 import cn.jasonone.service.CinemaService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import lombok.Setter;
+import org.apache.ibatis.session.SqlSession;
+
+import java.util.List;
 
 public class CinemaServiceImpl implements CinemaService {
+    @Setter
+    private SqlSession sqlSession;
+
+    //分页插件
     @Override
-    public void insert(Cinema cinema) {
-
-    }
-
-    @Override
-    public void deleteById(Cinema cinema) {
-
-    }
-
-    @Override
-    public void updateById(Cinema cinema) {
-
-    }
-
-    @Override
-    public void select(Cinema cinema) {
-
+    public PageInfo<Cinema> CinemaSelect(Cinema record, int pageNum, int pageSize) {
+        CinemaMapper mapper=sqlSession.getMapper(CinemaMapper.class);
+        List classList=mapper.findAll(record);//findAll是调用mapper里的函数
+        PageHelper.startPage(pageNum,pageSize);
+        return new PageInfo<Cinema>(classList);
     }
 }

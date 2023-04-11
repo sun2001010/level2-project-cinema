@@ -16,6 +16,7 @@
         <param-value>
             /admin/register
             /admin/login
+            /cinema/selectCinemaName
         </param-value>
     </context-param>
 </web-app>

@@ -23,6 +23,12 @@
         where  c_id = #{cId,jdbcType=INTEGER} 
     </select>
 
+    <select id="findAll" resultType="cn.jasonone.bean.Cinema">
+        select
+        <include refid="Base_Column_List" />
+        from cinema
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from cinema
         where  c_id = #{cId,jdbcType=INTEGER} 

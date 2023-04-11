@@ -8,3 +8,7 @@ Content-Type:application/json
   "aPhone": "120",
   "aEmail": "999@qq.com"
 }
+
+###
+GET http://localhost/cinema/selectCinemaName
+Content-Type: application/json

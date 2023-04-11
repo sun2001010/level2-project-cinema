@@ -2,6 +2,8 @@ package cn.jasonone.mapper;
 
 import cn.jasonone.bean.Cinema;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【cinema(影院表)】的数据库操作Mapper
@@ -17,6 +19,8 @@ public interface CinemaMapper {
     int insertSelective(Cinema record);
 
     Cinema selectByPrimaryKey(Long id);
+
+    List<Cinema> findAll(Cinema cinema);
 
     int updateByPrimaryKeySelective(Cinema record);
 

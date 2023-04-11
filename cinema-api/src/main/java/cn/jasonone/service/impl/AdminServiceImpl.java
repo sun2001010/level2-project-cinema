@@ -23,18 +23,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin login(Admin admin) {
         AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
-        Admin user = mapper.findByAName(admin.getAName());
-        if(user != null){
+        Admin admin1 = mapper.findByAName(admin.getAName());
+        if(admin1 != null){
             // 获得盐
-            String salt = user.getASalt();
+            String salt = admin1.getASalt();
             // 加盐加密
             String password = salt+admin.getAPassword()+salt;
             password = MD5.create().digestHex(password);
             // 验证密码
-            if(password.equals(user.getAPassword())){
-                user.setAPassword(null);
-                user.setASalt(null);
-                return user;
+            if(password.equals(admin1.getAPassword())){
+                admin1.setAPassword(null);
+                admin1.setASalt(null);
+                return admin1;
             }
         }
         return null;
