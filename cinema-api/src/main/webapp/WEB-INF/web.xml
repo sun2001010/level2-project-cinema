@@ -16,6 +16,7 @@
         <param-value>
             /admin/register
             /admin/login
+            /home/select
         </param-value>
     </context-param>
 </web-app>
