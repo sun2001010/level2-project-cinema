@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jasonone.mapper.CollectionMapper">
 
-    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Collection">
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Collect">
             <id property="colId" column="col_id" jdbcType="INTEGER"/>
             <result property="uName" column="u_name" jdbcType="VARCHAR"/>
             <result property="fName" column="f_name" jdbcType="VARCHAR"/>
@@ -28,14 +28,14 @@
         delete from collection
         where  col_id = #{colId,jdbcType=INTEGER} 
     </delete>
-    <insert id="insert" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collection" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collect" useGeneratedKeys="true">
         insert into collection
         ( col_id,u_name,f_name
         ,o_type,col_time)
         values (#{colId,jdbcType=INTEGER},#{uName,jdbcType=VARCHAR},#{fName,jdbcType=VARCHAR}
         ,#{oType,jdbcType=VARCHAR},#{colTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collection" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collect" useGeneratedKeys="true">
         insert into collection
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="colId != null">col_id,</if>
@@ -52,7 +52,7 @@
                 <if test="colTime != null">#{colTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Collection">
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Collect">
         update collection
         <set>
                 <if test="uName != null">
@@ -70,7 +70,7 @@
         </set>
         where   col_id = #{colId,jdbcType=INTEGER} 
     </update>
-    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Collection">
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Collect">
         update collection
         set 
             u_name =  #{uName,jdbcType=VARCHAR},

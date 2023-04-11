@@ -9,7 +9,7 @@ import lombok.Data;
  * @TableName collection
  */
 @Data
-public class Collection implements Serializable {
+public class Collect implements Serializable {
     /**
      * 收藏id
      */
