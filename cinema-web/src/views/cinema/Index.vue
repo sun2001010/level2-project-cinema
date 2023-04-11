@@ -17,7 +17,9 @@
 </script>
 
 <style scoped>
-.
+.layui-body{
+  padding-top: 10px;
+}
 .grid-demo {
   padding: 10px;
   line-height: 10px;
