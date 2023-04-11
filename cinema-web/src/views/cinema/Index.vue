@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <lay-container fluid>
-      <lay-row space="10">
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">1</div></lay-col>
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">2</div></lay-col>
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">3</div></lay-col>
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">4</div></lay-col>
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">5</div></lay-col>
-        <lay-col md="4" sm="12" xs="24"><div class="grid-demo">6</div></lay-col>
-      </lay-row>
-    </lay-container>
+  <div class="content">
+    <div class="cinemaName">
+      影院：
+      <layui-button class="grid-demo">1465456465</layui-button>
+      <layui-button class="grid-demo">1</layui-button>
+      <layui-button class="grid-demo">1</layui-button>
+      <layui-button class="grid-demo">1</layui-button>
+      <layui-button class="grid-demo">1</layui-button>
+    </div>
   </div>
 </template>
 
@@ -17,15 +15,22 @@
 </script>
 
 <style scoped>
-.layui-body{
-  padding-top: 10px;
+.content{
+  margin: 10px;
+  border: #cccccc solid 1px;
+  height: 300px;
+}
+.cinemaName{
+  margin: 10px;
 }
 .grid-demo {
+  margin: 20px;
+  width: 50px;
   padding: 10px;
   line-height: 10px;
   border-radius: 2px;
   text-align: center;
-  background-color: var(--global-checked-color);
-  color: #fff;
+  background-color: green;
+  color: white;
 }
 </style>

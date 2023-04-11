@@ -43,6 +43,9 @@ const openKeys = ref(["7"])
 </script>
 
 <style scoped lang="scss">
+.layui-body{
+  padding: 10px;
+}
 .layui-nav-item{
   padding-left: 40px;
   padding-right: 40px;
