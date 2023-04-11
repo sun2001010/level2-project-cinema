@@ -5,35 +5,34 @@ import lombok.Data;
 
 /**
  * 电影演员关系表
- * @author 凌久熙
  * @TableName film_player
  */
 @Data
 public class FilmPlayer implements Serializable {
     /**
-     * 
+     * 电影演员关系id
      */
-    private Integer fPId;
+    private Integer fpId;
 
     /**
      * 电影id
      */
-    private Integer fId;
+    private Integer filmid;
 
     /**
      * 电影名
      */
-    private String fName;
+    private String filmname;
 
     /**
      * 演员id
      */
-    private Integer playId;
+    private Integer playerid;
 
     /**
      * 演员名字
      */
-    private String playerName;
+    private String playername;
 
     private static final long serialVersionUID = 1L;
 }

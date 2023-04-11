@@ -6,7 +6,6 @@ import lombok.Data;
 
 /**
  * 影片表
- * @author 凌久熙
  * @TableName films
  */
 @Data
