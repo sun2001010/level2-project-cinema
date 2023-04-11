@@ -5,9 +5,9 @@ import cn.jasonone.bean.Films;
 import java.util.List;
 
 /**
-* @author 凌久熙
+* @author Administrator
 * @description 针对表【films(影片表)】的数据库操作Mapper
-* @createDate 2023-04-10 10:17:40
+* @createDate 2023-04-11 09:33:29
 * @Entity cn.jasonone.bean.Films
 */
 public interface FilmsMapper {

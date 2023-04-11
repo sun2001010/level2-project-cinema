@@ -1,22 +1,25 @@
 <template>
   <div class="login">
-    <h1>Login</h1>
-    <form @submit="onLogin">
-      <label for="username">用户名</label>
-      <input type="text" id="username" v-model="userInfo.username" placeholder="请输入用户名"/>
-      <br>
-      <label for="password">密码</label>
-      <input type="password" id="password" v-model="userInfo.password" placeholder="请输入密码"/>
-      <br>
-      <button type="submit">登录</button>
-    </form>
+    <lay-form class="login1">
+      <lay-form-item label="用户名">
+        <lay-input v-model="userInfo.username" placeholder="请输入用户名"></lay-input>
+      </lay-form-item>
+      <lay-form-item label="密&ensp;&ensp;码">
+        <lay-input v-model="userInfo.password" placeholder="请输入密码"></lay-input>
+      </lay-form-item>
+      <lay-form-item class="btns">
+        <lay-button type="primary" @click="onLogin">登录</lay-button>
+      </lay-form-item>
+    </lay-form>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import {login} from './api'
-import {useRouter} from "vue-router";
+import {useRouter} from "vue-router"
+import {layer} from "@layui/layui-vue";
+
 const router = useRouter();
 const userInfo = ref({
   username: '',
@@ -34,6 +37,23 @@ function onLogin(e){
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(#a770ef,#f6ceec,#d939cd);
+  .login1 {
+    border-radius: 5px;
+    width: 400px;
+    padding: 20px;
+    padding-right: 80px;
+    backdrop-filter: blur(15px);
+    .btns{
+      text-align: center;
+    }
+  }
+}
 </style>

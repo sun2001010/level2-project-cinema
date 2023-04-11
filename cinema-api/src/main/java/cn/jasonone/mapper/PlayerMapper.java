@@ -3,9 +3,9 @@ package cn.jasonone.mapper;
 import cn.jasonone.bean.Player;
 
 /**
-* @author 凌久渊
+* @author Administrator
 * @description 针对表【player(演员表)】的数据库操作Mapper
-* @createDate 2023-04-10 10:53:50
+* @createDate 2023-04-11 09:34:24
 * @Entity cn.jasonone.bean.Player
 */
 public interface PlayerMapper {

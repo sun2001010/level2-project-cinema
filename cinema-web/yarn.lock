@@ -207,10 +207,10 @@
   resolved "https://registry.npmmirror.com/@layui/layer-vue/-/layer-vue-1.8.0.tgz"
   integrity sha512-VdkI47dOfa72Mw6o//m5YVTAkEN8kYyH9fIqeDF+KJBYimD+SM5qpb4RPNkHNDQeCCTe7rp3UJrgKI8ANGO8Ig==
 
-"@layui/layui-vue@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.npmmirror.com/@layui/layui-vue/-/layui-vue-1.10.0.tgz"
-  integrity sha512-jhd1zuhAGPAkauoX9KgYqe7215NyKdxajZrwQAFYPlk4TEhFZPi4G0Qx8OQJZPj9ePOdAAJOkfEyTSx/dle5Fw==
+"@layui/layui-vue@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.npmmirror.com/@layui/layui-vue/-/layui-vue-1.10.1.tgz#9cd81c845eaf0feec3d1957f14bd9c6515d99d26"
+  integrity sha512-0XdxtLkxxyrQ8Gv5qkputH8kzrP/htQDBzehg4pvog86Njmez2cbwCdmf83WeOrbWMTIVjfVnM7IQZhrbeoGxw==
   dependencies:
     "@babel/types" "7.21.0"
     "@ctrl/tinycolor" "^3.4.1"
@@ -397,7 +397,7 @@ asynckit@^0.4.0:
 
 axios@^1.3.5:
   version "1.3.5"
-  resolved "https://registry.npmmirror.com/axios/-/axios-1.3.5.tgz"
+  resolved "https://registry.npmmirror.com/axios/-/axios-1.3.5.tgz#e07209b39a0d11848e3e341fa087acd71dadc542"
   integrity sha512-glL/PvG/E+xCWwV8S6nCHcrfg1exGx7vxyUIivIA1iL7BIh6bePylCfVHwp6k13ao7SATxB6imau2kqY+I67kw==
   dependencies:
     follow-redirects "^1.15.0"
@@ -805,7 +805,7 @@ rollup@^3.18.0:
 
 sass@^1.61.0:
   version "1.61.0"
-  resolved "https://registry.npmmirror.com/sass/-/sass-1.61.0.tgz"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.61.0.tgz#d1f6761bb833887b8fdab32a24e052c40531d02b"
   integrity sha512-PDsN7BrVkNZK2+dj/dpKQAWZavbAQ87IXqVvw2+oEYI+GwlTWkvbQtL7F2cCNbMqJEYKPh1EcjSxsnqIb/kyaQ==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
@@ -899,7 +899,7 @@ vue-i18n@9.1.10:
 
 vue-router@^4.1.6:
   version "4.1.6"
-  resolved "https://registry.npmmirror.com/vue-router/-/vue-router-4.1.6.tgz"
+  resolved "https://registry.npmmirror.com/vue-router/-/vue-router-4.1.6.tgz#b70303737e12b4814578d21d68d21618469375a1"
   integrity sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==
   dependencies:
     "@vue/devtools-api" "^6.4.5"

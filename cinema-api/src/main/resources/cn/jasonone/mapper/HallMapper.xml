@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.HallMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Hall">
+            <id property="hId" column="h_id" jdbcType="INTEGER"/>
+            <result property="hName" column="h_name" jdbcType="VARCHAR"/>
+            <result property="hLevel" column="h_level" jdbcType="INTEGER"/>
+            <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        h_id,h_name,h_level,
+        c_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from hall
+        where  h_id = #{hId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from hall
+        where  h_id = #{hId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="h_id" keyProperty="hId" parameterType="cn.jasonone.bean.Hall" useGeneratedKeys="true">
+        insert into hall
+        ( h_id,h_name,h_level
+        ,c_name)
+        values (#{hId,jdbcType=INTEGER},#{hName,jdbcType=VARCHAR},#{hLevel,jdbcType=INTEGER}
+        ,#{cName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="h_id" keyProperty="hId" parameterType="cn.jasonone.bean.Hall" useGeneratedKeys="true">
+        insert into hall
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="hId != null">h_id,</if>
+                <if test="hName != null">h_name,</if>
+                <if test="hLevel != null">h_level,</if>
+                <if test="cName != null">c_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="hId != null">#{hId,jdbcType=INTEGER},</if>
+                <if test="hName != null">#{hName,jdbcType=VARCHAR},</if>
+                <if test="hLevel != null">#{hLevel,jdbcType=INTEGER},</if>
+                <if test="cName != null">#{cName,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Hall">
+        update hall
+        <set>
+                <if test="hName != null">
+                    h_name = #{hName,jdbcType=VARCHAR},
+                </if>
+                <if test="hLevel != null">
+                    h_level = #{hLevel,jdbcType=INTEGER},
+                </if>
+                <if test="cName != null">
+                    c_name = #{cName,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   h_id = #{hId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Hall">
+        update hall
+        set 
+            h_name =  #{hName,jdbcType=VARCHAR},
+            h_level =  #{hLevel,jdbcType=INTEGER},
+            c_name =  #{cName,jdbcType=VARCHAR}
+        where   h_id = #{hId,jdbcType=INTEGER} 
+    </update>
+</mapper>
