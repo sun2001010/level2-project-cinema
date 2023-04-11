@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.CinemaMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Cinema">
+            <id property="cId" column="c_id" jdbcType="INTEGER"/>
+            <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+            <result property="cLevel" column="c_level" jdbcType="INTEGER"/>
+            <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        c_id,c_name,c_level,
+        c_address
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cinema
+        where  c_id = #{cId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cinema
+        where  c_id = #{cId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="c_id" keyProperty="cId" parameterType="cn.jasonone.bean.Cinema" useGeneratedKeys="true">
+        insert into cinema
+        ( c_id,c_name,c_level
+        ,c_address)
+        values (#{cId,jdbcType=INTEGER},#{cName,jdbcType=VARCHAR},#{cLevel,jdbcType=INTEGER}
+        ,#{cAddress,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="c_id" keyProperty="cId" parameterType="cn.jasonone.bean.Cinema" useGeneratedKeys="true">
+        insert into cinema
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="cId != null">c_id,</if>
+                <if test="cName != null">c_name,</if>
+                <if test="cLevel != null">c_level,</if>
+                <if test="cAddress != null">c_address,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="cId != null">#{cId,jdbcType=INTEGER},</if>
+                <if test="cName != null">#{cName,jdbcType=VARCHAR},</if>
+                <if test="cLevel != null">#{cLevel,jdbcType=INTEGER},</if>
+                <if test="cAddress != null">#{cAddress,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Cinema">
+        update cinema
+        <set>
+                <if test="cName != null">
+                    c_name = #{cName,jdbcType=VARCHAR},
+                </if>
+                <if test="cLevel != null">
+                    c_level = #{cLevel,jdbcType=INTEGER},
+                </if>
+                <if test="cAddress != null">
+                    c_address = #{cAddress,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   c_id = #{cId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Cinema">
+        update cinema
+        set 
+            c_name =  #{cName,jdbcType=VARCHAR},
+            c_level =  #{cLevel,jdbcType=INTEGER},
+            c_address =  #{cAddress,jdbcType=VARCHAR}
+        where   c_id = #{cId,jdbcType=INTEGER} 
+    </update>
+</mapper>

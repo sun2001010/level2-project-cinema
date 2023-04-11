@@ -5,7 +5,7 @@ import cn.jasonone.bean.Admin;
 /**
 * @author Administrator
 * @description 针对表【admin(管理员表)】的数据库操作Mapper
-* @createDate 2023-04-07 16:33:25
+* @createDate 2023-04-10 09:25:31
 * @Entity cn.jasonone.bean.Admin
 */
 public interface AdminMapper {
@@ -18,9 +18,9 @@ public interface AdminMapper {
 
     Admin selectByPrimaryKey(Long id);
 
-    Admin findByAName(String aName);
-
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    Admin findByAName(String aName);
 }
