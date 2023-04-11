@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.FilmPlayerMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.FilmPlayer">
+            <id property="fpId" column="fp_id" jdbcType="INTEGER"/>
+            <result property="filmid" column="filmId" jdbcType="INTEGER"/>
+            <result property="filmname" column="filmName" jdbcType="VARCHAR"/>
+            <result property="playerid" column="playerId" jdbcType="INTEGER"/>
+            <result property="playername" column="playerName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        fp_id,filmId,filmName,
+        playerId,playerName
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from film_player
+        where  fp_id = #{fpId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from film_player
+        where  fp_id = #{fpId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="fp_id" keyProperty="fpId" parameterType="cn.jasonone.bean.FilmPlayer" useGeneratedKeys="true">
+        insert into film_player
+        ( fp_id,filmId,filmName
+        ,playerId,playerName)
+        values (#{fpId,jdbcType=INTEGER},#{filmid,jdbcType=INTEGER},#{filmname,jdbcType=VARCHAR}
+        ,#{playerid,jdbcType=INTEGER},#{playername,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="fp_id" keyProperty="fpId" parameterType="cn.jasonone.bean.FilmPlayer" useGeneratedKeys="true">
+        insert into film_player
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="fpId != null">fp_id,</if>
+                <if test="filmid != null">filmId,</if>
+                <if test="filmname != null">filmName,</if>
+                <if test="playerid != null">playerId,</if>
+                <if test="playername != null">playerName,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="fpId != null">#{fpId,jdbcType=INTEGER},</if>
+                <if test="filmid != null">#{filmid,jdbcType=INTEGER},</if>
+                <if test="filmname != null">#{filmname,jdbcType=VARCHAR},</if>
+                <if test="playerid != null">#{playerid,jdbcType=INTEGER},</if>
+                <if test="playername != null">#{playername,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.FilmPlayer">
+        update film_player
+        <set>
+                <if test="filmid != null">
+                    filmId = #{filmid,jdbcType=INTEGER},
+                </if>
+                <if test="filmname != null">
+                    filmName = #{filmname,jdbcType=VARCHAR},
+                </if>
+                <if test="playerid != null">
+                    playerId = #{playerid,jdbcType=INTEGER},
+                </if>
+                <if test="playername != null">
+                    playerName = #{playername,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   fp_id = #{fpId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.FilmPlayer">
+        update film_player
+        set 
+            filmId =  #{filmid,jdbcType=INTEGER},
+            filmName =  #{filmname,jdbcType=VARCHAR},
+            playerId =  #{playerid,jdbcType=INTEGER},
+            playerName =  #{playername,jdbcType=VARCHAR}
+        where   fp_id = #{fpId,jdbcType=INTEGER} 
+    </update>
+</mapper>

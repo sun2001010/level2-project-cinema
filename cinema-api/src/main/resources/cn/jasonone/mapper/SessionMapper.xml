@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.SessionMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Session">
+            <id property="seId" column="se_id" jdbcType="INTEGER"/>
+            <result property="seStarttime" column="se_starttime" jdbcType="TIMESTAMP"/>
+            <result property="seEndtime" column="se_endtime" jdbcType="TIMESTAMP"/>
+            <result property="fName" column="f_name" jdbcType="VARCHAR"/>
+            <result property="chName" column="ch_name" jdbcType="VARCHAR"/>
+            <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        se_id,se_starttime,se_endtime,
+        f_name,ch_name,c_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from session
+        where  se_id = #{seId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from session
+        where  se_id = #{seId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="se_id" keyProperty="seId" parameterType="cn.jasonone.bean.Session" useGeneratedKeys="true">
+        insert into session
+        ( se_id,se_starttime,se_endtime
+        ,f_name,ch_name,c_name
+        )
+        values (#{seId,jdbcType=INTEGER},#{seStarttime,jdbcType=TIMESTAMP},#{seEndtime,jdbcType=TIMESTAMP}
+        ,#{fName,jdbcType=VARCHAR},#{chName,jdbcType=VARCHAR},#{cName,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="se_id" keyProperty="seId" parameterType="cn.jasonone.bean.Session" useGeneratedKeys="true">
+        insert into session
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="seId != null">se_id,</if>
+                <if test="seStarttime != null">se_starttime,</if>
+                <if test="seEndtime != null">se_endtime,</if>
+                <if test="fName != null">f_name,</if>
+                <if test="chName != null">ch_name,</if>
+                <if test="cName != null">c_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="seId != null">#{seId,jdbcType=INTEGER},</if>
+                <if test="seStarttime != null">#{seStarttime,jdbcType=TIMESTAMP},</if>
+                <if test="seEndtime != null">#{seEndtime,jdbcType=TIMESTAMP},</if>
+                <if test="fName != null">#{fName,jdbcType=VARCHAR},</if>
+                <if test="chName != null">#{chName,jdbcType=VARCHAR},</if>
+                <if test="cName != null">#{cName,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Session">
+        update session
+        <set>
+                <if test="seStarttime != null">
+                    se_starttime = #{seStarttime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="seEndtime != null">
+                    se_endtime = #{seEndtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="fName != null">
+                    f_name = #{fName,jdbcType=VARCHAR},
+                </if>
+                <if test="chName != null">
+                    ch_name = #{chName,jdbcType=VARCHAR},
+                </if>
+                <if test="cName != null">
+                    c_name = #{cName,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   se_id = #{seId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Session">
+        update session
+        set 
+            se_starttime =  #{seStarttime,jdbcType=TIMESTAMP},
+            se_endtime =  #{seEndtime,jdbcType=TIMESTAMP},
+            f_name =  #{fName,jdbcType=VARCHAR},
+            ch_name =  #{chName,jdbcType=VARCHAR},
+            c_name =  #{cName,jdbcType=VARCHAR}
+        where   se_id = #{seId,jdbcType=INTEGER} 
+    </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.CollectionMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Collection">
+            <id property="colId" column="col_id" jdbcType="INTEGER"/>
+            <result property="uName" column="u_name" jdbcType="VARCHAR"/>
+            <result property="fName" column="f_name" jdbcType="VARCHAR"/>
+            <result property="oType" column="o_type" jdbcType="VARCHAR"/>
+            <result property="colTime" column="col_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        col_id,u_name,f_name,
+        o_type,col_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from collection
+        where  col_id = #{colId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from collection
+        where  col_id = #{colId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collection" useGeneratedKeys="true">
+        insert into collection
+        ( col_id,u_name,f_name
+        ,o_type,col_time)
+        values (#{colId,jdbcType=INTEGER},#{uName,jdbcType=VARCHAR},#{fName,jdbcType=VARCHAR}
+        ,#{oType,jdbcType=VARCHAR},#{colTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="col_id" keyProperty="colId" parameterType="cn.jasonone.bean.Collection" useGeneratedKeys="true">
+        insert into collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="colId != null">col_id,</if>
+                <if test="uName != null">u_name,</if>
+                <if test="fName != null">f_name,</if>
+                <if test="oType != null">o_type,</if>
+                <if test="colTime != null">col_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="colId != null">#{colId,jdbcType=INTEGER},</if>
+                <if test="uName != null">#{uName,jdbcType=VARCHAR},</if>
+                <if test="fName != null">#{fName,jdbcType=VARCHAR},</if>
+                <if test="oType != null">#{oType,jdbcType=VARCHAR},</if>
+                <if test="colTime != null">#{colTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Collection">
+        update collection
+        <set>
+                <if test="uName != null">
+                    u_name = #{uName,jdbcType=VARCHAR},
+                </if>
+                <if test="fName != null">
+                    f_name = #{fName,jdbcType=VARCHAR},
+                </if>
+                <if test="oType != null">
+                    o_type = #{oType,jdbcType=VARCHAR},
+                </if>
+                <if test="colTime != null">
+                    col_time = #{colTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   col_id = #{colId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Collection">
+        update collection
+        set 
+            u_name =  #{uName,jdbcType=VARCHAR},
+            f_name =  #{fName,jdbcType=VARCHAR},
+            o_type =  #{oType,jdbcType=VARCHAR},
+            col_time =  #{colTime,jdbcType=TIMESTAMP}
+        where   col_id = #{colId,jdbcType=INTEGER} 
+    </update>
+</mapper>
