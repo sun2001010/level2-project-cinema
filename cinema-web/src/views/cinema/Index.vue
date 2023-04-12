@@ -21,7 +21,7 @@
 import CinemaName from "./cinemaName/index.vue";
 import CinemaAddress from "./cinemaAddress/index.vue"
 import Hall from "./hall/index.vue"
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {findAll} from "./api.js"
 import {layer} from "@layui/layui-vue";
 
@@ -33,13 +33,17 @@ const columns=[
   {title: '操作',customSlot: 'action'}
 ]
 const dataSource=reactive([])
+const cinemaName=ref([])
 onMounted(()=>{
   findAll().then(res=>{
     dataSource.push(...res.data.list)
-    console.log(res.data.list[0].cName)
+    for (let i=0;i<res.data.list.length;i++){
+      cinemaName[i]=res.data.list[i].cName
+    }
   }).catch(error=>{
     layer.msg("错误")
   })
+  console.log(cinemaName)
 })
 </script>
 
