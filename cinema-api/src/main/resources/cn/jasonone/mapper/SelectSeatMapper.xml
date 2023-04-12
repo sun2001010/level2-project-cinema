@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jasonone.mapper.SelectSeatMapper">
+    <select id="getSeatInfo" resultMap="BaseResultMap">
+        select s_id,s_row,s_col,s_status,h_id from seats where h_id=#{hId}
+    </select>
+    <resultMap id="BaseResultMap" type="cn.jasonone.bean.Seat">
+        <id property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="sRow" column="s_row" jdbcType="VARCHAR"/>
+        <result property="sCol" column="s_col" jdbcType="INTEGER"/>
+        <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+        <result property="hId" column="h_id" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getSeatStatus" resultType="integer">
+        select s_status from seats where s_row=#{sRow} and s_col=#{sCol}
+    </select>
+</mapper>

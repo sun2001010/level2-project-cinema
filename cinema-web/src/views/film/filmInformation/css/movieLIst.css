@@ -1,0 +1,65 @@
+.movie-list{
+    width: 100%;
+    padding:5px 0px;
+}
+.movie-img>img{
+    height: 90px;
+    width: 64px;
+    float: left;
+    margin-right: 8px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+.right-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ededed;
+    padding:0px 0px 5px 3px
+}
+.right-info>ul{
+    /* 运算符前后都需要保留一个空格,否则会失效 */
+    width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    padding:5px 0px;
+    font-size: 13px;
+    color: #666;
+}
+.right-info>ul>li{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+}
+
+.movie-info .name{
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+.movie-info .score>span{
+    font-weight: bold;
+    font-size: 14px;
+    color:#faaf00;
+}
+
+.btn>button{
+    width: 48px;
+    padding:5px 12px;
+    margin: 10px 15px;
+    border:none;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.btn>.buy-btn{
+    background-color: #f03d37;
+    color: #fff;
+}
+.btn>.pre-btn{
+    background-color: #3c9fe6;
+    color: #fff;
+}

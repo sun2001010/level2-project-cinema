@@ -61,8 +61,16 @@
                 <version>9.4.43.v20210629</version>
                 <configuration>
                     <httpConnector>
-                        <port>80</port>
+                        <port>81</port>
                     </httpConnector>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
                 </configuration>
             </plugin>
         </plugins>

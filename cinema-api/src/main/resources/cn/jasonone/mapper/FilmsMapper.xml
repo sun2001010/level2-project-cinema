@@ -22,6 +22,12 @@
         f_content,f_time,f_price
     </sql>
 
+    <select id="findAll" resultType="cn.jasonone.bean.Films">
+        select
+        <include refid="Base_Column_List"></include>
+        from films
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

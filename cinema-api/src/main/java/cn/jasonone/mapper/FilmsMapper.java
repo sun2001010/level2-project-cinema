@@ -2,6 +2,8 @@ package cn.jasonone.mapper;
 
 import cn.jasonone.bean.Films;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【films(影片表)】的数据库操作Mapper
@@ -15,6 +17,8 @@ public interface FilmsMapper {
     int insert(Films record);
 
     int insertSelective(Films record);
+
+    List<Films> findAll(Films films);
 
     Films selectByPrimaryKey(Long id);
 
