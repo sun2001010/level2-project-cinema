@@ -17,6 +17,7 @@
             /admin/register
             /admin/login
             /home/select
+            /filmplayer/select
         </param-value>
     </context-param>
 </web-app>

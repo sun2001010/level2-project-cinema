@@ -2,10 +2,12 @@ package cn.jasonone.mapper;
 
 import cn.jasonone.bean.FilmPlayer;
 
+import java.util.List;
+
 /**
-* @author Administrator
+* @author 凌久渊
 * @description 针对表【film_player(电影演员关系表)】的数据库操作Mapper
-* @createDate 2023-04-11 09:32:56
+* @createDate 2023-04-12 19:00:36
 * @Entity cn.jasonone.bean.FilmPlayer
 */
 public interface FilmPlayerMapper {
@@ -17,6 +19,8 @@ public interface FilmPlayerMapper {
     int insertSelective(FilmPlayer record);
 
     FilmPlayer selectByPrimaryKey(Long id);
+
+    List<FilmPlayer> findAll(FilmPlayer filmPlayer);
 
     int updateByPrimaryKeySelective(FilmPlayer record);
 

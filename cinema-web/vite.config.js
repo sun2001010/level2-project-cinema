@@ -10,7 +10,7 @@ export default defineConfig({
     // 代理,用来解决跨域问题
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:81',
         changeOrigin: true,
         // 将路径中的/api重写为空 : /api/admin/login => /admin/login
         rewrite: (path) => path.replace(/^\/api/, '')
