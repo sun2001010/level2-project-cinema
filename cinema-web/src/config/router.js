@@ -56,6 +56,16 @@ const routes = [
                 component: () => import('../views/admin/UserInfo.vue')
             }
         ]
+    },
+    {
+        path: '/select',
+        name: 'select',
+        component: () => import('../views/select/Index.vue')
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: () => import('../views/select/Test.vue')
     }
 ]
 
