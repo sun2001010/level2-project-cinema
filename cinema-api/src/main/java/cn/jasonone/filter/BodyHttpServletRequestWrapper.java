@@ -16,7 +16,7 @@ public class BodyHttpServletRequestWrapper extends HttpServletRequestWrapper {
         super(request);
         String contentType = request.getContentType();
         // 判断请求体是否是json格式
-        if(contentType.contains(APPLICATION_JSON)){
+        if(contentType != null&&contentType.contains(APPLICATION_JSON)){
             // 通过输入流,将请求体中的json数据读取出来
             this.body = IoUtil.read(request.getInputStream(), "UTF-8");
         }

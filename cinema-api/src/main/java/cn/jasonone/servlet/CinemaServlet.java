@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import org.apache.ibatis.session.SqlSession;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class CinemaServlet extends HttpServlet {
     private CinemaService cinemaService = new CinemaServiceImpl();
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession=(SqlSession) req.getAttribute("sqlSession");
         cinemaService.setSqlSession(sqlSession);
         try {
@@ -30,7 +29,7 @@ public class CinemaServlet extends HttpServlet {
             // 去除contextPath
             requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/cinema/selectCinemaName":
+                case "/cinema/selectCinema":
                     select((BodyHttpServletRequestWrapper) req, resp);
                     break;
                 default:
@@ -63,7 +62,7 @@ public class CinemaServlet extends HttpServlet {
         PageInfo<Cinema> pageInfo=cinemaService.CinemaSelect(cinema,pageNum,pageSize);
         Map<String,Object> result = new HashMap<>();
         result.put("code",200);
-        result.put("msg","查询影院名字成功");
+        result.put("msg","查询影院成功");
         result.put("data",pageInfo); //data里面存放数据库里查询到的数据
         resp.getWriter().write(gson.toJson(result));
     }

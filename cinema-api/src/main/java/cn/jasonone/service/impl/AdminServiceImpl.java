@@ -37,6 +37,6 @@ public class AdminServiceImpl implements AdminService {
                 return admin1;
             }
         }
-        return null;
+        return admin1;
     }
 }

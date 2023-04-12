@@ -18,7 +18,7 @@ public interface CinemaMapper {
 
     int insertSelective(Cinema record);
 
-    Cinema selectByPrimaryKey(Long id);
+    List<Cinema> selectByPrimaryKey(Cinema cinema);
 
     List<Cinema> findAll(Cinema cinema);
 

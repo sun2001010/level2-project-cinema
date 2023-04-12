@@ -28,7 +28,7 @@
     </select>
     <select id="findByAName" resultType="cn.jasonone.bean.Admin">
         select <include refid="Base_Column_List"></include>
-        from admin where aName = #{aName}
+        from admin where a_name = #{aName}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

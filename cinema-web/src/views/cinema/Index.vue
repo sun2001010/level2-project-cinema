@@ -1,36 +1,58 @@
 <template>
   <div class="content">
-    <div class="cinemaName">
-      影院：
-      <layui-button class="grid-demo">1465456465</layui-button>
-      <layui-button class="grid-demo">1</layui-button>
-      <layui-button class="grid-demo">1</layui-button>
-      <layui-button class="grid-demo">1</layui-button>
-      <layui-button class="grid-demo">1</layui-button>
+    <div class="cinema">
+      <CinemaName/>
+    </div>
+    <div class="cinema">
+      <CinemaAddress/>
+    </div>
+    <div class="cinema">
+      <Hall/>
+    </div>
+    <div class="contain">
+      <lay-button type="normal">影院列表</lay-button>
+      <lay-table :columns="columns" :data-source="dataSource">
+      </lay-table>
     </div>
   </div>
 </template>
 
 <script setup>
+import CinemaName from "./cinemaName/index.vue";
+import CinemaAddress from "./cinemaAddress/index.vue"
+import Hall from "./hall/index.vue"
+import {onMounted, reactive} from "vue";
+import {findAll} from "./api.js"
+import {layer} from "@layui/layui-vue";
+
+const columns=[
+  {title: 'ID',key:'cId'},
+  {title: '影院名',key: 'cName'},
+  {title: '影院等级',key: 'cLevel'},
+  {title: '影院地址',key: 'cAddress'},
+  {title: '操作',customSlot: 'action'}
+]
+const dataSource=reactive([])
+onMounted(()=>{
+  findAll().then(res=>{
+    dataSource.push(...res.data.list)
+    console.log(res.data.list[0].cName)
+  }).catch(error=>{
+    layer.msg("错误")
+  })
+})
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .content{
   margin: 10px;
   border: #cccccc solid 1px;
-  height: 300px;
-}
-.cinemaName{
-  margin: 10px;
-}
-.grid-demo {
-  margin: 20px;
-  width: 50px;
-  padding: 10px;
-  line-height: 10px;
-  border-radius: 2px;
-  text-align: center;
-  background-color: green;
-  color: white;
+  height: 330px;
+  .cinema{
+    margin: 10px;
+  }
+  .contain{
+    margin: 20px;
+  }
 }
 </style>

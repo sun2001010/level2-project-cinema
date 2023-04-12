@@ -16,11 +16,17 @@
         c_address
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" resultType="cn.jasonone.bean.Cinema">
         select
         <include refid="Base_Column_List" />
         from cinema
-        where  c_id = #{cId,jdbcType=INTEGER} 
+        where 1
+        <if test="c_name != null">
+            and c_name = #{cName,jdbcType=INTEGER}
+        </if>
+        <if test="c_address != null">
+            and c_address = #{cAddress,jdbcType=VARCHAR}
+        </if>
     </select>
 
     <select id="findAll" resultType="cn.jasonone.bean.Cinema">
