@@ -23,6 +23,12 @@
         from film_player;
     </select>
 
+    <select id="findPlayerName" resultType="String">
+        SELECT playerName
+        FROM film_player
+        WHERE filmName='虹猫蓝兔七侠传';
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

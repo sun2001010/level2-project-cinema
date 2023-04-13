@@ -1,9 +1,9 @@
 package cn.jasonone.servlet;
 
-import cn.jasonone.bean.FilmPlayer;
+import cn.jasonone.bean.Collect;
 import cn.jasonone.filter.BodyHttpServletRequestWrapper;
-import cn.jasonone.service.FilmPlayerService;
-import cn.jasonone.service.impl.FilmPlayerServiceImpl;
+import cn.jasonone.service.CollectService;
+import cn.jasonone.service.impl.CollectServiceImpl;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import org.apache.ibatis.session.SqlSession;
@@ -15,27 +15,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-@WebServlet("/filmplayer/*")
-public class FilmPlayerServlet extends HttpServlet {
-    private FilmPlayerService filmPlayerService = new FilmPlayerServiceImpl();
+@WebServlet("/collect/*")
+public class CollectServlet extends HttpServlet {
+    private CollectService collectService = new CollectServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        filmPlayerService.setSqlSession(sqlSession);
+        collectService.setSqlSession(sqlSession);
         try {
             String requestURI = req.getRequestURI();
             // 去除contextPath
             requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/filmplayer/select":
+                case "/collect/select":
                     select((BodyHttpServletRequestWrapper) req, resp);
                     break;
-                case "/filmplayer/selectplayer":
-                    playerNameSelect((BodyHttpServletRequestWrapper) req, resp);
+                case "/collect/add":
+                    add((BodyHttpServletRequestWrapper) req, resp);
                     break;
                 default:
                     super.doGet(req, resp);
@@ -52,7 +51,7 @@ public class FilmPlayerServlet extends HttpServlet {
     private void select(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
         String body = req.getBody();
-        FilmPlayer filmPlayer=gson.fromJson(body, FilmPlayer.class);
+        Collect collect=gson.fromJson(body, Collect.class);
         //开始使用分类插件
         String page=req.getParameter("page");
         String limit=req.getParameter("limit");
@@ -64,21 +63,22 @@ public class FilmPlayerServlet extends HttpServlet {
         if (limit !=null){
             pageSize=Integer.parseInt(limit);
         }
-        PageInfo<FilmPlayer> pageInfo=filmPlayerService.FilmPlayerSelect(filmPlayer,pageNum,pageSize);
+        PageInfo<Collect> pageInfo=collectService.CollectSelect(collect,pageNum,pageSize);
         Map<String,Object> result=new HashMap<>();
         result.put("code",200);
         result.put("msg","查询成功");
         result.put("data",pageInfo);
         resp.getWriter().write(gson.toJson(result));
     }
-    private void playerNameSelect(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
+    private void add(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
         String body = req.getBody();
-        List<String> playerName = filmPlayerService.findPlayerName(body);
-        Map<String,Object> result=new HashMap<>();
-        result.put("code",200);
-        result.put("msg","查询成功");
-        result.put("data",playerName);
+        Collect collect = gson.fromJson(body, Collect.class);
+
+        collectService.addCollect(collect);
+        Map<String,Object> result = new HashMap<>();
+        result.put("code", 200);
+        result.put("msg", "收藏成功");
         resp.getWriter().write(gson.toJson(result));
     }
 }

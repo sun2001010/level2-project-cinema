@@ -5,13 +5,13 @@
     <div v-if="true">
       <div class="movie-header">
         <div class="movie-img">
-          <img src="./images/film/虹猫蓝兔七侠传.jpg" alt="true">
+          <img src="./images/film/虹猫蓝兔七侠传.jpg">
         </div>
         <ul class="movie-info">
           <li class="name">虹猫蓝兔七侠传</li>
-          <li class="enm">冒险</li>
+          <li class="enm">冒险</li><br>
           <li style="font-size:24px;color:#ff0000" v-if="true">评分：<span>9.9</span></li>
-          <li style="font-size:24px;color:#ff0000" v-if="false">暂无评分</li>
+          <li style="font-size:24px;color:#ff0000" v-if="false">暂无评分</li><br>
           <li class="score"><span>99</span> 想看</li><br>
           <li>导演：久熙</li><br>
           <li>演员：虹猫 / 蓝兔 / 黑小虎</li><br>
@@ -105,7 +105,7 @@ onMounted(()=>{
     align-items: center;
   }
   height: 420px;
-  width: 100%;
+  width: 98%;
   padding: 15px;
   overflow: hidden;
 
@@ -136,7 +136,7 @@ onMounted(()=>{
     padding-top: 10px;
 
     >.name {
-      font-size: 32px;
+      font-size: 48px;
       color: #ffffff;
       font-weight: bold;
     }

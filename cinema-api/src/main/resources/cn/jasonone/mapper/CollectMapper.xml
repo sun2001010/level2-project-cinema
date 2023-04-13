@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.jasonone.mapper.CollectionMapper">
+<mapper namespace="cn.jasonone.mapper.CollectMapper">
 
     <resultMap id="BaseResultMap" type="cn.jasonone.bean.Collect">
             <id property="colId" column="col_id" jdbcType="INTEGER"/>
@@ -79,4 +79,19 @@
             col_time =  #{colTime,jdbcType=TIMESTAMP}
         where   col_id = #{colId,jdbcType=INTEGER} 
     </update>
+
+    <select id="findAll" resultType="cn.jasonone.bean.Collect">
+        select
+        <include refid="Base_Column_List"></include>
+        from collection;
+    </select>
+
+    <insert id="addCollect">
+    insert into collection value(
+        null,
+        '3',
+        '2',
+        '3',
+        col_time);
+    </insert>
 </mapper>

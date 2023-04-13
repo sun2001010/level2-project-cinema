@@ -22,6 +22,7 @@ public interface FilmsMapper {
 
     Films selectByPrimaryKey(Long id);
 
+
     int updateByPrimaryKeySelective(Films record);
 
     int updateByPrimaryKey(Films record);
