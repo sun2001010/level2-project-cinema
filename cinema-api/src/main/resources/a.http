@@ -10,5 +10,16 @@ Content-Type:application/json
 }
 
 ###
-GET http://localhost:81/home/select
+POST http://localhost/admin/login
+Content-Type:application/json
+
+{
+  "aName": "sun",
+  "aPassword": "123"
+}
+
+###
+GET http://localhost:81/filmplayer/select
 Content-Type: application/json
+
+
