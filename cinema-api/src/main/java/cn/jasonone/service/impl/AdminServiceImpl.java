@@ -24,6 +24,7 @@ public class AdminServiceImpl implements AdminService {
     public Admin login(Admin admin) {
         AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
         Admin user = mapper.findByAName(admin.getAName());
+//        System.out.println(user);
         if(user != null){
             // 获得盐
             String salt = user.getASalt();
@@ -37,6 +38,6 @@ public class AdminServiceImpl implements AdminService {
                 return user;
             }
         }
-        return null;
+        return user;
     }
 }

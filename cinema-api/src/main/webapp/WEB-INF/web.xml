@@ -17,6 +17,10 @@
             /admin/register
             /admin/login
             /home/select
+            /films/deleteById
+            /films/insert
+            /films/selectById
+            /films/updateById
         </param-value>
     </context-param>
 </web-app>

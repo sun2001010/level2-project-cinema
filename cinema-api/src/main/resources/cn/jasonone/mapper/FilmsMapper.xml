@@ -22,17 +22,17 @@
         f_content,f_time,f_price
     </sql>
 
-    <select id="findAll" resultType="cn.jasonone.bean.Films">
-        select
-        <include refid="Base_Column_List"></include>
-        from films
-    </select>
-
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from films
         where  f_id = #{fId,jdbcType=INTEGER} 
+    </select>
+
+    <select id="findAll" resultType="cn.jasonone.bean.Films">
+        select
+        <include refid="Base_Column_List" />
+        from films
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -41,11 +41,11 @@
     </delete>
     <insert id="insert" keyColumn="f_id" keyProperty="fId" parameterType="cn.jasonone.bean.Films" useGeneratedKeys="true">
         insert into films
-        ( f_id,f_name,f_image
+        ( f_name,f_image
         ,o_type,director,director_Image
         ,f_content,f_time,f_price
         )
-        values (#{fId,jdbcType=INTEGER},#{fName,jdbcType=VARCHAR},#{fImage,jdbcType=VARCHAR}
+        values (#{fName,jdbcType=VARCHAR},#{fImage,jdbcType=VARCHAR}
         ,#{oType,jdbcType=VARCHAR},#{director,jdbcType=VARCHAR},#{directorImage,jdbcType=VARCHAR}
         ,#{fContent,jdbcType=VARCHAR},#{fTime,jdbcType=TIMESTAMP},#{fPrice,jdbcType=DOUBLE}
         )
