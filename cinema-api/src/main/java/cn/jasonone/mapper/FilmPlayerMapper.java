@@ -22,6 +22,8 @@ public interface FilmPlayerMapper {
 
     List<FilmPlayer> findAll(FilmPlayer filmPlayer);
 
+    List<String> findPlayerName(String playerName);
+
     int updateByPrimaryKeySelective(FilmPlayer record);
 
     int updateByPrimaryKey(FilmPlayer record);

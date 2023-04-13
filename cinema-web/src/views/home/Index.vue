@@ -1,88 +1,42 @@
 
 <template>
-  <div>
-  <div class="Page">
-  <div class="Body">
-   <div class="left">
-     <div class="film1" >
-       <div style="height: 30px">
-       <p style="color: red;font-size: 20px;margin-left: 5px">正在热映</p>
+  <div class="initial">
+ <div class="first-layer">
+   <div class="second-left">
+   <div class="second-top">
+     <div>
+    <span style="font-size: 20px;color: red;padding-left: 20px">正在热映</span>
+     <div class="icon1" >
+       <div  class="hit-film" v-for="PageName in TRR" >
+       <img style="width: 100%;height: 160px" :src=PageName>
+       <button style="width: 100%" >购票</button>
        </div>
-         <div class="Img1">
-           <lay-row space="5" >
-             <lay-col md="4"><div class="grid-demo" style="margin-left: 5px">
-               <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button>
-             </div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo" style="margin-left: 5px" > <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-             <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">
-               <button class="bt">购票</button></div></lay-col>
-           </lay-row>
-         </div>
-     </div>
-<!--     <div style="height: 25px">-->
-<!--       <p style="color: red;font-size: 20px;margin-left: 5px">即将上映</p>-->
-<!--     </div>-->
-<!--     <div class="Img1">-->
-<!--       <lay-row space="5" >-->
-<!--         <lay-col md="4"><div class="grid-demo" style="margin-left: 5px">-->
-<!--           <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button>-->
-<!--         </div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo" style="margin-left: 5px" > <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo"> <img class="im" src="src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg">-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--         <lay-col md="4"><div class="grid-demo">-->
-<!--           <router-link to='/filmInformation'><img class="im" :src="arr[2]"></router-link>-->
-<!--           <button class="bt">购票</button></div></lay-col>-->
-<!--       </lay-row>-->
-<!--     </div>-->
-     <lay-table :columns="columns" :data-source="dataSource">
-<!--       <template #status="{row}">-->
-<!--         <lay-tag type="danger">购票</lay-tag>-->
-<!--       </template>-->
-     </lay-table>
+    </div>
 
    </div>
+   <div class="second-bottom">
+   <span style="font-size: 20px;color: red;padding-left: 20px;padding-top: 30px">即将上映</span>
+     <div class="icon1" >
+       <div  class="hit-film" v-for="PageName in TRR" >
+         <img style="width: 100%;height: 160px" :src=PageName>
+         <button style="width: 100%" >购票</button>
+       </div>
+     </div>
+   </div>
+   </div>
+   <div class="second-right">
+
+   </div>
+<!--   &lt;!&ndash;数据显示的表格&ndash;&gt;-->
+<!--   <lay-table :columns="columns" :data-source="dataSource">-->
+
+<!--   </lay-table>-->
+ </div>
+    </div>
   </div>
-  </div>
-  </div>
+
+
+
 
 </template>
 
@@ -90,6 +44,11 @@
 import {findAll} from "./page.js";
 import {onMounted, reactive} from "vue";
 import {layer} from "@layui/layui-vue";
+function jump(){
+  sessionStorage.removeItem('FilmName')
+  sessionStorage.setItem('FilmName',TRR[0])
+}
+
 
 const columns=[
   {title:'ID',key:'fId'},
@@ -110,9 +69,12 @@ onMounted(()=>{
   findAll().then(res=>{
     dataSource.push(...res.data.list)
     for (let i = 0; i < res.data.list.length; i++) {
+       // 获取电影表中的电影名字
        TRR[i]=res.data.list[i].fName
-     console.log( res.data.list[i].fName)
-      console.log(TRR[i])
+      //转变成图片地址
+      TRR[i]="src/views/film/filmInformation/images/film/"+TRR[i]
+
+      // console.log(TRR[i])
     }
 
   }).catch(error=>{
@@ -120,10 +82,6 @@ onMounted(()=>{
   })
 })
 
-const arr=["虹猫仗剑走天涯.jpg","虹猫蓝兔七侠传.jpg","虹猫蓝兔勇者归来.jpg"];
-for (let i = 0; i < arr.length; i++) {
-   arr[i]="src/views/film/filmInformation/images/film/"+arr[i]
-}
 
 
 
@@ -131,65 +89,58 @@ for (let i = 0; i < arr.length; i++) {
 </script>
 
 <style lang="scss" scoped >
-.Page{
-  position: absolute;
-  width: 100%;
+.icon1{
+  width:300px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.initial{
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  //background: aqua;
-}
-.Body{
-  width: 1200px;
-  height: 700px;
-  border: solid 1px red;
-  .left{
-    float: left;
-    width: 900px;
-    height: 700px;
-    border-right:solid 1px red;
-    .film1{
-      float: top;
-      height: 350px;
-      border-bottom: solid 1px red;
-      .img{
-        width: 120px;
-        height: 160px;
-      }
-    }
-    .film2{
-      float: bottom;
-    }
-  }
-  .right{
-    float: right;
+  .first-layer{
+    height: 100%;
+    width: 1200px;
+
   }
 }
-.Img1{
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-  .lay-row{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.second-left{
+  width: 950px;
+  height: 100%;
+  float: left;
+
+  .second-top{
+    width: 950px;
+    height: 50%;
+    float:top;
+    background-color: aqua;
+    .hit-film{
+      width: 120px;
+      height: 180px;
+      padding-right: 15px;
+      padding-top:15px
+
+
+    }
   }
-  .grid-demo{
-    height: 145px;
-    width: 120px;
-    background: aqua;
-    .im{
-      height: 125px;
-      width: 120px;
-    }
-    .bt{
-      width: 120px;
-      height:20px;
-    }
+  .second-bottom{
+    width: 950px;
+    height: 50%;
+    float: bottom;
+    border: red solid 1px;
+    background-color: red;
   }
 }
 
+.second-right{
+  width: 250px;
+  height: 100%;
+  float: right;
+
+}
 
 </style>
 

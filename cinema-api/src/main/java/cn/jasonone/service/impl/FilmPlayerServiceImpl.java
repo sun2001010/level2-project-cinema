@@ -20,4 +20,11 @@ public class FilmPlayerServiceImpl implements FilmPlayerService {
         PageHelper.startPage(pageInfo,pageNum);
         return new PageInfo<FilmPlayer>(filmPlayerList);
     }
+
+    @Override
+    public List<String> findPlayerName(String playerName) {
+        FilmPlayerMapper mapper = sqlSession.getMapper(FilmPlayerMapper.class);
+        List<String> playerNameList = mapper.findPlayerName(playerName);
+        return playerNameList;
+    }
 }
