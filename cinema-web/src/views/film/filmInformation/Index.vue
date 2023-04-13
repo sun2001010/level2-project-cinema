@@ -65,6 +65,8 @@
 import {onMounted, reactive, ref} from 'vue';
 import {findAll} from "../../film/filmInformation/api.js";
 import {layer} from "@layui/layui-vue";
+// var item = sessionStorage.getItem("FilmName");
+// console.log(item)
 
 const columns=[
   {title: 'ID',key:'fPId'},

@@ -23,3 +23,7 @@ GET http://localhost:81/filmplayer/select
 Content-Type: application/json
 
 
+###
+#获取电影表的数据
+GET http://localhost:81/home/select
+Content-Type: application/json
