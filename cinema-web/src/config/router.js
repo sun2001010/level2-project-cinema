@@ -51,9 +51,19 @@ const routes = [
         component: () => import('../views/admin/Index.vue'),
         children: [
             {
-                path: '/userInfo',
-                name: 'userInfo',
-                component: () => import('../views/admin/UserInfo.vue')
+                path: '/filmsManage',
+                name: 'filmsManage',
+                component: () => import('../views/admin/filmsManage/Index.vue')
+            },
+            {
+                path: '/plating',
+                name: 'plating',
+                component: () => import('../views/admin/plating/Index.vue')
+            },
+            {
+                path: '/rowSeats',
+                name: 'rowSeats',
+                component: () => import('../views/admin/rowSeats/Index.vue')
             }
         ]
     },

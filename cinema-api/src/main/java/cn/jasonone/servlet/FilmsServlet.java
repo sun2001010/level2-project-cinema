@@ -2,11 +2,10 @@ package cn.jasonone.servlet;
 
 import cn.jasonone.bean.Films;
 import cn.jasonone.filter.BodyHttpServletRequestWrapper;
-import cn.jasonone.mapper.FilmsMapper;
 import cn.jasonone.service.FilmsService;
 import cn.jasonone.service.impl.FilmsServiceImpl;
+import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.apache.ibatis.session.SqlSession;
 
 import javax.servlet.ServletException;
@@ -69,21 +68,21 @@ public class FilmsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
         filmsService.setSqlSession(sqlSession);
-//        try {
-//            String requestURI = req.getRequestURI();
-//            //去除contentPath
-//            switch (requestURI) {
-//                case "/films/select":
-//                    selectById((BodyHttpServletRequestWrapper) req, resp);
-//                    break;
-//                default:
-//                    super.doGet(req,resp);
-//            }
-//            sqlSession.commit();
-//        }catch (IOException e){
-//            sqlSession.rollback();
-//            throw new RuntimeException(e);
-//        }
+        try {
+            String requestURI = req.getRequestURI();
+            //去除contentPath
+            switch (requestURI) {
+                case "/films/select":
+                    select((BodyHttpServletRequestWrapper) req, resp);
+                    break;
+                default:
+                    super.doGet(req,resp);
+            }
+            sqlSession.commit();
+        }catch (IOException e){
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -103,6 +102,7 @@ public class FilmsServlet extends HttpServlet {
                 default:
                     super.doPut(req,resp);
             }
+
             sqlSession.commit();
         }catch (IOException e){
             sqlSession.rollback();
@@ -151,7 +151,26 @@ public class FilmsServlet extends HttpServlet {
         result.put("code", 200);
         result.put("msg", "修改成功");
         resp.getWriter().write(gson.toJson(result));
-
-
+    }
+    private void select(BodyHttpServletRequestWrapper req,HttpServletResponse resp)throws IOException {
+        Gson gson = new Gson();
+        String body = req.getBody();
+        Films films = gson.fromJson(body, Films.class);
+        String page=req.getParameter("page");
+        String limit=req.getParameter("limit");
+        int pageNum=1;
+        int pageSize=10;
+        if (page != null) {
+            pageNum = Integer.parseInt(page);
+        }
+        if (limit != null) {
+            pageSize = Integer.parseInt(limit);
+        }
+        PageInfo<Films> filmsPageInfo = filmsService.select(films, pageNum, pageSize);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200);
+        result.put("msg", "查询成功");
+        result.put("data", filmsPageInfo);
+        resp.getWriter().write(gson.toJson(result));
     }
 }

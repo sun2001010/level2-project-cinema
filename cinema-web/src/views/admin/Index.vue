@@ -19,14 +19,20 @@
     </lay-header>
     <lay-layout>
       <lay-side>
-        <lay-menu :selected-key="selectedKey" @change-selected-key="onChangeSelected" v-model:openKeys="openKeys" :tree="true">
+        <lay-menu :selected-key="selectedKey" :open-keys="openKeys">
           <lay-sub-menu id="system-manager">
             <template #title>
               系统管理
             </template>
-            <lay-menu-item id="cinema-manage" to="/userInfo">影片管理</lay-menu-item>
-            <lay-menu-item id="plating">排片</lay-menu-item>
-            <lay-menu-item id="row-seats">排座</lay-menu-item>
+            <router-link to="/filmsManage">
+              <lay-menu-item>影片管理</lay-menu-item>
+            </router-link>
+            <router-link to="/plating">
+              <lay-menu-item>排片</lay-menu-item>
+            </router-link>
+            <router-link to="/rowSeats">
+              <lay-menu-item>排座</lay-menu-item>
+            </router-link>
           </lay-sub-menu>
         </lay-menu>
       </lay-side>
@@ -38,15 +44,69 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {reactive, ref} from "vue";
+import {list} from "./api.js";
+
 const selectedKey = ref('cinema-manage')
 const openKeys = ref(['system-manage'])
-function onChangeSelected(key){
-  selectedKey.value = key;
+//定义表格的数据
+const data = reactive([])
+//定义表格的列
+const columns = reactive([
+  {
+    title: '影片id',
+    key: 'fId',
+    width:80,
+  },
+  {
+    title: '影片名',
+    key: 'fName',
+  },
+  {
+    title: '影片图片',
+    key: 'fImage',
+  },
+  {
+    title: '影片类型',
+    key: 'oType',
+  },
+  {
+    title: '导演',
+    key: 'director',
+  },
+  {
+    title: '导演图片',
+    key: 'directorImage',
+  },
+  {
+    title: '影片简介',
+    key: 'fContent',
+  },
+  {
+    title: '上映时间',
+    key: 'fTime',
+  },
+  {
+    title: '基础影片票价',
+    key: 'fPrice',
+  },
+  {
+    title: '操作',
+    customSlot:'action',
+  }
+])
+function reLode(){
+  list().then(res=>{
+    data.length = 0
+    data.push(...res.data)
+  })
 }
-
-
-const select = ref(0);
+// function onChangeSelected(key){
+//   selectedKey.value = key;
+// }
+//
+//
+// const select = ref(0);
 
 </script>
 

@@ -1,6 +1,7 @@
 package cn.jasonone.service;
 
 import cn.jasonone.bean.Films;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.Date;
@@ -17,6 +18,8 @@ public interface FilmsService {
     void selectById(Integer fId);
 
     void updateById(Films films);
+
+    PageInfo<Films> select(Films films, int pageInfo, int pageNum);
 
     void setSqlSession(SqlSession session);
 }
