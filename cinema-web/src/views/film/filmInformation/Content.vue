@@ -1,10 +1,6 @@
 <template>
   <div class="content">
-    <!-- <div> -->
-    <loading v-if="false"></loading>
-    <div v-if="true">
-
-
+    <div>
       <div class="movie-intro">
         <div class="header">
           <span>简介</span>
@@ -15,7 +11,6 @@
         &ensp;&ensp;<span>导演</span>
         <div class="dy-img">
           &ensp;&ensp;<img src="./images/director/久熙.png"> <br>
-          <br>
           &ensp;&ensp;<span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;久熙&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
         </div>
       </div >
@@ -31,43 +26,18 @@
           <span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;黑小虎&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
         </div>
       </div>
-    </div>
-    <div class="contain">
-
-      <lay-input placeholder="请输入评论"></lay-input>
-      <lay-button type="normal">影院列表</lay-button>
-      <lay-table :columns="columns" :data-source="dataSource">
-      </lay-table>
+    </div><br><br>
+    <div class="comments">
+      &ensp;&ensp;<span>影片评论</span><br>
+      <comments></comments>
     </div>
   </div>
 </template>
 
 <script setup>
-import {onMounted, reactive, ref} from 'vue';
-import {findAll} from "../../film/filmInformation/api.js";
-import {layer} from "@layui/layui-vue";
+import Comments from "./comments.vue";
 
-const columns=[
-  {title: 'ID',key:'fPId'},
-  {title: '电影ID',key:'filmid'},
-  {title: '电影名',key: 'filmname'},
-  {title: '演员ID',key:'playerid'},
-  {title: '演员名',key: 'playername'}
-]
 
-const dataSource=reactive([])
-const fpName=ref([])
-onMounted(()=>{
-  findAll().then(res=>{
-    dataSource.push(...res.data.list)
-    for (let i=0;i<res.data.list.length;i++){
-      fpName[i]=res.data.list[i].filmname
-    }
-  }).catch(error=>{
-    layer.msg("错误")
-  })
-  console.log(fpName)
-})
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +55,7 @@ onMounted(()=>{
     color: #000000;
     overflow: hidden;
     margin-bottom: 20px;
+    font-weight: normal;
   }
 
   >.btn {
@@ -96,7 +67,7 @@ onMounted(()=>{
     justify-content: space-between;
     color: #000000;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px;
 
     .header-img{
       height: 165px;
@@ -106,18 +77,22 @@ onMounted(()=>{
 }
 
 .dy{
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   >.dy-img {
     img {
       width: 160px;
       height: 215px;
     }
+    span{
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
 }
 
 .yy{
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   display: inline-block;
   >.yy-img {
@@ -129,8 +104,14 @@ onMounted(()=>{
       padding-right: 30px;
     }
     span {
+      font-size: 18px;
+      font-weight: bold;
       padding-right: 30px;
     }
   }
+}
+.content{
+  font-size: 24px;
+  font-weight: bold;
 }
 </style>

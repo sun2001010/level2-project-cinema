@@ -61,7 +61,7 @@
                 <version>9.4.43.v20210629</version>
                 <configuration>
                     <httpConnector>
-                        <port>8000</port>
+                        <port>81</port>
                     </httpConnector>
                 </configuration>
             </plugin>
