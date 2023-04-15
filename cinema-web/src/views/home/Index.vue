@@ -3,37 +3,36 @@
   <div class="initial">
  <div class="first-layer">
    <div class="second-left">
-   <div class="second-top">
-     <div>
-    <span style="font-size: 20px;color: red;padding-left: 20px">正在热映</span>
-     <div class="icon1" >
-       <div  class="hit-film" v-for="PageName in TRR" >
-       <img style="width: 100%;height: 160px" :src=PageName>
-       <button style="width: 100%" >购票</button>
-       </div>
+    <div class="second-top">
+      <div style="width: 100%;height: 100%">
+    <div style="font-size: 20px;color: red;padding-left: 20px">正在热映</div>
+      <img  class="Img" style="width: 120px;height: 160px;padding: 10px"   v-for="PageName in TRR" :src=PageName>
+      </div>
+    </div>
+    <div class="second-bottom">
+      <div style="font-size: 20px;color: red;padding-left: 20px">即将上映</div>
+
+      <div class="Div"  v-for="(item,index) in Num" :key="index">
+        <img class="Img" :src=url+item.fName>
+        <span>{{item.fId}}</span>
+        <router-link to='/filmInformation'>
+          <button style="width:120px" @click="jump(item)">购票</button>
+        </router-link>
+      </div>
+
     </div>
 
    </div>
-   <div class="second-bottom">
-   <span style="font-size: 20px;color: red;padding-left: 20px;padding-top: 30px">即将上映</span>
-     <div class="icon1" >
-       <div  class="hit-film" v-for="PageName in TRR" >
-         <img style="width: 100%;height: 160px" :src=PageName>
-         <button style="width: 100%" >购票</button>
-       </div>
-     </div>
-   </div>
-   </div>
-   <div class="second-right">
+   <div class="second-right" >
 
    </div>
-<!--   &lt;!&ndash;数据显示的表格&ndash;&gt;-->
-<!--   <lay-table :columns="columns" :data-source="dataSource">-->
+   <!--数据显示的表格-->
+   <lay-table :columns="columns" :data-source="dataSource">
 
-<!--   </lay-table>-->
+   </lay-table>
  </div>
     </div>
-  </div>
+
 
 
 
@@ -41,15 +40,28 @@
 </template>
 
 <script setup>
+
+
 import {findAll} from "./page.js";
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
-function jump(){
+
+
+
+
+const PageName=reactive(
+    {
+  fId:""
+})
+function jump(item){
+
   sessionStorage.removeItem('FilmName')
-  sessionStorage.setItem('FilmName',TRR[0])
+  sessionStorage.setItem('FilmName',item.fId)
+  console.log("fid")
+  console.log(item.fId)
 }
 
-
+const url="src/views/film/filmInformation/images/film/"
 const columns=[
   {title:'ID',key:'fId'},
   {title: '电影名',key: 'fName'},
@@ -62,7 +74,10 @@ const columns=[
   {title: '价格',key: 'fPrice'}
 
 ]
+//电影名字数组
 let TRR=reactive([]);
+//电影ID数组
+ const  Num=reactive([]);
 const dataSource=reactive([])
 
 onMounted(()=>{
@@ -70,11 +85,9 @@ onMounted(()=>{
     dataSource.push(...res.data.list)
     for (let i = 0; i < res.data.list.length; i++) {
        // 获取电影表中的电影名字
-       TRR[i]=res.data.list[i].fName
-      //转变成图片地址
-      TRR[i]="src/views/film/filmInformation/images/film/"+TRR[i]
+       Num[i]=res.data.list[i]
 
-      // console.log(TRR[i])
+
     }
 
   }).catch(error=>{
@@ -89,11 +102,16 @@ onMounted(()=>{
 </script>
 
 <style lang="scss" scoped >
-.icon1{
-  width:300px;
-  height: 400px;
-  display: flex;
-  flex-wrap: wrap;
+.Img{
+  height: 160px;
+  width: 120px;
+}
+.Div{
+  height: 170px;
+  width: 130px;
+ //border: red 1px solid;
+  padding: 10px;
+  float:left;
 }
 .initial{
   height: 100%;
@@ -103,42 +121,40 @@ onMounted(()=>{
   justify-content: center;
   .first-layer{
     height: 100%;
-    width: 1200px;
+    width: 1270px;
 
   }
 }
 .second-left{
-  width: 950px;
+  width: 1070px;
   height: 100%;
   float: left;
 
   .second-top{
-    width: 950px;
+    width: 100%;
     height: 50%;
     float:top;
-    background-color: aqua;
-    .hit-film{
-      width: 120px;
-      height: 180px;
-      padding-right: 15px;
-      padding-top:15px
+    border: 1px solid aqua;
+    overflow: auto;
+    //background-color: aqua;
 
-
-    }
   }
+
   .second-bottom{
-    width: 950px;
+    width: 100%;
     height: 50%;
     float: bottom;
+    overflow: auto;
     border: red solid 1px;
-    background-color: red;
+    //background-color: red;
   }
 }
 
 .second-right{
-  width: 250px;
+  width: 200px;
   height: 100%;
   float: right;
+  background-color: #66cc66;
 
 }
 
