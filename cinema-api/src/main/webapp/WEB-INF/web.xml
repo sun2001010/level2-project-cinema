@@ -17,10 +17,12 @@
             /admin/register
             /admin/login
             /home/select
-            /films/deleteById
-            /films/insert
-            /films/selectById
-            /films/updateById
+            /filmplayer/select
+            /filmplayer/selectplayer
+            /collect/select
+            /collect/add
+            /comments/add
+            /comments/select
         </param-value>
     </context-param>
 </web-app>
