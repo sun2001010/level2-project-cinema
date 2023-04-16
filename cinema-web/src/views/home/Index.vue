@@ -3,33 +3,40 @@
   <div class="initial">
  <div class="first-layer">
    <div class="second-left">
+<!--左侧顶部——上映区-->
     <div class="second-top">
       <div style="width: 100%;height: 100%">
     <div style="font-size: 20px;color: red;padding-left: 20px">正在热映</div>
-      <img  class="Img" style="width: 120px;height: 160px;padding: 10px"   v-for="PageName in TRR" :src=PageName>
+        <div class="Div"  v-for="(item,index) in Num" :key="index">
+          <img class="Img" :src=url+item.fName>
+          <span>{{item.fId}}</span>
+          <router-link to='/filmInformation'>
+            <button style="width:120px" @click="jump(item)">购票</button>
+          </router-link>
+        </div>
       </div>
     </div>
+<!--左侧底部——待映区-->
     <div class="second-bottom">
       <div style="font-size: 20px;color: red;padding-left: 20px">即将上映</div>
-
-      <div class="Div"  v-for="(item,index) in Num" :key="index">
-        <img class="Img" :src=url+item.fName>
-        <span>{{item.fId}}</span>
-        <router-link to='/filmInformation'>
-          <button style="width:120px" @click="jump(item)">购票</button>
-        </router-link>
-      </div>
-
+      <!--电影轮播-->
+      <lay-carousel style="height: 100%;width: 100%" v-model="active4">
+        <lay-carousel-item style="width: 100%;height: 100%"  :id="item.id" v-for="item in arrays">
+          <div style="display: flex; justify-content: center;  width:100%;height:100%;">
+            <img style="width: 80%;height: 100%" :src=item.text alt="图片路径错误">
+          </div>
+        </lay-carousel-item>
+      </lay-carousel>
     </div>
-
    </div>
-   <div class="second-right" >
 
-   </div>
-   <!--数据显示的表格-->
-   <lay-table :columns="columns" :data-source="dataSource">
+<!--&lt;!&ndash;右侧&ndash;&gt;-->
+<!--   <div class="second-right" >-->
 
-   </lay-table>
+<!--   </div>-->
+<!--   &lt;!&ndash;数据显示的表格&ndash;&gt;-->
+<!--   <lay-table :columns="columns" :data-source="dataSource">-->
+<!--   </lay-table>-->
  </div>
     </div>
 
@@ -39,22 +46,32 @@
 
 </template>
 
+
+
 <script setup>
-
-
 import {findAll} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
 
 
+const active4 = ref("1")
+const arrays = ref([])
+setTimeout(() => {
+      arrays.value = [
+        {id: "1", text: "src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg"},
+        {id: "2", text: "src/views/film/filmInformation/images/film/虹猫蓝兔七侠传.jpg"},
+        {id: "3", text: "src/views/film/filmInformation/images/film/虹猫蓝兔勇者归来.jpg"},
+        {id: "4", text: "src/views/film/filmInformation/images/film/虹猫蓝兔勇者归来.jpg"}
+      ]
+},1000)
 
 
-const PageName=reactive(
-    {
-  fId:""
-})
+
+
+
+
+//跳转页面并发送数据
 function jump(item){
-
   sessionStorage.removeItem('FilmName')
   sessionStorage.setItem('FilmName',item.fId)
   console.log("fid")
@@ -72,10 +89,8 @@ const columns=[
   {title: '电影介绍',key: 'fContent'},
   {title: '上映时间',key: 'fTime'},
   {title: '价格',key: 'fPrice'}
-
 ]
-//电影名字数组
-let TRR=reactive([]);
+
 //电影ID数组
  const  Num=reactive([]);
 const dataSource=reactive([])
@@ -84,22 +99,17 @@ onMounted(()=>{
   findAll().then(res=>{
     dataSource.push(...res.data.list)
     for (let i = 0; i < res.data.list.length; i++) {
-       // 获取电影表中的电影名字
+       // 获取电影表中的电影
        Num[i]=res.data.list[i]
-
-
     }
-
   }).catch(error=>{
     layer.msg("错误")
   })
 })
-
-
-
-
-
 </script>
+
+
+
 
 <style lang="scss" scoped >
 .Img{
@@ -134,7 +144,7 @@ onMounted(()=>{
     width: 100%;
     height: 50%;
     float:top;
-    border: 1px solid aqua;
+    //border: 1px solid aqua;
     overflow: auto;
     //background-color: aqua;
 
@@ -144,8 +154,8 @@ onMounted(()=>{
     width: 100%;
     height: 50%;
     float: bottom;
-    overflow: auto;
-    border: red solid 1px;
+    //overflow: auto;
+    //border:aqua solid 1px;
     //background-color: red;
   }
 }
