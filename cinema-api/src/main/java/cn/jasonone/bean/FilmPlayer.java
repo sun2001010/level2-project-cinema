@@ -12,7 +12,7 @@ public class FilmPlayer implements Serializable {
     /**
      * 电影演员关系id
      */
-    private Integer fpId;
+    private Integer fPId;
 
     /**
      * 电影id

@@ -2,6 +2,8 @@ package cn.jasonone.mapper;
 
 import cn.jasonone.bean.FilmPlayer;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【film_player(电影演员关系表)】的数据库操作Mapper
@@ -22,4 +24,7 @@ public interface FilmPlayerMapper {
 
     int updateByPrimaryKey(FilmPlayer record);
 
+    List<FilmPlayer> findAll(FilmPlayer filmPlayer);
+
+    List<String> findPlayerName(String playerName);
 }
