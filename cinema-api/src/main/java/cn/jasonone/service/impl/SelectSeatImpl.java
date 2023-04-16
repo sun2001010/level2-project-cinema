@@ -24,8 +24,7 @@ public class SelectSeatImpl implements SelectSeatService {
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
             try (SqlSession session = sqlSessionFactory.openSession()) {
                 SelectSeatMapper mapper = session.getMapper(SelectSeatMapper.class);
-                List<Seat> seatInfo = mapper.getSeatInfo(hid);
-                return  seatInfo;
+                return mapper.getSeatInfo(hid);
             }
         }
 

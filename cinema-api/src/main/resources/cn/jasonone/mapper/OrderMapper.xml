@@ -8,116 +8,41 @@
             <id property="oId" column="o_id" jdbcType="INTEGER"/>
             <result property="fName" column="f_name" jdbcType="VARCHAR"/>
             <result property="oType" column="o_type" jdbcType="VARCHAR"/>
-            <result property="seStarttime" column="se_starttime" jdbcType="TIMESTAMP"/>
-            <result property="seEndtime" column="se_endtime" jdbcType="TIMESTAMP"/>
-            <result property="uName" column="u_name" jdbcType="VARCHAR"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+            <result property="uId" column="u_id" jdbcType="INTEGER"/>
             <result property="oPrice" column="o_price" jdbcType="DOUBLE"/>
             <result property="chName" column="ch_name" jdbcType="VARCHAR"/>
             <result property="cName" column="c_name" jdbcType="VARCHAR"/>
             <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+            <result property="cStatus" column="c_status" jdbcType="INTEGER"/>
     </resultMap>
-
-    <sql id="Base_Column_List">
-        o_id,f_name,o_type,
-        se_starttime,se_endtime,u_name,
-        o_price,ch_name,c_name,
-        c_address
-    </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from order
-        where  o_id = #{oId,jdbcType=INTEGER} 
+    <update id="buySeat">
+        UPDATE seats SET s_status=1 WHERE s_id=#{sid}
+    </update>
+    <update id="cancelOrder">
+        UPDATE `order` SET c_status=0 WHERE o_id=#{oid}
+    </update>
+    <delete id="deleteOrder">
+        delete from `order` WHERE o_id=#{oid}
+    </delete>
+    <select id="getOrderInfo" resultMap="BaseResultMap">
+        select o_id,f_name,o_type,start_time,end_time,u_id,o_price,ch_name,c_name,c_address,c_status from `order` where u_id= #{uId,javaType=INTEGER}
+    </select>
+   <select id="getSeatId" resultType="integer">
+        select s_id from seats where s_row=#{row} and s_col=#{col} and h_id=#{hid}
+    </select>
+    <select id="getLastOrderId" resultType="java.lang.Integer">
+        select max(o_id) from `order`
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from order
-        where  o_id = #{oId,jdbcType=INTEGER} 
-    </delete>
-    <insert id="insert" keyColumn="o_id" keyProperty="oId" parameterType="cn.jasonone.bean.Order" useGeneratedKeys="true">
-        insert into order
-        ( o_id,f_name,o_type
-        ,se_starttime,se_endtime,u_name
-        ,o_price,ch_name,c_name
-        ,c_address)
-        values (#{oId,jdbcType=INTEGER},#{fName,jdbcType=VARCHAR},#{oType,jdbcType=VARCHAR}
-        ,#{seStarttime,jdbcType=TIMESTAMP},#{seEndtime,jdbcType=TIMESTAMP},#{uName,jdbcType=VARCHAR}
-        ,#{oPrice,jdbcType=DOUBLE},#{chName,jdbcType=VARCHAR},#{cName,jdbcType=VARCHAR}
-        ,#{cAddress,jdbcType=VARCHAR})
+
+    <insert id="buy">
+        insert into `order` values (null,#{fName},#{oType},#{startTime},#{endTime},#{uId},#{oPrice},#{chName},#{cName},#{cAddress},1)
+
     </insert>
-    <insert id="insertSelective" keyColumn="o_id" keyProperty="oId" parameterType="cn.jasonone.bean.Order" useGeneratedKeys="true">
-        insert into order
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="oId != null">o_id,</if>
-                <if test="fName != null">f_name,</if>
-                <if test="oType != null">o_type,</if>
-                <if test="seStarttime != null">se_starttime,</if>
-                <if test="seEndtime != null">se_endtime,</if>
-                <if test="uName != null">u_name,</if>
-                <if test="oPrice != null">o_price,</if>
-                <if test="chName != null">ch_name,</if>
-                <if test="cName != null">c_name,</if>
-                <if test="cAddress != null">c_address,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="oId != null">#{oId,jdbcType=INTEGER},</if>
-                <if test="fName != null">#{fName,jdbcType=VARCHAR},</if>
-                <if test="oType != null">#{oType,jdbcType=VARCHAR},</if>
-                <if test="seStarttime != null">#{seStarttime,jdbcType=TIMESTAMP},</if>
-                <if test="seEndtime != null">#{seEndtime,jdbcType=TIMESTAMP},</if>
-                <if test="uName != null">#{uName,jdbcType=VARCHAR},</if>
-                <if test="oPrice != null">#{oPrice,jdbcType=DOUBLE},</if>
-                <if test="chName != null">#{chName,jdbcType=VARCHAR},</if>
-                <if test="cName != null">#{cName,jdbcType=VARCHAR},</if>
-                <if test="cAddress != null">#{cAddress,jdbcType=VARCHAR},</if>
-        </trim>
+    <insert id="orderSeat">
+        insert into orderdetail values (#{oId},null,#{row},#{col})
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.jasonone.bean.Order">
-        update order
-        <set>
-                <if test="fName != null">
-                    f_name = #{fName,jdbcType=VARCHAR},
-                </if>
-                <if test="oType != null">
-                    o_type = #{oType,jdbcType=VARCHAR},
-                </if>
-                <if test="seStarttime != null">
-                    se_starttime = #{seStarttime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="seEndtime != null">
-                    se_endtime = #{seEndtime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="uName != null">
-                    u_name = #{uName,jdbcType=VARCHAR},
-                </if>
-                <if test="oPrice != null">
-                    o_price = #{oPrice,jdbcType=DOUBLE},
-                </if>
-                <if test="chName != null">
-                    ch_name = #{chName,jdbcType=VARCHAR},
-                </if>
-                <if test="cName != null">
-                    c_name = #{cName,jdbcType=VARCHAR},
-                </if>
-                <if test="cAddress != null">
-                    c_address = #{cAddress,jdbcType=VARCHAR},
-                </if>
-        </set>
-        where   o_id = #{oId,jdbcType=INTEGER} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="cn.jasonone.bean.Order">
-        update order
-        set 
-            f_name =  #{fName,jdbcType=VARCHAR},
-            o_type =  #{oType,jdbcType=VARCHAR},
-            se_starttime =  #{seStarttime,jdbcType=TIMESTAMP},
-            se_endtime =  #{seEndtime,jdbcType=TIMESTAMP},
-            u_name =  #{uName,jdbcType=VARCHAR},
-            o_price =  #{oPrice,jdbcType=DOUBLE},
-            ch_name =  #{chName,jdbcType=VARCHAR},
-            c_name =  #{cName,jdbcType=VARCHAR},
-            c_address =  #{cAddress,jdbcType=VARCHAR}
-        where   o_id = #{oId,jdbcType=INTEGER} 
-    </update>
+
 </mapper>

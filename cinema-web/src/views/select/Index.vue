@@ -10,14 +10,28 @@
           </li>
         </ul>
       </div>
-      <div class="info">
-        <p>已选座位：{{ selectedSeats.join(', ') }}</p>
-        <p>总价：{{ totalPrice }}</p>
-        <button class="layui-btn layui-btn-normal" @click="submit">购票</button>
-        <button class="layui-btn layui-btn-normal" @click="test">？</button>
+
+    </div>
+    <div class="select-seat">
+        <span v-for="item in selectedSeats"
+              :key="item">{{item}}</span>
+    </div>
+    <lay-line border-style="dashed" border-width="3px"></lay-line>
+    <div class="info">
+      <p>已选座位：</p>
+      <p1>{{ selectedSeats.join(', ') }}</p1>
+
+      <div class="money">
+        <p >总价 : </p>
+        <p2>¥</p2>
+        <p1> {{ totalPrice }}</p1>
+      </div>
+      <div class="yes">
+        <lay-button type="danger" size="lg" fluid="true" @click="submit(buyData)" radius>确认选座</lay-button>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -26,41 +40,33 @@ import {ref, computed, watch, reactive, onMounted} from 'vue'
 import {getSeatInfo, getSeatStatus} from "./api.js";
 import router from "../../config/router.js";
 import {layer} from "@layui/layui-vue";
+import {buy, buySeats} from "../Order/api.js";
+let selectHid=ref([])
+let order=ref()
+let buyInfo = reactive(
+    {
+      uId:1,
+      fName:'',
+      oType:'',
+      startTime:'',
+      endTime:'',
+      oPrice:'',
+      chName:'',
+      cName:''
+    }
 
+)
 
 
 const selectInfo = reactive([
-  {
-    sId: '',
-    sRow: '',
-    sCol: '',
-    sStatus: '',
-    hID: ''
-  }
+
 ])
-// const o=computed(()=>{
-//   for (let r of data) {
-//     if (data.sStatus===1) {
-//       occupiedSeats.push(r)
-//     }
-//   }
-//   return occupiedSeats
-// })
-
-
-// watch(data, (newValue, oldValue) => {
-//   for (let r of data) {
-//     if (data.sStatus === 1) {
-//       selectInfo.push(r)
-//     }
-//   }
-//   console.log(selectInfo)
-// },{immediate:true})
 
 // 模拟已占用的座位
-const occupiedSeats = reactive([])
+  const occupiedSeats = reactive([])
 // 用户选择的座位
 let selectedSeats = ref([])
+let buySeat=reactive([])
 const selectedSeatsId = ref([])
 // 座位行数
 let rows = reactive([])
@@ -68,13 +74,17 @@ let rows = reactive([])
 let cols = reactive([])
 // 座位单价
 const price = ref(50)
+let data1=reactive([])
 // 总价
 const totalPrice = computed(() => selectedSeats.value.length * price.value)
-
+let buyData=reactive([])
 //初始化座位数据
 function init(){
+
   occupiedSeats.length=0
   const data=JSON.parse(sessionStorage.getItem("selectInfo"));
+  data1=data
+  buyData=JSON.parse(sessionStorage.getItem("buyInfo"));
   for (let r of data) {
     rows.push(r.sRow)
     cols.push(r.sCol)
@@ -95,9 +105,6 @@ function init(){
 const start=onMounted(() => {
   init()
 })
-function test(){
-  console.log(data)
-}
 
 // 判断座位是否已占用
 function isOccupied(row, col) {
@@ -112,22 +119,29 @@ function isSelected(row, col) {
 // 切换座位的选择状态
 function toggleSeat(row, col) {
   if (isOccupied(row, col)) {
-    alert("该座位已被选择")
+    layer.notifiy({
+      title:"Warming",
+      content:"该座位已被选择！",
+      icon:2
+    })
     return
   }
   const seat = row + col
   if (isSelected(row, col)) {
+
     selectedSeats.value = selectedSeats.value.filter(s => s !== seat)
   } else {
-    selectedSeats.value.push(seat)
+    if (selectedSeats.value.length===6){
+      layer.msg("一次最多购买6张票", { icon : 5, time: 1000})
+    }else {
+      selectedSeats.value.push(seat)
+    }
+
   }
 }
-
-// 提交选座
-function submit() {
+function updateSeatInfo(uid){
   selectInfo.length=0
-  getSeatInfo(1).then((res)=>{
-     selectInfo.splice(0,1)
+  getSeatInfo(uid).then((res)=>{
     for (let r of res.data) {
       if (selectInfo.length<res.data.length) {
         selectInfo.push(r)
@@ -141,17 +155,86 @@ function submit() {
   }).catch(error=>{
     layer.msg("查询错误")
   })
+}
+// 提交选座
+function submit(buyData) {
+
+  updateSeatInfo(buyInfo.uId)
+  // getSeatInfo(buyInfo.uId).then((res)=>{
+  //   for (let r of res.data) {
+  //     if (selectInfo.length<res.data.length) {
+  //       selectInfo.push(r)
+  //     }
+  //   }
+  //   sessionStorage.removeItem("selectInfo");
+  //   sessionStorage.setItem("selectInfo",JSON.stringify(selectInfo));
+  //   //重新初始化
+  //   init()
+  //
+  // }).catch(error=>{
+  //   layer.msg("查询错误")
+  // })
   if (selectedSeats.value.length === 0) {
-    alert('请至少选择一个座位')
-    init()
+    layer.notifiy({
+      title:"Warming",
+      content:"请至少选座一个座位~",
+      icon:3
+    })
   }
   else {
+    for (let valueElement of selectedSeats.value) {
+      if (selectHid.value.length<selectedSeats.value.length){
+        selectHid.value.push(valueElement)
+      }
+    }
+    selectHid.value.push(data1[0].hId)
+    layer.confirm('确认下单吗？', {
+      title: "订单确认",
+      icon: 1, //可以无限个按钮
+      btn:[
+        {
+          text:"确认",
+          callback(id){
+            getSeatStatus(selectHid.value).then(res=>{
+              //清空已选择状态
+              // init()
+              buy(buyData).then(res=>{
+                buySeats(selectHid.value).then(res=>{
+                  selectedSeats.value.length =0
+                  selectHid.value.length=0
+                  updateSeatInfo(buyData.uId)
+                  layer.close(id)
+                  layer.msg("下单成功！", { icon : 6, time: 1000})
+                }).catch(err=>{
+                  selectedSeats.value.length =0
+                  selectHid.value.length=0
+                  layer.close(id)
+                  layer.msg("下单失败！", { icon : 5, time: 1000})
+                })
 
-    alert('您已成功选座：' + selectedSeats.value.join(', '))
-    //清空已选择状态
-    selectedSeats.value.length =0
-    init()
-    // TODO: 调用后端接口，保存选座信息
+              }).catch(error=>{
+                selectedSeats.value.length =0
+                selectHid.value.length=0
+                layer.close(id)
+                layer.msg("下单失败！", { icon : 5, time: 1000})
+              })
+            }).catch(error=>{
+              selectedSeats.value.length =0
+              selectHid.value.length=0
+              layer.close(id)
+              layer.msg("座位被抢了/(ㄒoㄒ)/~~", { icon : 5, time: 1000})
+              init()
+            })
+          }
+        },
+    {
+      text:"取消",
+          callback(id){
+      layer.close(id)
+    }
+    }
+      ]
+    })
   }
 }
 
@@ -192,17 +275,17 @@ function submit() {
 </script>
 
 <style scoped lang="scss">
-.container {
-  width: 600px;
-  margin: 0 auto;
+.yes{
+  width: 20%;
+  margin: 50px auto;
+  user-select: none;
 }
 
 
 .screen {
   width: 100%;
-  height: 50px;
+  height: 100%;
   background-image: url("img/4k.png");
-  background-size: auto;
   color: #fff;
   text-align: center;
   line-height: 50px;
@@ -219,16 +302,20 @@ function submit() {
 }
 
 .seat {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   border: 1px solid #ccc;
   list-style: none;
   text-align: center;
-  line-height: 60px;
+  line-height: 90px;
+  user-select: none;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .occupied {
-  background-color: #da2c2c;
+  background-color: #FF5722;
 }
 
 .selected {
@@ -236,7 +323,54 @@ function submit() {
 }
 
 .info {
+  margin: 50px auto;
   text-align: center;
-  margin-top: 20px;
+  user-select: none;
+  p{
+    font-size: 20px;
+    display: inline;
+  }
+  p1{
+    font-size: 20px;
+    display: inline;
+    color: #66cc66;
+  }
+}
+.money{
+  p{
+    font-size: 20px;
+    display: inline;
+  }
+  p1{
+    font-size: 30px;
+    display: inline;
+    color: #e54847;
+
+  }
+  p2{
+    color: #e54847;
+    font-size: 20px;
+  }
+}
+
+.select-seat{
+
+  display: flex;
+  width: 480px;
+  min-height: 80px;
+  margin: 50px auto;
+  border: 2px solid #eee;
+  flex-wrap: wrap;
+  span{
+    border-color: #666666;
+    border-style: dashed;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    background-color: #0feeba;
+    text-align: center;
+    line-height: 50px;
+    user-select: none;
+  }
 }
 </style>

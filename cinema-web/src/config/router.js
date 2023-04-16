@@ -64,7 +64,17 @@ const routes = [
                 path: '/rowSeats',
                 name: 'rowSeats',
                 component: () => import('../views/admin/rowSeats/Index.vue')
-            }
+            },
+            {
+                path: '/userInfo',
+                name: 'userInfo',
+                component: () => import('../views/admin/UserInfo.vue')
+            },
+            {
+                path: '/order',
+                name: 'order',
+                component: () => import('../views/Order/Order.vue')
+            },
         ]
     },
     {
