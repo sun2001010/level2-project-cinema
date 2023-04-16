@@ -16,6 +16,12 @@
         c_name
     </sql>
 
+    <select id="findAll" resultType="cn.jasonone.bean.Hall">
+        select
+        <include refid="Base_Column_List"></include>
+        from hall
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

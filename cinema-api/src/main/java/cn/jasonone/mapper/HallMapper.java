@@ -2,6 +2,8 @@ package cn.jasonone.mapper;
 
 import cn.jasonone.bean.Hall;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【hall(影厅表)】的数据库操作Mapper
@@ -15,6 +17,8 @@ public interface HallMapper {
     int insert(Hall record);
 
     int insertSelective(Hall record);
+
+    List<Hall> findAll(Hall hall);
 
     Hall selectByPrimaryKey(Long id);
 
