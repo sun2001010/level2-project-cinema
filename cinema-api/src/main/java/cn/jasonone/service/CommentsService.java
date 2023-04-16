@@ -4,6 +4,7 @@ import cn.jasonone.bean.Comments;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.session.SqlSession;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CommentsService {
@@ -12,4 +13,6 @@ public interface CommentsService {
     PageInfo<Comments> CommentsSelect(Comments comments, int pageInfo, int pageNum);
 
     void addComments(Comments record);
+
+    void delete(Long id) throws IOException;
 }
