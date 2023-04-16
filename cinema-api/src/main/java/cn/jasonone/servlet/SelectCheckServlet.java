@@ -40,11 +40,19 @@ public class SelectCheckServlet extends HttpServlet {
         String newbody = body.replaceAll("\\[\"", "");
         String[] all = newbody.split("[^a-zA-Z0-9]+");
         boolean b=true;
-        for (String s : all) {
+        String hid=all[all.length-1];
+        String[] newArr = new String[all.length - 1];
+        System.arraycopy(all, 0, newArr, 0, all.length - 1);
+        System.out.println(Arrays.toString(newArr));
+        for (String s : newArr) {
             String row = s.substring(0, 1);
             String col = s.substring(1);
             Seat seat = new Seat();
             seat.setSRow(row);
+            seat.setHId(Integer.valueOf(hid));
+            System.out.println(row);
+            System.out.println(col);
+            System.out.println(1);
             seat.setSCol(Integer.valueOf(col));
             int seatStatus = seatService.getSeatStatus(seat);
             if (seatStatus == 1) {

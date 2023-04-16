@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
-@WebFilter("/*")
+//@WebFilter("/*")
 public class LoginFilter implements Filter {
     private Set<String> whiteList;
 

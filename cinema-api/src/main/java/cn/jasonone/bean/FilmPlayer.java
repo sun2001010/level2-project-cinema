@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class FilmPlayer implements Serializable {
     /**
-     * 电影演员关系id
+     * 
      */
     private Integer fPId;
 

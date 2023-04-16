@@ -6,6 +6,7 @@ import store from "./config/store.js";
 import layui from '@layui/layui-vue'
 import '@layui/layui-vue/lib/index.css'
 import 'nprogress/nprogress.css'
+
 const app = createApp(App);
 // 注册路由
 app.use(router);

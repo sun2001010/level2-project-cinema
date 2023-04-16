@@ -28,17 +28,17 @@ public class Order implements Serializable {
     /**
      * 影片开始时间
      */
-    private Date seStarttime;
+    private Date startTime;
 
     /**
      * 影片结束时间
      */
-    private Date seEndtime;
+    private Date endTime;
 
     /**
      * 用户名
      */
-    private String uName;
+    private Integer uId;
 
     /**
      * 影片票价
@@ -59,6 +59,7 @@ public class Order implements Serializable {
      * 影院地址
      */
     private String cAddress;
+    private Integer cStatus;
 
     private static final long serialVersionUID = 1L;
 }

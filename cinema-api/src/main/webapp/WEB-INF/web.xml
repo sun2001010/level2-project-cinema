@@ -17,6 +17,12 @@
             /admin/register
             /admin/login
             /home/select
+            /filmplayer/select
+            /filmplayer/selectplayer
+            /collect/select
+            /collect/add
+            /comments/add
+            /comments/select
         </param-value>
     </context-param>
 </web-app>

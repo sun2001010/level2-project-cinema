@@ -202,6 +202,11 @@
   resolved "https://registry.npmmirror.com/@layui/icons-vue/-/icons-vue-1.0.9.tgz"
   integrity sha512-GZ69m1/rG1Rb+VSVYFqLzy4Hzx1unOOvOCMfk3VAZ8bulHdi/Qab7woTwUdMTyQW+ghi9iqlpq30tly9qIUrzQ==
 
+"@layui/icons-vue@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/@layui/icons-vue/-/icons-vue-1.1.0.tgz#fa33eba6b6550d75338e530c41faa6973318f3c2"
+  integrity sha512-ndc53qyUZSslUkO8ZHeBMh6i4gSTtAUqsPpKQZWML0JH6E/X3LIySe6LATeqEMmD7wWSnHJ+WBVGO4ij85Dk1g==
+
 "@layui/layer-vue@1.8.0":
   version "1.8.0"
   resolved "https://registry.npmmirror.com/@layui/layer-vue/-/layer-vue-1.8.0.tgz"

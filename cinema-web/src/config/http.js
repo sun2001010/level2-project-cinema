@@ -1,6 +1,7 @@
 import axios from "axios";
 import useLogin from "../stores/LoginStore"
 import NProgress from "nprogress";
+import router from "./router.js";
 const http = axios.create({
     baseURL: 'http://localhost/api',
     timeout: 5000,
@@ -19,6 +20,11 @@ http.interceptors.request.use(config=>{
     }
     return config;
 },error=>{
+    if (error.response?.status===400){
+        if (error.response.data.code===401){
+            router.push({name:'login'})
+        }
+    }
     return Promise.reject(error)
 })
 

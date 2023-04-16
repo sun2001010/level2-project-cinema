@@ -1,7 +1,7 @@
 import useLogin from '../../stores/LoginStore'
 import http from "../../config/http.js";
 export function login(userInfo){
-    return http.post("/userInfo/login",userInfo)
+    return http.post("/admin/login",userInfo)
         .then(res=>{
             if(res.code === 200){
                 const loginInfo = useLogin();
