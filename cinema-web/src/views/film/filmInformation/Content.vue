@@ -38,9 +38,8 @@
 import Comments from "./comments.vue";
 import {selectByPrimaryKey} from "./api.js";
 
-const item = sessionStorage.getItem('FilmName');
-const filmInfo = sessionStorage.getItem('FilmInfo');
-console.log(filmInfo)
+const item = JSON.parse(sessionStorage.getItem('FilmName'));
+const filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
 
 
 

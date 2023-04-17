@@ -84,6 +84,7 @@ let cinemaName=reactive([])
 let cinemaAddress=reactive([])
 let cinema=reactive([])
 let cinema1=reactive([])
+let cinema2=reactive([])
 let lookTime=reactive(['8:00-10:00','10:00-12:00','12:00-14:00','14:00-16:00',
   '16:00-18:00','18:00-20:00','20:00-22:00','22:00-24:00'])
 
@@ -152,10 +153,10 @@ function selected(index,item){
   ChangeColor.value=index
   cinemaInfo.cName=item
   cinema1=JSON.parse(JSON.stringify(cinema));
-  for (let i of cinema1) {
+  for (let i of cinema) {
     arrDelete(cinema1, (i) => i.cName !== item)
   }
-  console.log(cinema1)
+
 }
 
 //地区

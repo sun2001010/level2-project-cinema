@@ -8,7 +8,7 @@
       <div style="width: 100%;height: 100%">
     <div style="font-size: 20px;color: red;padding-left: 20px">正在热映</div>
         <div class="Div"  v-for="(item,index) in Num" :key="index">
-          <img class="Img" :src=url+item.fName>
+          <img class="Img" :src=url+item.fImage>
           <span>{{item.fId}}</span>
           <router-link to='/filmInformation'>
             <button style="width:120px" @click="jump(item)">购票</button>
@@ -52,7 +52,8 @@
 import {findAll, findOne} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
-
+import router from "../../config/router.js";
+sessionStorage.removeItem("filmInfo");
 let filmsInfo=ref()
 
 
@@ -79,8 +80,9 @@ function jump(item){
   findOne(item.fId).then(res=>{
     filmsInfo.value=res.data
     sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
+    router.push("/filmInformation")
   }).catch(err=>{
-
+    layer.msg("错误")
   })
 }
 

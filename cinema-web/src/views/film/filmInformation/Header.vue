@@ -1,15 +1,15 @@
 <template>
   <div class="movie-header">
     <div class="movie-img">
-      <img src="./images/film/虹猫蓝兔七侠传.jpg">
+      <img :src=url+filmInfos.fImage>
     </div>
     <ul class="movie-info">
-      <li class="name">{{ filmInfo.fName }}</li>
-      <li class="enm">{{ filmInfo.oType }}</li><br>
+      <li class="name">{{ filmInfos.fName }}</li>
+      <li class="enm">{{ filmInfos.oType }}</li><br>
       <li style="font-size:24px;color:#ff0000" v-if="true">评分：<span>9.9</span></li>
       <li style="font-size:24px;color:#ff0000" v-if="false">暂无评分</li><br>
       <li class="score"><span>99</span> 想看</li><br>
-      <li>导演：{{ filmInfo.director }}</li><br>
+      <li>导演：{{ filmInfos.director }}</li><br>
       <li>演员：虹猫 / 蓝兔 / 黑小虎</li><br>
       <li>中国大陆 / 17分钟</li>
 
@@ -18,7 +18,7 @@
   <div class="btn-group">
     <div>
       <button class="buy-btn" @click=""><i class="fa-heart" ></i> 想看</button>
-      <button class="buy-btn">特惠购票</button>
+      <button class="buy-btn" @click="selectCinema">特惠购票</button>
     </div>
     <div>
       <lay-rate v-model="all2" :length="length"></lay-rate>
@@ -28,14 +28,22 @@
 </template>
 
 <script setup>
-import {ref} from "vue";;
+import {ref} from "vue";
+import {buy} from "../../Order/api.js";
+import router from "../../../config/router.js";
+let filmInfos=ref()
 
 const all2 = ref(4);
 const length = ref(10)
 
-const item = sessionStorage.getItem('FilmName');
-const filmInfo = sessionStorage.getItem('FilmInfo');
-console.log(filmInfo)
+const item = JSON.parse(sessionStorage.getItem('FilmName'));
+filmInfos = JSON.parse(sessionStorage.getItem('filmInfo'));
+const url="src/views/film/filmInformation/images/film/"
+console.log(filmInfos)
+
+function selectCinema() {
+  router.push("/cinema")
+}
 </script>
 
 <style scoped lang="scss">
