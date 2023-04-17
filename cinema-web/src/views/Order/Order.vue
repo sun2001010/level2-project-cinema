@@ -5,6 +5,7 @@
       <thead>
       <tr>
         <th>电影名称</th>
+        <th>图片</th>
         <th>价格</th>
         <th>状态</th>
         <th>操作</th>
@@ -13,6 +14,7 @@
       <tbody>
       <tr v-for="order in orders" :key="order.id">
         <td>{{ order.fName }}</td>
+        <td><img src=../film/filmInformation/images/film/虹猫仗剑走天涯.jpg /></td>
         <td>{{ order.oPrice}}</td>
         <td>{{ order.cStatus===1 ?'激活':'已取消' }}</td>
         <td>
@@ -24,23 +26,11 @@
       </tbody>
     </table>
   </div>
-  <lay-layer v-model="getOrderVisible" :area="['800px','600px']">
-    <lay-form>
-      <lay-form-item label="电影名" > {{oneOrder.fName}}
-      </lay-form-item>
-      <lay-form-item label="用户名">
-        <lay-input placeholder="请输入用户名"></lay-input>
-      </lay-form-item>
-      <lay-form-item label="密码">
-        <lay-input   password placeholder="请输入密码"></lay-input>
-      </lay-form-item>
-      <lay-form-item label="邮箱">
-        <lay-input  placeholder="请输入邮箱"></lay-input>
-      </lay-form-item>
-      <lay-form-item >
-        <lay-button type="normal" @click="onAdd">新增</lay-button>
-      </lay-form-item>
-    </lay-form>
+  <lay-layer  v-model="getOrderVisible"  :area="['800px','600px']" >
+    <div class="img-content" >
+      <img src=../film/filmInformation/images/film/虹猫仗剑走天涯.jpg />
+      <p style="margin-top: 18px">一套开源免费且受众广泛的 Web UI 组件库</p>
+    </div>
   </lay-layer>
   </template>
   <script setup>
@@ -156,5 +146,12 @@
     .layui-table th{
       text-align: center;
     }
-
+    .detail{
+      text-align: center;
+    }
+    .img-content {
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+    }
   </style>

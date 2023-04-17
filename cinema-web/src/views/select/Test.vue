@@ -44,7 +44,10 @@ function getInfo() {
     sessionStorage.setItem("buyInfo", JSON.stringify(buyInfo));
     router.push('/select')
   }).catch(error=>{
-    layer.msg("查询错误")
+    if (error.code===401){
+      layer.msg("请先登录")
+    }
+
   })
 }
 </script>

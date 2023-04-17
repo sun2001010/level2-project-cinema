@@ -135,11 +135,12 @@ public class FilmsServlet extends HttpServlet {
     private void selectById(BodyHttpServletRequestWrapper req,HttpServletResponse resp)throws IOException{
         Gson gson = new Gson();
         String body = req.getBody();
-        Films films = gson.fromJson(body, Films.class);
-        filmsService.selectById(films.getFId());
+        System.out.println(body);
+        Films films1 = filmsService.selectById(Integer.valueOf(body));
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200);
         result.put("msg", "查询成功");
+        result.put("data", films1);
         resp.getWriter().write(gson.toJson(result));
     }
     private void updateById(BodyHttpServletRequestWrapper req,HttpServletResponse resp)throws IOException{
