@@ -181,54 +181,6 @@ function selectPosition(index2,item){
   }).catch(err=>{
     layer.msg("position error")
   })
-
-  // JSONP形式从服务器获取数据
-  // var url = 'http://vue.studyit.io/api/jsonp';
-  // this.$http.jsonp(url).then(res => {
-  //   console.log(res);
-  // });
-}
-function requestByGet(){
-    console.log("==========requestByGet==========")
-    this.$http.get("test.txt").then(function (successData){
-      this.resultMsgByGet = successData.data+"=======请求响应码是"+successData.status;
-    },function (errorData){
-      console.log("=====errorData==="+errorData)
-    });
-  }
-function requestByPost(){
-    console.log("==========requestByPost==========")
-    var baseUrl = "testlogin.php";// POST请求PHP 页面
-    var params = { // 请求数据
-      username:"小明",
-      userpass:"123456"
-    };
-    var otherParam = {
-      emulateJSON:true // 告诉服务器数据参数类型以JSON 传递接收。
-    };
-    this.$http.post(baseUrl,params,otherParam).then(function (successData){
-      this.resultMsgByPost = successData.data+"=======请求响应码是"+successData.status;
-    },function (errorData){
-      console.log("=====失败=====requestByPost=========="+errorData)
-    });
-  }
-function requestByJsonp(){
-    console.log("==========requestByJsonp==========")
-    var baseUrl = "https://suggest.taobao.com/sug?code=utf-8&q=%E5%8D%AB%E8%A1%A3&callback=cb"
-    this.$http.jsonp(baseUrl).then(function(myData){
-      // 解析JSON数据
-      var myObj = JSON.parse(myData.bodyText);
-      var tempD= myObj.result;
-      console.log(tempD)
-      var tempC = [];
-      tempD.forEach(function(item){ // 遍历数据集合，取出数据，放入临时数组tempC
-        console.log();
-        tempC.push(item[0]);
-      });
-      this.taoBaoData = tempC;
-    },function(errorData){
-      console.log("==========errorData==========") //请求失败
-    })
 }
 //影厅
 function selectByHallName(index4,item){
