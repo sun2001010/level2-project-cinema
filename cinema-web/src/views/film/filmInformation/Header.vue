@@ -4,12 +4,12 @@
       <img src="./images/film/虹猫蓝兔七侠传.jpg">
     </div>
     <ul class="movie-info">
-      <li class="name">虹猫蓝兔七侠传</li>
-      <li class="enm">冒险</li><br>
+      <li class="name">{{ filmInfo.fName }}</li>
+      <li class="enm">{{ filmInfo.oType }}</li><br>
       <li style="font-size:24px;color:#ff0000" v-if="true">评分：<span>9.9</span></li>
       <li style="font-size:24px;color:#ff0000" v-if="false">暂无评分</li><br>
       <li class="score"><span>99</span> 想看</li><br>
-      <li>导演：久熙</li><br>
+      <li>导演：{{ filmInfo.director }}</li><br>
       <li>演员：虹猫 / 蓝兔 / 黑小虎</li><br>
       <li>中国大陆 / 17分钟</li>
 
@@ -33,6 +33,9 @@ import {ref} from "vue";;
 const all2 = ref(4);
 const length = ref(10)
 
+const item = sessionStorage.getItem('FilmName');
+const filmInfo = sessionStorage.getItem('FilmInfo');
+console.log(filmInfo)
 </script>
 
 <style scoped lang="scss">
