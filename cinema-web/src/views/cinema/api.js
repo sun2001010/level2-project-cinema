@@ -2,7 +2,7 @@ import {get, post} from "../../config/http.js";
 import axios from "axios";
 
 const http2 = axios.create({
-    baseURL: 'http://api.map.baidu.com/geocoding/v3',
+    baseURL: 'http://localhost/baiduapi',
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
     }

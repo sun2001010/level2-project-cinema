@@ -29,7 +29,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index1) in cinemaAddress" :key="index1" class="cinema3"
-               :class="ChangeCinemaAddressColor===index1?'color1':'color2'" @click="selectedByCinemaAddress(index1,item)">
+               :class="ChangeCinemaAddressColor===index1?'color1':'color2'" @click="selectByCinemaAddress(index1,item)">
             <lay-button v-model="cinemaInfo.cAddress">{{ item }}</lay-button>
           </div>
         </div>
@@ -95,12 +95,6 @@ let ChangeCinemaNameColor = ref(0)
 let ChangeCinemaAddressColor = ref(0)
 let ChangeHallNameColor = ref(0)
 let ChangeLookTimeColor = ref(0)
-
-const data = {
-  key: "XOXBZ-MZWWD-CDX4H-PONXN-UA5PJ-D7FJN" //这个key就是你申请的密钥
-};
-const url = "https://apis.map.qq.com/ws/location/v1/ip"; //这个就是地理位置信息的接口
-data.output = "jsonp";
 
 const cinemaInfo=reactive(
   {
@@ -177,7 +171,9 @@ function selectPosition(index2,item){
   ChangePositionColor.value=index2
   cinemaInfo.position=item
   position(item).then(res=>{
-    console.log(res)
+    console.log(item)
+    console.log("经度："+res.data.result.location.lng)
+    console.log("纬度："+res.data.result.location.lat)
   }).catch(err=>{
     layer.msg("position error")
   })
