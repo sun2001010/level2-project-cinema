@@ -16,7 +16,7 @@
         <td>{{ order.fName }}</td>
         <td><img src=../film/filmInformation/images/film/虹猫仗剑走天涯.jpg /></td>
         <td>{{ order.oPrice}}</td>
-        <td>{{ order.cStatus===1 ?'激活':'已取消' }}</td>
+        <td>{{ order.cStatus===1 ?'激活':'失效' }}</td>
         <td>
           <lay-button v-if="order.cStatus<1" type="warm" radius="true" @click="deleteOrder(order.oId)">删除订单</lay-button>
           <lay-button v-if="order.cStatus>0" type="danger" radius="true" @click="cancelOrder(order.oId)">取消订单</lay-button>
