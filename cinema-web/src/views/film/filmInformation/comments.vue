@@ -24,7 +24,7 @@
           <!-- 如果当前用户有头像则显示头像,没有则显示默认头像 -->
           <!-- <img :src="`http://` + item.picture" /> -->
           <img v-if="item.picture" :src="`http://` + item.picture" alt="" />
-          <img v-else src="../../assets/头像.jpg" alt="" />
+          <img v-else src="./images/默认头像.jpg" alt="" />
         </a>
         <div class="first-content">
           <!-- 一级评论用户昵称 -->

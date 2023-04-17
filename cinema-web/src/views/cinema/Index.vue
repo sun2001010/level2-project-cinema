@@ -7,7 +7,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index2) in cities" :key="index2" class="cinema3"
-               :class="ChangeColor2 === index2?'color1':'color2'" @click="selected2(index2,item)">
+               :class="ChangePositionColor === index2?'color1':'color2'" @click="selectPosition(index2,item)">
             <lay-button v-model="cinemaInfo.position">{{ item }}</lay-button>
           </div>
         </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index) in cinemaName" :key="index" class="cinema3"
-               :class="ChangeColor === index?'color1':'color2'" @click="selected(index,item)">
+               :class="ChangeCinemaNameColor === index?'color1':'color2'" @click="selectByCinemaName(index,item)">
             <lay-button v-model="cinemaInfo.cName">{{ item }}</lay-button>
           </div>
         </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index1) in cinemaAddress" :key="index1" class="cinema3"
-               :class="ChangeColor1===index1?'color1':'color2'" @click="selected1(index1,item)">
+               :class="ChangeCinemaAddressColor===index1?'color1':'color2'" @click="selectedByCinemaAddress(index1,item)">
             <lay-button v-model="cinemaInfo.cAddress">{{ item }}</lay-button>
           </div>
         </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index4) in hallName" :key="index4" class="cinema3"
-               :class="ChangeColor4 === index4?'color1':'color2'" @click="selected4(index4,item)">
+               :class="ChangeHallNameColor === index4?'color1':'color2'" @click="selectByHallName(index4,item)">
             <lay-button v-model="cinemaInfo.hallName">{{ item }}</lay-button>
           </div>
         </div>
@@ -51,7 +51,7 @@
         </div>
         <div class="cinema2">
           <div v-for="(item,index3) in lookTime" :key="index3" class="cinema3"
-               :class="ChangeColor3===index3?'color1':'color2'" @click="selected3(index3,item)">
+               :class="ChangeLookTimeColor===index3?'color1':'color2'" @click="selectLookTime(index3,item)">
             <lay-button v-model="cinemaInfo.lookTime">{{ item }}</lay-button>
           </div>
         </div>
@@ -59,7 +59,7 @@
     </div>
     <div class="contain">
       <lay-button type="normal">影院列表</lay-button>
-      <div v-for="item in cinema1" :key="item" class="cinema">
+      <div v-for="item in cinemaName1" :key="item" class="cinema">
         <div class="data">
           <p style="font-size: 18px">{{ item.cName }}</p>
           <p>地址：{{ item.cAddress }}</p>
@@ -83,19 +83,24 @@ let cities=reactive(['自动定位',"长沙",'郴州','衡阳','娄底','冷水�
 let cinemaName=reactive([])
 let cinemaAddress=reactive([])
 let cinema=reactive([])
-let cinema1=reactive([])
+let cinemaName1=reactive([])
 let lookTime=reactive(['8:00-10:00','10:00-12:00','12:00-14:00','14:00-16:00',
   '16:00-18:00','18:00-20:00','20:00-22:00','22:00-24:00'])
 
 let hallName=reactive([])
 let hall=reactive([])
 
+let ChangePositionColor = ref(0)
+let ChangeCinemaNameColor = ref(0)
+let ChangeCinemaAddressColor = ref(0)
+let ChangeHallNameColor = ref(0)
+let ChangeLookTimeColor = ref(0)
 
-let ChangeColor = ref(0)
-let ChangeColor1 = ref(0)
-let ChangeColor2 = ref(0)
-let ChangeColor3 = ref(0)
-let ChangeColor4 = ref(0)
+const data = {
+  key: "XOXBZ-MZWWD-CDX4H-PONXN-UA5PJ-D7FJN" //这个key就是你申请的密钥
+};
+const url = "https://apis.map.qq.com/ws/location/v1/ip"; //这个就是地理位置信息的接口
+data.output = "jsonp";
 
 const cinemaInfo=reactive(
   {
@@ -106,7 +111,9 @@ const cinemaInfo=reactive(
     lookTime:""
   }
 )
-
+//接收影院后端传到前端的数据，放在cinema数组中
+//影院名放在cinemaName数组
+//影院地址放在cinemaAddress数组
 onMounted(()=>{
   findCinema().then(res=>{
     for(let i of res.data.list){
@@ -128,7 +135,8 @@ onMounted(()=>{
     layer.msg("错误")
   })
 })
-
+//接收影厅后端传到前端的数据，放到hall数组中
+//影厅名放到hallName数组中
 onMounted(()=>{
   findHall().then(res=>{
     for(let i of res.data.list){
@@ -147,42 +155,89 @@ onMounted(()=>{
   })
 })
 
-//影院
-function selected(index,item){
-  ChangeColor.value=index
+//按影院名查询
+function selectByCinemaName(index,item){
+  ChangeCinemaNameColor.value=index
   cinemaInfo.cName=item
-  cinema1=JSON.parse(JSON.stringify(cinema));
-  for (let i of cinema1) {
-    arrDelete(cinema1, (i) => i.cName !== item)
+  cinemaName1=JSON.parse(JSON.stringify(cinema));
+  for (let i of cinemaName1) {
+    arrDelete(cinemaName1, (i) => i.cName !== item)
   }
-  console.log(cinema1)
+  console.log(cinemaName1)
 }
 
-//地区
-function selected1(index1,item){
-  ChangeColor1.value=index1
+//按地区查询
+function selectByCinemaAddress(index1,item){
+  ChangeCinemaAddressColor.value=index1
   cinemaInfo.cAddress=item
 }
 
 //位置
-function selected2(index2,item){
-  ChangeColor2.value=index2
+function selectPosition(index2,item){
+  ChangePositionColor.value=index2
   cinemaInfo.position=item
   position(item).then(res=>{
     console.log(res)
   }).catch(err=>{
     layer.msg("position error")
   })
-}
 
+  // JSONP形式从服务器获取数据
+  // var url = 'http://vue.studyit.io/api/jsonp';
+  // this.$http.jsonp(url).then(res => {
+  //   console.log(res);
+  // });
+}
+function requestByGet(){
+    console.log("==========requestByGet==========")
+    this.$http.get("test.txt").then(function (successData){
+      this.resultMsgByGet = successData.data+"=======请求响应码是"+successData.status;
+    },function (errorData){
+      console.log("=====errorData==="+errorData)
+    });
+  }
+function requestByPost(){
+    console.log("==========requestByPost==========")
+    var baseUrl = "testlogin.php";// POST请求PHP 页面
+    var params = { // 请求数据
+      username:"小明",
+      userpass:"123456"
+    };
+    var otherParam = {
+      emulateJSON:true // 告诉服务器数据参数类型以JSON 传递接收。
+    };
+    this.$http.post(baseUrl,params,otherParam).then(function (successData){
+      this.resultMsgByPost = successData.data+"=======请求响应码是"+successData.status;
+    },function (errorData){
+      console.log("=====失败=====requestByPost=========="+errorData)
+    });
+  }
+function requestByJsonp(){
+    console.log("==========requestByJsonp==========")
+    var baseUrl = "https://suggest.taobao.com/sug?code=utf-8&q=%E5%8D%AB%E8%A1%A3&callback=cb"
+    this.$http.jsonp(baseUrl).then(function(myData){
+      // 解析JSON数据
+      var myObj = JSON.parse(myData.bodyText);
+      var tempD= myObj.result;
+      console.log(tempD)
+      var tempC = [];
+      tempD.forEach(function(item){ // 遍历数据集合，取出数据，放入临时数组tempC
+        console.log();
+        tempC.push(item[0]);
+      });
+      this.taoBaoData = tempC;
+    },function(errorData){
+      console.log("==========errorData==========") //请求失败
+    })
+}
 //影厅
-function selected4(index4,item){
-  ChangeColor4.value=index4
+function selectByHallName(index4,item){
+  ChangeHallNameColor.value=index4
   cinemaInfo.hallName=item
 }
 //观影时间
-function selected3(index3,item){
-  ChangeColor3.value=index3
+function selectLookTime(index3,item){
+  ChangeLookTimeColor.value=index3
   cinemaInfo.lookTime=item
 }
 //选座购票

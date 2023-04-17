@@ -19,11 +19,6 @@ public interface FilmPlayerMapper {
     int insertSelective(FilmPlayer record);
 
     FilmPlayer selectByPrimaryKey(Long id);
-
-    List<FilmPlayer> findAll(FilmPlayer filmPlayer);
-
-    List<String> findPlayerName(String playerName);
-
     int updateByPrimaryKeySelective(FilmPlayer record);
 
     int updateByPrimaryKey(FilmPlayer record);

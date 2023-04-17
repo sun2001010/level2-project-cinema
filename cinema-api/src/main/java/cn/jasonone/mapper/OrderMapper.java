@@ -24,6 +24,4 @@ public interface OrderMapper {
    void cancelOrder(Integer oid);
 
    void deleteOrder(Integer oid);
-
-
 }
