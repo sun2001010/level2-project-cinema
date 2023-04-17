@@ -160,7 +160,7 @@ function selectByCinemaName(index,item){
   ChangeCinemaNameColor.value=index
   cinemaInfo.cName=item
   cinemaName1=JSON.parse(JSON.stringify(cinema));
-  for (let i of cinemaName1) {
+  for (let i of cinema) {
     arrDelete(cinemaName1, (i) => i.cName !== item)
   }
   console.log(cinemaName1)

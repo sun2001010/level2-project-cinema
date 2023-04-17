@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";;
+import {ref} from "vue";
 
 const all2 = ref(4);
 const length = ref(10)
