@@ -53,6 +53,8 @@ import {findAll, findOne} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
 
+let filmsInfo=ref()
+
 
 const active4 = ref("1")
 const arrays = ref([])
@@ -75,7 +77,8 @@ function jump(item){
   sessionStorage.removeItem('FilmName')
   sessionStorage.setItem('FilmName',item.fId)
   findOne(item.fId).then(res=>{
-    console.log(res.data)
+    filmsInfo.value=res.data
+    sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
   }).catch(err=>{
 
   })
