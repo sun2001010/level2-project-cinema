@@ -41,11 +41,7 @@
     </delete>
     <insert id="insert" keyColumn="f_id" keyProperty="fId" parameterType="cn.jasonone.bean.Films" useGeneratedKeys="true">
         insert into films
-        ( f_name,f_image
-        ,o_type,director,director_Image
-        ,f_content,f_time,f_price
-        )
-        values (#{fName,jdbcType=VARCHAR},#{fImage,jdbcType=VARCHAR}
+        value (null,#{fName,jdbcType=VARCHAR},#{fImage,jdbcType=VARCHAR}
         ,#{oType,jdbcType=VARCHAR},#{director,jdbcType=VARCHAR},#{directorImage,jdbcType=VARCHAR}
         ,#{fContent,jdbcType=VARCHAR},#{fTime,jdbcType=TIMESTAMP},#{fPrice,jdbcType=DOUBLE}
         )

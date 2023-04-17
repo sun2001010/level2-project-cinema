@@ -69,7 +69,7 @@ function onLogin(e){
   e.preventDefault()
   e.stopPropagation()
   login(userInfo.value).then(res => {
-    router.push({name:'home'})
+    router.push({name:'admin'})
   }).catch(err => {
     layer.msg(typeof err =='string'? err : err.msg)
   })

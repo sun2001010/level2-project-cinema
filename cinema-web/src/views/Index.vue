@@ -21,13 +21,9 @@
         <lay-icon type="layui-icon-search" size="18px"></lay-icon>
       </lay-button>
     </lay-menu-item>
-    <lay-sub-menu>
-      <template #title>
-        个人中心
-      </template>
-      <lay-menu-item>个人信息</lay-menu-item>
-      <lay-menu-item>注销登录</lay-menu-item>
-    </lay-sub-menu>
+    <router-link to="/login">
+      <lay-menu-item>登录</lay-menu-item>
+    </router-link>
   </lay-menu>
   </lay-header>
   <lay-body>

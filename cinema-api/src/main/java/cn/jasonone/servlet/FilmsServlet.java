@@ -33,8 +33,11 @@ public class FilmsServlet extends HttpServlet {
                 case "/films/selectById":
                     selectById((BodyHttpServletRequestWrapper) req, resp);
                     break;
+                case "/films/deleteById":
+                    deleteByID((BodyHttpServletRequestWrapper) req, resp);
+                    break;
                 default:
-                    super.doGet(req,resp);
+                    super.doPost(req,resp);
             }
             sqlSession.commit();
         }catch (IOException e){
@@ -43,26 +46,26 @@ public class FilmsServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        filmsService.setSqlSession(sqlSession);
-        try {
-            String requestURI = req.getRequestURI();
-            //去除contentPath
-            switch (requestURI) {
-                case "/films/deleteById":
-                    deleteByID((BodyHttpServletRequestWrapper) req, resp);
-                    break;
-                default:
-                    super.doDelete(req,resp);
-            }
-            sqlSession.commit();
-        }catch (IOException e){
-            sqlSession.rollback();
-            throw new RuntimeException(e);
-        }
-    }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
+//        filmsService.setSqlSession(sqlSession);
+//        try {
+//            String requestURI = req.getRequestURI();
+//            //去除contentPath
+//            switch (requestURI) {
+//                case "/films/deleteById":
+//                    deleteByID((BodyHttpServletRequestWrapper) req, resp);
+//                    break;
+//                default:
+//                    super.doDelete(req,resp);
+//            }
+//            sqlSession.commit();
+//        }catch (IOException e){
+//            sqlSession.rollback();
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -113,7 +116,9 @@ public class FilmsServlet extends HttpServlet {
         BodyHttpServletRequestWrapper bodyReq = req;
         Gson gson = new Gson();
         String body = bodyReq.getBody();
+
         Films films = gson.fromJson(body, Films.class);
+        System.out.println(films.toString());
         filmsService.insert(films);
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200);

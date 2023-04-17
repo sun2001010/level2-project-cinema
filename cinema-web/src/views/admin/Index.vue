@@ -11,7 +11,9 @@
           <template #content>
             <lay-dropdown-menu>
               <lay-dropdown-menu-item>个人中心</lay-dropdown-menu-item>
-              <lay-dropdown-menu-item>退出登录</lay-dropdown-menu-item>
+              <router-link to="/login">
+                <lay-dropdown-menu-item>退出登录</lay-dropdown-menu-item>
+              </router-link>
             </lay-dropdown-menu>
           </template>
         </lay-dropdown>
@@ -19,7 +21,7 @@
     </lay-header>
     <lay-layout>
       <lay-side>
-        <lay-menu :selected-key="selectedKey" :open-keys="openKeys">
+        <lay-menu :selected-key="selectedKey" @change-selected-Key="changeSelectedKey" v-model:open-keys="openKeys" @change-open-keys="changeOpenKeys" :tree="true">
           <lay-sub-menu id="system-manager">
             <template #title>
               系统管理
@@ -49,6 +51,12 @@ import {list} from "./api.js";
 
 const selectedKey = ref('cinema-manage')
 const openKeys = ref(['system-manage'])
+const changeSelectedKey = (val) => {
+  selectedKey.value = val;
+}
+const changeOpenKeys = (val) => {
+  openKeys2.value = val;
+}
 //定义表格的数据
 const data = reactive([])
 //定义表格的列
