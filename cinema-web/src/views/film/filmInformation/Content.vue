@@ -5,13 +5,13 @@
         <div class="header">
           <span>简介</span>
         </div>
-        <p>公元397年，风景秀丽的张家界，以黑心虎为首的魔教放火烧山，荼毒生灵，欲抓森林之灵兽玉兽麒麟，妄图借喝麒麟的热血以增强内力，称霸武林。</p>
+        <p>{{filmInfo.fContent}}</p>
         </div>
       <div class="dy">
         <span>导演</span>
         <div class="dy-img">
-          <img src="./images/director/久熙.png"> <br>
-          <span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;久熙&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+          <img src="./images/director/{{filmInfo.directorImage}}"> <br>
+          <span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{filmInfo.director}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
         </div>
       </div >
       <br>
@@ -39,20 +39,11 @@ import Comments from "./comments.vue";
 import {selectByPrimaryKey} from "./api.js";
 
 const item = sessionStorage.getItem('FilmName');
-console.log(item)
+const filmInfo = sessionStorage.getItem('FilmInfo');
+console.log(filmInfo)
 
 
 
-function selectid(item) {
-  const matchData =selectByPrimaryKey(item)
-    if (matchData) {
-      return matchData
-    } else {
-      return null
-    }
-}
-
-console.log(selectid.fName)
 </script>
 
 <style lang="scss" scoped>
