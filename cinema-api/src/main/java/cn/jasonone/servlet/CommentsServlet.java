@@ -57,6 +57,9 @@ public class CommentsServlet extends HttpServlet {
                 case "/comments/add":
                     add((BodyHttpServletRequestWrapper) req, resp);
                     break;
+                case "/comments/delete":
+                    delete((BodyHttpServletRequestWrapper) req, resp);
+                    break;
                 default:
                     super.doPost(req, resp);
             }
@@ -101,4 +104,14 @@ public class CommentsServlet extends HttpServlet {
         result.put("msg", "收藏成功");
         resp.getWriter().write(gson.toJson(result));
     }
+    private void delete(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
+        Gson gson = new Gson();
+        String body = req.getBody();
+        Map<String, Object> result = new HashMap<>();
+        commentsService.delete(Long.valueOf(body));
+        result.put("code", 200);
+        result.put("msg", "删除成功");
+        resp.getWriter().write(gson.toJson(result));
+    }
+
 }

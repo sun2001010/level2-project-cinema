@@ -32,7 +32,7 @@ import Right from "./Right.vue";
     width: 60%
   }
   .layui-side{
-    padding-right: 400px;
+    padding-right: 500px;
   }
 }
 </style>

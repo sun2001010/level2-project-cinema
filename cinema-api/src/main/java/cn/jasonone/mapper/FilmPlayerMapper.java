@@ -23,7 +23,7 @@ public interface FilmPlayerMapper {
 
     int updateByPrimaryKey(FilmPlayer record);
 
-    List<FilmPlayer> findAll(FilmPlayer filmPlayer);
+    /*List<FilmPlayer> findAll(FilmPlayer filmPlayer);
 
-    List<String> findPlayerName(String playerName);
+    List<String> findPlayerName(String playerName);*/
 }

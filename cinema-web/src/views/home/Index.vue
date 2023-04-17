@@ -49,9 +49,11 @@
 
 
 <script setup>
-import {findAll} from "./page.js";
+import {findAll, findOne} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
+
+let filmsInfo=ref()
 
 
 const active4 = ref("1")
@@ -74,8 +76,12 @@ setTimeout(() => {
 function jump(item){
   sessionStorage.removeItem('FilmName')
   sessionStorage.setItem('FilmName',item.fId)
-  console.log("fid")
-  console.log(item.fId)
+  findOne(item.fId).then(res=>{
+    filmsInfo.value=res.data
+    sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
+  }).catch(err=>{
+
+  })
 }
 
 const url="src/views/film/filmInformation/images/film/"
