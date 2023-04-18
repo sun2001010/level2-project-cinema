@@ -69,10 +69,12 @@
 
 
 <script setup>
-import {findAll, findOne} from "./page.js";
+import {findAll, findOne, selectCollectNum, selectComm} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
-
+import router from "../../config/router.js";
+sessionStorage.removeItem("filmInfo");
+let filmsInfo=ref()
 
 const active4 = ref("1")
 const arrays = ref([])
@@ -97,11 +99,31 @@ setTimeout(() => {
 //跳转页面并发送数据
 function jump(item){
   sessionStorage.removeItem('FilmName')
-  sessionStorage.setItem('FilmName',item.fId)
-  findOne(item.fId).then(res=>{
-    console.log(res.data)
-  }).catch(err=>{
+  sessionStorage.setItem('FId',item.fId)
+  sessionStorage.setItem('FilmName',item.fName)
 
+  findOne(item.fId).then(res=>{
+    filmsInfo.value=res.data
+    sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
+    selectCollectNum(item.fName).then(res=>{
+      const col=sessionStorage.setItem('collectNum',JSON.stringify(res.data))
+      console.log(col)
+      selectAvg(item.fName).then(res=>{
+        const score=sessionStorage.setItem('score',JSON.stringify(res.data))
+        console.log(score)
+        selectComm(item.fName).then(res=>{
+          const comm = sessionStorage.setItem('comm',JSON.stringify(res.data))
+          console.log(comm)
+          router.push("/filmInformation")
+        })
+      }).catch(err=>{
+        layer.msg("错误")
+      })
+    }).catch(err=>{
+      layer.msg("错误")
+    })
+  }).catch(err=>{
+    layer.msg("错误")
   })
 }
 

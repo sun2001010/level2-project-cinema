@@ -10,7 +10,7 @@ import java.util.List;
 public interface CommentsService {
     void setSqlSession(SqlSession session);
 
-    PageInfo<Comments> CommentsSelect(Comments comments, int pageInfo, int pageNum);
+    PageInfo<Comments> CommentsSelect(String fName, int pageInfo, int pageNum);
 
     void addComments(Comments record);
 

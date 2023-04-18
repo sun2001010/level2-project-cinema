@@ -23,9 +23,9 @@ public class CommentsServiceImpl implements CommentsService {
     private SqlSession sqlSession;
 
     @Override
-    public PageInfo<Comments> CommentsSelect(Comments comments, int pageInfo, int pageNum) {
+    public PageInfo<Comments> CommentsSelect(String fName, int pageInfo, int pageNum) {
         CommentsMapper mapper = sqlSession.getMapper(CommentsMapper.class);
-        List<Comments> commentstList = mapper.findAll(comments);
+        List<Comments> commentstList = mapper.findAll(fName);
         PageHelper.startPage(pageInfo,pageNum);
         return new PageInfo<Comments>(commentstList);
     }

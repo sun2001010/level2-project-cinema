@@ -6,12 +6,12 @@
     <ul class="movie-info">
       <li class="name">{{ filmInfos.fName }}</li>
       <li class="enm">{{ filmInfos.oType }}</li><br>
-      <li style="font-size:24px;color:#ff0000" v-if="true">评分：<span>9.9</span></li>
-      <li style="font-size:24px;color:#ff0000" v-if="false">暂无评分</li><br>
-      <li class="score"><span>99</span> 想看</li><br>
+      <li style="font-size:24px;color:#ff0000" v-if="score">评分：<span>{{ score }}</span></li>
+      <li style="font-size:24px;color:#ff0000" v-if="!score">暂无评分</li><br>
+      <li class="score"><span>{{ colNum }}</span> 想看</li><br>
       <li>导演：{{ filmInfos.director }}</li><br>
       <li>演员：虹猫 / 蓝兔 / 黑小虎</li><br>
-      <li>中国大陆 / 17分钟</li>
+      <li>中国大陆 / {{ filmInfos.fTime }}</li>
 
     </ul>
   </div>
@@ -22,7 +22,7 @@
     </div>
     <div>
       <lay-rate v-model="all2" :length="length"></lay-rate>
-      <button class="score-btn">评分</button>
+      <button class="score-btn" @click="scoreAdd">评分</button>
     </div>
   </div>
 </template>
@@ -30,18 +30,30 @@
 <script setup>
 import {ref} from "vue";
 import router from "../../../config/router.js";
+import {layer} from "@layui/layui-vue";
 let filmInfos=ref()
 
 const all2 = ref(4);
 const length = ref(10)
 
-const item = JSON.parse(sessionStorage.getItem('FId'));
+
 filmInfos = JSON.parse(sessionStorage.getItem('filmInfo'));
+const colNum = JSON.parse(sessionStorage.getItem('collectNum'));
+const score = JSON.parse(sessionStorage.getItem('score'));
+
 const url="src/views/film/filmInformation/images/film/"
 console.log(filmInfos)
 
 function selectCinema() {
   router.push("/cinema")
+}
+
+function scoreAdd(){
+  scoreAdd(score).then(res=>{
+
+  }).catch(err=>{
+    layer.msg("错误")
+  })
 }
 
 

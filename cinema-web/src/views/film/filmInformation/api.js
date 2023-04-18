@@ -15,3 +15,11 @@ export const selectCollectNum=(fname)=>{
 export const selectByPrimaryKey=(fid)=>{
     return post("films/selectById",fid)
 }
+
+export const scoreAdd=(score)=>{
+    return put("score/add",score)
+}
+
+export const commentsSelect=()=>{
+
+}

@@ -29,7 +29,7 @@
     </div><br><br>
     <div class="comments">
       <span>影片评论</span><br>
-      <comments></comments>
+      <comments>{{ comm }}</comments>
     </div>
   </div>
 </template>
@@ -39,9 +39,9 @@ import Comments from "./comments.vue";
 import {selectByPrimaryKey} from "./api.js";
 const url="src/views/film/filmInformation/images/director/"
 
-/*const item = JSON.parse(sessionStorage.getItem('FilmName'));*/
-const filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
 
+const filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
+const comm = JSON.parse(sessionStorage.getItem('comm'));
 
 
 </script>
