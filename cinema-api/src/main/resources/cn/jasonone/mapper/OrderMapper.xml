@@ -35,6 +35,9 @@
     <select id="getLastOrderId" resultType="java.lang.Integer">
         select max(o_id) from `order`
     </select>
+    <select id="getFilmByName" resultType="cn.jasonone.bean.Films">
+            select * from films where f_name=#{fName,jdbcType=VARCHAR}
+    </select>
 
 
     <insert id="buy">
