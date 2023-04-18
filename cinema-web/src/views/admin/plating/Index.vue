@@ -30,7 +30,7 @@
           <lay-date-picker type="datetime" v-model="seStarttime"></lay-date-picker>
         </lay-form-item>
         <lay-form-item label="结束时间:">
-          <lay-input v-model="seEndtime"></lay-input>
+          <lay-date-picker type="datetime" v-model="seEndtime"></lay-date-picker>
         </lay-form-item>
         <lay-form-item label="影&emsp;&emsp;院:">
           <lay-input v-model="cName"></lay-input>

@@ -60,7 +60,7 @@
           <lay-input v-model="filmsAdd.fContent" placeholder="请输入影片简介"></lay-input>
         </lay-form-item>
         <lay-form-item label="上映时间:">
-          <lay-input v-model="filmsAdd.fTime" placeholder="请选择上映时间,例: '2023-01-01'"></lay-input>
+          <lay-date-picker type="datetime" v-model="filmsAdd.fTime" placeholder="请选择上映时间"></lay-date-picker>
         </lay-form-item>
         <lay-form-item label="价&ensp;&ensp;&ensp;&ensp;格:">
           <lay-input v-model="filmsAdd.fPrice" placeholder="请输入价格"></lay-input>
@@ -96,7 +96,7 @@
           <lay-input v-model="fContent" placeholder="请输入影片简介"></lay-input>
         </lay-form-item>
         <lay-form-item label="上映时间:">
-          <lay-input v-model="fTime" placeholder="请选择上映时间,例: '2023-01-01'"></lay-input>
+          <lay-date-picker type="datetime" v-model="fTime"></lay-date-picker>
         </lay-form-item>
         <lay-form-item label="价&ensp;&ensp;&ensp;&ensp;格:">
           <lay-input v-model="fPrice" placeholder="请输入价格"></lay-input>
@@ -158,11 +158,6 @@ const columns = reactive([
   {
     title: '导演图片',
     key: 'directorImage',
-    align:'center',
-  },
-  {
-    title: '影片简介',
-    key: 'fContent',
     align:'center',
   },
   {

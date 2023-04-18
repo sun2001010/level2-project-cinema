@@ -21,29 +21,7 @@ import java.util.Map;
 @WebServlet("/admin/*")
 public class AdminServlet extends HttpServlet {
     private AdminService adminService = new AdminServiceImpl();
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        adminService.setSqlSession(sqlSession);
-        try {
-            String requestURI = req.getRequestURI();
-            // 去除contextPath
-            requestURI = requestURI.substring(req.getContextPath().length());
-            switch (requestURI) {
-                case "/admin/register":
-                    register((BodyHttpServletRequestWrapper) req, resp);
-                    break;
-                default:
-                   super.doPut(req, resp);
-            }
-            // 如果没有异常，提交事务
-            sqlSession.commit();
-        } catch (IOException e) {
-            // 如果有异常，回滚事务
-            sqlSession.rollback();
-            throw new RuntimeException(e);
-        }
-    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
@@ -80,6 +58,7 @@ public class AdminServlet extends HttpServlet {
         String body = req.getBody();
         Admin admin = gson.fromJson(body, Admin.class);
         admin = adminService.login(admin);
+        System.out.println(admin);
         Map<String,Object> result = new HashMap<>();
         if(admin == null){
             result.put("code", 400);
@@ -101,17 +80,5 @@ public class AdminServlet extends HttpServlet {
 
     }
 
-    private void register(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
-//        String username = req.getParameter("username");
-//        String password = req.getParameter("password");
-        Gson gson = new Gson();
-        String body = req.getBody();
-        Admin admin = gson.fromJson(body, Admin.class);
 
-        adminService.register(admin);
-        Map<String,Object> result = new HashMap<>();
-        result.put("code", 200);
-        result.put("msg", "注册成功");
-        resp.getWriter().write(gson.toJson(result));
-    }
 }
