@@ -99,6 +99,7 @@ let cities=reactive(["长沙",'郴州','衡阳','娄底','冷水江','邵阳','�
   '沈阳','武汉','成都','广州','北京','贵州','西安','上海','郑州'])
 let cinemaName=reactive([])
 let cinemaAddress=reactive([])
+let cinemaAddress1 = reactive([])
 let cinema=reactive([])
 let cinemaName1=reactive([])
 let lookTime=reactive(['8:00-10:00','10:00-12:00','12:00-14:00','14:00-16:00',
@@ -129,7 +130,8 @@ const cinemaInfo=reactive({
     cName:"",
     cAddress:"",
     hallName:"",
-    lookTime:""
+    lookTime:"",
+    hId:''
   }
 )
 //接收影院后端传到前端的数据，放在cinema数组中
@@ -168,7 +170,6 @@ onMounted(()=>{
     for (let j of hall){
       hallName.push(j.hName)
     }
-    hallName=["全部",...hallName]
     let set = new Set(hallName)
     hallName = Array.from(set)
   }).catch(error=>{
@@ -260,8 +261,15 @@ function selectLookTime(index3,item){
 }
 //选座购票
 function selectSeat(){
-    console.log(cinemaInfo)
-    sessionStorage.setItem("cinemaInfo", JSON.stringify(cinemaInfo))
+  console.log(cinemaInfo)
+  for (let i of hall){
+    if ((cinemaInfo.cName===i.cName)&&(cinemaInfo.hallName===i.hName)){
+      cinemaInfo.hId=i.hId
+    }
+    // if (i.hName=cinemaInfo.hallName)
+    // console.log(i.hName)
+  }
+  sessionStorage.setItem("cinemaInfo", JSON.stringify(cinemaInfo))
 }
 function arrDelete(arr, func) {
   // 遍历取到每个对象和对应下标，通过自定义的函数判断该对象是否删除，
