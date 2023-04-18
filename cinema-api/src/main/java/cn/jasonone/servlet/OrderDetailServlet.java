@@ -54,7 +54,7 @@ public class OrderDetailServlet extends HttpServlet {
             orderService.buySeat(seatId);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOId(lastOrderId);
-            orderDetail.setRaw(row);
+            orderDetail.setRow(row);
             orderDetail.setCol(Integer.valueOf(col));
             orderService.orderSeat(orderDetail);
         }

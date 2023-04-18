@@ -34,7 +34,7 @@
         <lay-input v-model="filmInfo.fName" :placeholder=filmInfo.fName readonly="readonly"></lay-input>
       </lay-form-item>
       <lay-form-item label="座位">
-        <lay-input v-for="(item) in seatInfo" :placeholder=item.raw+item.col readonly="readonly"></lay-input>
+        <lay-input v-for="(item) in seatInfo" :placeholder=item.row+item.col readonly="readonly"></lay-input>
       </lay-form-item>
       <lay-form-item label="单价" readonly="readonly">
         <lay-input v-model="filmInfo.fPrice" :placeholder=filmInfo.fPrice readonly="readonly"></lay-input>
