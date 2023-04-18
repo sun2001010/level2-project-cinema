@@ -6,6 +6,7 @@ import cn.jasonone.bean.*;
 import cn.jasonone.filter.BodyHttpServletRequestWrapper;
 import cn.jasonone.mapper.FilmsMapper;
 import cn.jasonone.mapper.OrderMapper;
+import cn.jasonone.mapper.SelectSeatMapper;
 import cn.jasonone.service.AdminService;
 import cn.jasonone.service.OrderService;
 import cn.jasonone.service.SelectSeatService;
@@ -63,12 +64,13 @@ public class OrderServlet extends HttpServlet {
                 result.put("msg", "查询成功");
                 result.put("data", orderPageInfo);
                 resp.getWriter().write(gson.toJson(result));
+                session.commit();
             }
         }
 
     }
     private void getFilmByName(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
-
+        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 // 是否显示值为null的字段
@@ -79,10 +81,8 @@ public class OrderServlet extends HttpServlet {
         String body = req.getBody();
         String newbody = body.replaceAll("\"", "");
         System.out.println(newbody);
-        try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
-            try (SqlSession session = sqlSessionFactory.openSession()) {
-                OrderMapper mapper = session.getMapper(OrderMapper.class);
+        OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+
                 Films filmByName = mapper.getFilmByName(newbody);
                 System.out.println(filmByName);
                 Map<String, Object> result = new HashMap<>();
@@ -90,8 +90,8 @@ public class OrderServlet extends HttpServlet {
                 result.put("msg", "查询成功");
                 result.put("data", filmByName);
                 resp.getWriter().write(gson.toJson(result));
-            }
-        }
+
+
 
     }
 
@@ -144,23 +144,43 @@ public class OrderServlet extends HttpServlet {
         result.put("msg", "删除成功");
         resp.getWriter().write(gson.toJson(result));
     }
+    private void getTicketSeat(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                // 是否显示值为null的字段
+                .serializeNulls()
+                // 是否格式化json
+                .setPrettyPrinting()
+                .create();
+        String body = req.getBody();
+        Map<String, Object> result = new HashMap<>();
+        List<OrderDetail> ticketSeat = orderService.getTicketSeat(Integer.valueOf(body));
+        result.put("code", 200);
+        result.put("msg", "查询成功");
+        result.put("data", ticketSeat);
+        resp.getWriter().write(gson.toJson(result));
+    }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String requestURI = req.getRequestURI();
             // 去除contextPath
             requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/order/info":
-                    getOderInfo((BodyHttpServletRequestWrapper) req,resp);
-                    break;
                 case "/order/cancel":
                     cancelOrder((BodyHttpServletRequestWrapper) req,resp);
+                    break;
+                case "/order/info":
+                    getOderInfo((BodyHttpServletRequestWrapper) req,resp);
                     break;
                 case "/order/delete":
                     deleteOrder((BodyHttpServletRequestWrapper) req,resp);
                     break;
                 case "/order/film":
                     getFilmByName((BodyHttpServletRequestWrapper) req,resp);
+                    break;
+                case "/order/seat":
+                    getTicketSeat((BodyHttpServletRequestWrapper) req,resp);
                     break;
             }
 

@@ -55,6 +55,7 @@ public class FilmsServiceImpl implements FilmsService {
     public PageInfo<Films> select(Films films, int pageInfo, int pageNum) {
         List filmsList = sqlSession.getMapper(FilmsMapper.class).findAll(films);
         PageHelper.startPage(pageInfo, pageNum);
+        PageHelper.clearPage();
         return new PageInfo<Films>(filmsList);
     }
 }

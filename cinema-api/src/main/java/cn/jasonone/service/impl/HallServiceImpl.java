@@ -20,6 +20,7 @@ public class HallServiceImpl implements HallService {
         HallMapper mapper=sqlSession.getMapper(HallMapper.class);
         List classList=mapper.findAll(record);//findAll是调用mapper里的函数
         PageHelper.startPage(pageNum,pageSize);
+        PageHelper.clearPage();
         return new PageInfo<Hall>(classList);
     }
 }

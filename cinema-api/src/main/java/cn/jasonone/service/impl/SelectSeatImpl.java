@@ -20,14 +20,8 @@ public class SelectSeatImpl implements SelectSeatService {
     private SqlSession sqlSession;
     @Override
     public List<Seat> getInfo(int hid) throws IOException {
-        try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
-            try (SqlSession session = sqlSessionFactory.openSession()) {
-                SelectSeatMapper mapper = session.getMapper(SelectSeatMapper.class);
-                return mapper.getSeatInfo(hid);
-            }
-        }
-
+        SelectSeatMapper mapper = sqlSession.getMapper(SelectSeatMapper.class);
+        return mapper.getSeatInfo(hid);
     }
 
     @Override

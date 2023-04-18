@@ -30,8 +30,11 @@
       </div>
       <div class="yes">
         <lay-button type="danger" size="lg" fluid="true" @click="submit(buyData)" radius>确认选座</lay-button>
+
       </div>
+      <lay-button type="danger" size="lg" @click="toOrder" radius>查看订单</lay-button>
     </div>
+
   </div>
 
 </template>
@@ -75,7 +78,7 @@ let rows = reactive([])
 // 座位列数
 let cols = reactive([])
 // 座位单价
-const price = ref(50)
+const price = ref()
 let data1=reactive([])
 // 总价
 const totalPrice = computed(() => selectedSeats.value.length * price.value)
@@ -85,6 +88,8 @@ function init(){
 
   occupiedSeats.length=0
   const data=JSON.parse(sessionStorage.getItem("selectInfo"));
+  const film=JSON.parse(sessionStorage.getItem("filmInfo"));
+  price.value=film.fPrice
   data1=data
   buyData=JSON.parse(sessionStorage.getItem("buyInfo"));
   for (let r of data) {
@@ -107,6 +112,11 @@ function init(){
 const start=onMounted(() => {
   init()
 })
+function toOrder(){
+  window.router=router
+  router.push("/order")
+}
+
 
 // 判断座位是否已占用
 function isOccupied(row, col) {

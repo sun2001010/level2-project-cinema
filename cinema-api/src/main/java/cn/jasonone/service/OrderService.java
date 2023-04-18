@@ -17,4 +17,5 @@ public interface OrderService  {
     void orderSeat(OrderDetail orderDetail) throws IOException;
     void cancelOrder(Integer oid) throws IOException;
     void deleteOrder(Integer oid) throws IOException;
+    List<OrderDetail> getTicketSeat(Integer oid) throws IOException;
 }

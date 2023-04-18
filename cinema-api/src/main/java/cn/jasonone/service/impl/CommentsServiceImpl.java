@@ -27,6 +27,7 @@ public class CommentsServiceImpl implements CommentsService {
         CommentsMapper mapper = sqlSession.getMapper(CommentsMapper.class);
         List<Comments> commentstList = mapper.findAll(fName);
         PageHelper.startPage(pageInfo,pageNum);
+        PageHelper.clearPage();
         return new PageInfo<Comments>(commentstList);
     }
 

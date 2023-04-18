@@ -26,4 +26,5 @@ public interface OrderMapper {
    void cancelOrder(Integer oid);
 
    void deleteOrder(Integer oid);
+   List<OrderDetail> getTicketSeat(Integer oid);
 }
