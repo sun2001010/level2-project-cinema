@@ -77,12 +77,13 @@ public class OrderServlet extends HttpServlet {
                 .setPrettyPrinting()
                 .create();
         String body = req.getBody();
-        System.out.println(body);
+        String newbody = body.replaceAll("\"", "");
+        System.out.println(newbody);
         try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
             try (SqlSession session = sqlSessionFactory.openSession()) {
                 OrderMapper mapper = session.getMapper(OrderMapper.class);
-                Films filmByName = mapper.getFilmByName(body);
+                Films filmByName = mapper.getFilmByName(newbody);
                 System.out.println(filmByName);
                 Map<String, Object> result = new HashMap<>();
                 result.put("code", 200);

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div class="container">
-      <div class="screen">屏幕</div>
+      <div class="screen">
+        <img src="src/views/select/img/4k.png">
+      </div>
       <div class="seats">
         <ul v-for="row in rows" :key="row" class="row">
           <li v-for="col in cols" :key="col" class="seat"
@@ -198,6 +200,8 @@ function submit(buyData) {
             getSeatStatus(selectHid.value).then(res=>{
               //清空已选择状态
               // init()
+              buyData.oPrice=totalPrice.value
+              console.log(buyData)
               buy(buyData).then(res=>{
                 buySeats(selectHid.value).then(res=>{
                   selectedSeats.value.length =0
@@ -285,16 +289,18 @@ function submit(buyData) {
 .screen {
   width: 100%;
   height: 100%;
-  background-image: url("img/4k.png");
   color: #fff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-repeat: no-repeat;
   text-align: center;
-  line-height: 50px;
 }
 
 .seats {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
 }
 
 .row {
@@ -315,7 +321,7 @@ function submit(buyData) {
 }
 
 .occupied {
-  background-color: #FF5722;
+  background-color: #fb4659;
 }
 
 .selected {
