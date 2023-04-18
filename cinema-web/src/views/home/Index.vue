@@ -3,68 +3,91 @@
   <div class="initial">
  <div class="first-layer">
    <div class="second-left">
-<!--左侧顶部——上映区-->
-    <div class="second-top">
-      <div style="width: 100%;height: 100%">
-    <div style="font-size: 20px;color: red;padding-left: 20px">正在热映</div>
-        <div class="Div"  v-for="(item,index) in Num" :key="index">
-          <img class="Img" :src=url+item.fImage>
-          <span>{{item.fId}}</span>
-          <router-link to='/filmInformation'>
-            <button style="width:120px" @click="jump(item)">购票</button>
-          </router-link>
-        </div>
-      </div>
-    </div>
-<!--左侧底部——待映区-->
-    <div class="second-bottom">
-      <div style="font-size: 20px;color: red;padding-left: 20px">即将上映</div>
-      <!--电影轮播-->
-      <lay-carousel style="height: 100%;width: 100%" v-model="active4">
-        <lay-carousel-item style="width: 100%;height: 100%"  :id="item.id" v-for="item in arrays">
-          <div style="display: flex; justify-content: center;  width:100%;height:100%;">
-            <img style="width: 80%;height: 100%" :src=item.text alt="图片路径错误">
-          </div>
-        </lay-carousel-item>
-      </lay-carousel>
-    </div>
+<!--左侧顶部——待映区-->
+     <div class="second-bottom">
+       <div style="font-size: 20px;color: #3c9fe6;padding-left: 20px">即将上映</div>
+       <!--电影轮播-->
+       <lay-carousel style="height: 90%;width: 100%" v-model="active4">
+         <lay-carousel-item style="width: 100%;height: 100%"  :id="item.id" v-for="item in arrays">
+           <div style="display: flex; justify-content: center;  width:100%;height:100%;">
+             <img style="width: 80%;height: 100%" :src=item.text alt="图片路径错误">
+           </div>
+         </lay-carousel-item>
+       </lay-carousel>
+     </div>
+
+<!--左侧底部——上映区-->
+     <div class="second-top">
+       <div style="width: 100%;height: 100%">
+         <div style="font-size: 20px;color: red;padding-left: 20px">正在热映</div>
+         <div class="Div"  v-for="(item,index) in Num" :key="index">
+           <img class="Img" :src=url+item.fImage>
+<!--打印电影ID-->
+<!--           <span>{{item.fId}}</span>-->
+           <router-link to='/filmInformation'>
+             <button class="Button" @click="jump(item)">购票</button>
+           </router-link>
+         </div>
+       </div>
+     </div>
    </div>
 
-<!--&lt;!&ndash;右侧&ndash;&gt;-->
-<!--   <div class="second-right" >-->
-
-<!--   </div>-->
+<!--右侧-->
+   <div class="second-right" >
+     <div style="width: 100%;height: 70%;">
+     <span style="font-size: 20px;color: #3c9fe6;margin-left: 20px">今日上榜</span>
+     <div style="width: 100%;height: 30%;">
+       <img style="width: 90%;height: 100%;margin-left: 20px;" src="src/views/film/filmInformation/images/film/忠犬小八.jpg">
+     </div>
+     <div style="width: 100%;height: 55%;margin-top: 30px;">
+       <ol style="margin-left: 20px">
+         <li style="font-size: 15px;margin-bottom: 30px"><i style="color: red;font-size: 20px">2</i>&ensp;&ensp;&ensp;铃芽之旅&ensp;&ensp;1111万<img style="width: 15px;height: 15px"  src="src/views/film/filmInformation/images/film/热度.png"></li>
+         <li style="font-size: 15px;margin-bottom: 30px"><i style="color: red;font-size: 20px">3</i>&ensp;&ensp;&ensp;龙马精神&ensp;&ensp;1110万<img style="width: 15px;height: 15px"  src="src/views/film/filmInformation/images/film/热度.png"></li>
+         <li style="font-size: 15px;margin-bottom: 30px"><i style="color: #cccccc;font-size: 20px">4</i>&ensp;&ensp;&ensp;人生大事&ensp;&ensp;1109万<img style="width: 15px;height: 15px"  src="src/views/film/filmInformation/images/film/热度.png"></li>
+         <li style="font-size: 15px;margin-bottom: 30px"><i style="color: #cccccc;font-size: 20px">5</i>&ensp;&ensp;&ensp;你的婚礼&ensp;&ensp;1104万<img style="width: 15px;height: 15px"  src="src/views/film/filmInformation/images/film/热度.png"></li>
+         <li style="font-size: 15px;margin-bottom: 30px"><i style="color: #cccccc;font-size: 20px">6</i>&ensp;&ensp;&ensp;灌篮高手&ensp;&ensp;1100万<img style="width: 15px;height: 15px"  src="src/views/film/filmInformation/images/film/热度.png"></li>
+       </ol>
+     </div>
+     </div>
+     <div style="width: 90%;height: 30%;margin-left: 20px">
+       <div style="width: 100%;display: flex;align-items: center">
+       <span style=" background-color: #3c9fe6; width: 100%;font-size: 20px;color: #0feeba;text-align: center">App下载</span>
+       </div>
+       <div style="width: 160px;height: 180px                                     ;margin-left: 10px">
+         <img style="width:160px;height: 180px" src="src/views/film/filmInformation/images/film/猫眼二维码.png">
+       </div>
+     </div>
+   </div>
 <!--   &lt;!&ndash;数据显示的表格&ndash;&gt;-->
 <!--   <lay-table :columns="columns" :data-source="dataSource">-->
 <!--   </lay-table>-->
  </div>
     </div>
 
-
-
-
-
 </template>
 
 
 
 <script setup>
-import {findAll, findOne} from "./page.js";
+import {findAll, findOne, selectCollectNum, selectComm} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
 import router from "../../config/router.js";
 sessionStorage.removeItem("filmInfo");
 let filmsInfo=ref()
 
-
 const active4 = ref("1")
 const arrays = ref([])
 setTimeout(() => {
       arrays.value = [
-        {id: "1", text: "src/views/film/filmInformation/images/film/虹猫仗剑走天涯.jpg"},
-        {id: "2", text: "src/views/film/filmInformation/images/film/虹猫蓝兔七侠传.jpg"},
-        {id: "3", text: "src/views/film/filmInformation/images/film/虹猫蓝兔勇者归来.jpg"},
-        {id: "4", text: "src/views/film/filmInformation/images/film/虹猫蓝兔勇者归来.jpg"}
+        {id: "1", text: "src/views/film/filmInformation/images/film/信条.webp"},
+        {id: "2", text: "src/views/film/filmInformation/images/film/少年.webp"},
+        {id: "3", text: "src/views/film/filmInformation/images/film/名侦探柯南.webp"},
+        {id: "4", text: "src/views/film/filmInformation/images/film/左耳.webp"},
+        {id: "54", text: "src/views/film/filmInformation/images/film/扫毒.webp"},
+        {id: "6", text: "src/views/film/filmInformation/images/film/暴疯语.webp"},
+        {id: "7", text: "src/views/film/filmInformation/images/film/黑衣人.webp"},
+        {id: "8", text: "src/views/film/filmInformation/images/film/独立日.webp"},
       ]
 },1000)
 
@@ -76,11 +99,29 @@ setTimeout(() => {
 //跳转页面并发送数据
 function jump(item){
   sessionStorage.removeItem('FilmName')
-  sessionStorage.setItem('FilmName',item.fId)
+  sessionStorage.setItem('FId',item.fId)
+  sessionStorage.setItem('FilmName',item.fName)
+
   findOne(item.fId).then(res=>{
     filmsInfo.value=res.data
     sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
-    router.push("/filmInformation")
+    selectCollectNum(item.fName).then(res=>{
+      const col=sessionStorage.setItem('collectNum',JSON.stringify(res.data))
+      console.log(col)
+      selectAvg(item.fName).then(res=>{
+        const score=sessionStorage.setItem('score',JSON.stringify(res.data))
+        console.log(score)
+        selectComm(item.fName).then(res=>{
+          const comm = sessionStorage.setItem('comm',JSON.stringify(res.data))
+          console.log(comm)
+          router.push("/filmInformation")
+        })
+      }).catch(err=>{
+        layer.msg("错误")
+      })
+    }).catch(err=>{
+      layer.msg("错误")
+    })
   }).catch(err=>{
     layer.msg("错误")
   })
@@ -120,14 +161,26 @@ onMounted(()=>{
 
 
 <style lang="scss" scoped >
+.Button{
+  width:160px;
+  font-size: 18px;
+  opacity: 0.5;
+  background-color: black;
+  color: white;
+}
+Button:hover{
+  background-color: red;
+  color: black;
+}
 .Img{
-  height: 160px;
-  width: 120px;
+  height: 200px;
+  width: 160px;
 }
 .Div{
-  height: 170px;
-  width: 130px;
+  height: 230px;
+  width: 170px;
  //border: red 1px solid;
+  margin-left: 20px;
   padding: 10px;
   float:left;
 }
@@ -172,7 +225,6 @@ onMounted(()=>{
   width: 200px;
   height: 100%;
   float: right;
-  background-color: #66cc66;
 
 }
 

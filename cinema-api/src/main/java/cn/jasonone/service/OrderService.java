@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface OrderService  {
-    List<Order> getOrderInfo(int uid) throws IOException;
+//    List<Order> getOrderInfo(int uid) throws IOException;
     void buy(Order order) throws IOException;
     void buySeat(Integer sid) throws IOException;
     void setSqlSession(SqlSession session);

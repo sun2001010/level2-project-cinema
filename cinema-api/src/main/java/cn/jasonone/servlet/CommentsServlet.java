@@ -46,7 +46,7 @@ public class CommentsServlet extends HttpServlet {
         }
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
         commentsService.setSqlSession(sqlSession);
         try {
@@ -57,11 +57,32 @@ public class CommentsServlet extends HttpServlet {
                 case "/comments/add":
                     add((BodyHttpServletRequestWrapper) req, resp);
                     break;
+                default:
+                    super.doPut(req, resp);
+            }
+            // 如果没有异常，提交事务
+            sqlSession.commit();
+        } catch (IOException e) {
+            // 如果有异常，回滚事务
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
+        commentsService.setSqlSession(sqlSession);
+        try {
+            String requestURI = req.getRequestURI();
+            // 去除contextPath
+            requestURI = requestURI.substring(req.getContextPath().length());
+            switch (requestURI) {
+
                 case "/comments/delete":
                     delete((BodyHttpServletRequestWrapper) req, resp);
                     break;
                 default:
-                    super.doPost(req, resp);
+                    super.doDelete(req, resp);
             }
             // 如果没有异常，提交事务
             sqlSession.commit();
@@ -75,7 +96,6 @@ public class CommentsServlet extends HttpServlet {
     private void select(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
         String body = req.getBody();
-        Comments comments=gson.fromJson(body, Comments.class);
         //开始使用分类插件
         String page=req.getParameter("page");
         String limit=req.getParameter("limit");
@@ -87,7 +107,7 @@ public class CommentsServlet extends HttpServlet {
         if (limit !=null){
             pageSize=Integer.parseInt(limit);
         }
-        PageInfo<Comments> pageInfo=commentsService.CommentsSelect(comments,pageNum,pageSize);
+        PageInfo<Comments> pageInfo=commentsService.CommentsSelect(body,pageNum,pageSize);
         Map<String,Object> result=new HashMap<>();
         result.put("code",200);
         result.put("msg","查询成功");
@@ -101,7 +121,7 @@ public class CommentsServlet extends HttpServlet {
         commentsService.addComments(comments);
         Map<String,Object> result = new HashMap<>();
         result.put("code", 200);
-        result.put("msg", "收藏成功");
+        result.put("msg", "评论成功");
         resp.getWriter().write(gson.toJson(result));
     }
     private void delete(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {

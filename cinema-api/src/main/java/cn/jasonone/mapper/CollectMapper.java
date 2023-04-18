@@ -28,4 +28,6 @@ public interface CollectMapper {
 
     void addCollect(Collect collect);
 
+    int findNum(String fName);
+
 }

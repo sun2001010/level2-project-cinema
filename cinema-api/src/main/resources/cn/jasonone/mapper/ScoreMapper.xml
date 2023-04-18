@@ -79,4 +79,17 @@
             s_content =  #{sContent,jdbcType=VARCHAR}
         where   s_id = #{sId,jdbcType=INTEGER} 
     </update>
+
+    <select id="selectAvg" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select avg(s_score)
+        from score
+        where f_name = #{fName,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="addScore">
+        insert into `score`
+        values
+            (null,#{fName},#{uName},#{sScore})
+
+    </insert>
 </mapper>

@@ -24,7 +24,7 @@ public interface CommentsMapper {
 
     int updateByPrimaryKey(Comments record);
 
-    List<Comments> findAll(Comments comments);
+    List<Comments> findAll(String fName);
 
 
 }

@@ -22,4 +22,8 @@ public interface ScoreMapper {
 
     int updateByPrimaryKey(Score record);
 
+    int selectAvg(String fName);
+
+    void addScore(Score score);
+
 }

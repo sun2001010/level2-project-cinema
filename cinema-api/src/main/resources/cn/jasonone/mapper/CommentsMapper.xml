@@ -73,10 +73,11 @@
         where   comm_id = #{commId,jdbcType=INTEGER} 
     </update>
 
-    <select id="findAll" resultType="cn.jasonone.bean.Comments">
+    <select id="findAll" resultType="cn.jasonone.bean.Comments" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"></include>
-        from comments;
+        from comments
+        where f_name =  #{fName,jdbcType=VARCHAR}
     </select>
 
 

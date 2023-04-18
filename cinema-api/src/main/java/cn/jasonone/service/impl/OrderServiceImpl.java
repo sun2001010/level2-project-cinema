@@ -16,16 +16,16 @@ import java.io.InputStream;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-    @Override
-    public List<Order> getOrderInfo(int uid) throws IOException {
-        try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
-            try (SqlSession session = sqlSessionFactory.openSession()) {
-                OrderMapper mapper = session.getMapper(OrderMapper.class);
-                return mapper.getOrderInfo(uid);
-            }
-        }
-    }
+//    @Override
+//    public List<Order> getOrderInfo(int uid) throws IOException {
+//        try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
+//            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
+//            try (SqlSession session = sqlSessionFactory.openSession()) {
+//                OrderMapper mapper = session.getMapper(OrderMapper.class);
+//                return mapper.getOrderInfo(uid);
+//            }
+//        }
+//    }
 
     @Override
     public void buy(Order order) throws IOException {
