@@ -1,10 +1,10 @@
 package cn.jasonone.servlet;
 
 import cn.jasonone.bean.Collect;
-import cn.jasonone.bean.Films;
+import cn.jasonone.bean.Comments;
 import cn.jasonone.filter.BodyHttpServletRequestWrapper;
-import cn.jasonone.service.CollectService;
-import cn.jasonone.service.impl.CollectServiceImpl;
+import cn.jasonone.service.CommentsService;
+import cn.jasonone.service.impl.CommentsServiceImpl;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import org.apache.ibatis.session.SqlSession;
@@ -18,23 +18,22 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/collect/*")
-public class CollectServlet extends HttpServlet {
-    private CollectService collectService = new CollectServiceImpl();
+@WebServlet("/comments/*")
+public class CommentsServlet extends HttpServlet {
+    private CommentsService commentsService = new CommentsServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        collectService.setSqlSession(sqlSession);
+        commentsService.setSqlSession(sqlSession);
         try {
             String requestURI = req.getRequestURI();
             // 去除contextPath
             requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/collect/select":
+                case "/comments/select":
                     select((BodyHttpServletRequestWrapper) req, resp);
                     break;
-
                 default:
                     super.doGet(req, resp);
             }
@@ -47,44 +46,48 @@ public class CollectServlet extends HttpServlet {
         }
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        collectService.setSqlSession(sqlSession);
+        commentsService.setSqlSession(sqlSession);
         try {
             String requestURI = req.getRequestURI();
-            //去除contentPath
+            // 去除contextPath
             requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/collect/findNum":
-                    findNum((BodyHttpServletRequestWrapper) req, resp);
+                case "/comments/add":
+                    add((BodyHttpServletRequestWrapper) req, resp);
                     break;
                 default:
-                    super.doPost(req,resp);
+                    super.doPut(req, resp);
             }
+            // 如果没有异常，提交事务
             sqlSession.commit();
-        }catch (IOException e){
+        } catch (IOException e) {
+            // 如果有异常，回滚事务
             sqlSession.rollback();
             throw new RuntimeException(e);
         }
     }
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
-        collectService.setSqlSession(sqlSession);
+        commentsService.setSqlSession(sqlSession);
         try {
             String requestURI = req.getRequestURI();
-            //去除contentPath
+            // 去除contextPath
+            requestURI = requestURI.substring(req.getContextPath().length());
             switch (requestURI) {
-                case "/collect/add":
-                    add((BodyHttpServletRequestWrapper) req, resp);
+
+                case "/comments/delete":
+                    delete((BodyHttpServletRequestWrapper) req, resp);
                     break;
-
                 default:
-                    super.doPut(req,resp);
+                    super.doDelete(req, resp);
             }
-
+            // 如果没有异常，提交事务
             sqlSession.commit();
-        }catch (IOException e){
+        } catch (IOException e) {
+            // 如果有异常，回滚事务
             sqlSession.rollback();
             throw new RuntimeException(e);
         }
@@ -93,7 +96,6 @@ public class CollectServlet extends HttpServlet {
     private void select(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
         String body = req.getBody();
-        Collect collect=gson.fromJson(body, Collect.class);
         //开始使用分类插件
         String page=req.getParameter("page");
         String limit=req.getParameter("limit");
@@ -105,7 +107,7 @@ public class CollectServlet extends HttpServlet {
         if (limit !=null){
             pageSize=Integer.parseInt(limit);
         }
-        PageInfo<Collect> pageInfo=collectService.CollectSelect(collect,pageNum,pageSize);
+        PageInfo<Comments> pageInfo=commentsService.CommentsSelect(body,pageNum,pageSize);
         Map<String,Object> result=new HashMap<>();
         result.put("code",200);
         result.put("msg","查询成功");
@@ -115,26 +117,21 @@ public class CollectServlet extends HttpServlet {
     private void add(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
         String body = req.getBody();
-        Collect collect = gson.fromJson(body, Collect.class);
-
-        collectService.addCollect(collect);
+        Comments comments = gson.fromJson(body, Comments.class);
+        commentsService.addComments(comments);
         Map<String,Object> result = new HashMap<>();
         result.put("code", 200);
-        result.put("msg", "收藏成功");
+        result.put("msg", "评论成功");
         resp.getWriter().write(gson.toJson(result));
     }
-
-    private void findNum(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
-
-        BodyHttpServletRequestWrapper bodyReq = req;
+    private void delete(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
         Gson gson = new Gson();
-        String body = bodyReq.getBody();
-        int num = collectService.findNum(body);
-
-        Map<String,Object> result = new HashMap<>();
+        String body = req.getBody();
+        Map<String, Object> result = new HashMap<>();
+        commentsService.delete(Long.valueOf(body));
         result.put("code", 200);
-        result.put("msg", "查询成功");
-        result.put("data", num);
+        result.put("msg", "删除成功");
         resp.getWriter().write(gson.toJson(result));
     }
+
 }

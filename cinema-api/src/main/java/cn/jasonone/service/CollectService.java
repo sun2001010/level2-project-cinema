@@ -11,4 +11,6 @@ public interface CollectService {
     PageInfo<Collect> CollectSelect(Collect collect, int pageInfo, int pageNum);
 
     void addCollect(Collect collect);
+
+    int findNum(String fName);
 }

@@ -1,6 +1,12 @@
 package cn.jasonone.mapper;
 
+import cn.jasonone.bean.Films;
 import cn.jasonone.bean.Order;
+import cn.jasonone.bean.OrderDetail;
+import cn.jasonone.bean.Seat;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -10,16 +16,14 @@ import cn.jasonone.bean.Order;
 */
 public interface OrderMapper {
 
-    int deleteByPrimaryKey(Long id);
+    List<Order> getOrderInfo(int uid);
+    void buy(Order order);
+   Films getFilmByName(String name);
+    void orderSeat(OrderDetail orderDetail);
+    void buySeat(int sid);
+   Integer getSeatId(@Param("row")String row, @Param("col")Integer col,@Param("hid") Integer hid);
+   Integer getLastOrderId();
+   void cancelOrder(Integer oid);
 
-    int insert(Order record);
-
-    int insertSelective(Order record);
-
-    Order selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Order record);
-
-    int updateByPrimaryKey(Order record);
-
+   void deleteOrder(Integer oid);
 }
