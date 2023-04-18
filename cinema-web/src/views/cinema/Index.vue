@@ -266,8 +266,6 @@ function selectSeat(){
     if ((cinemaInfo.cName===i.cName)&&(cinemaInfo.hallName===i.hName)){
       cinemaInfo.hId=i.hId
     }
-    // if (i.hName=cinemaInfo.hallName)
-    // console.log(i.hName)
   }
   sessionStorage.setItem("cinemaInfo", JSON.stringify(cinemaInfo))
 }
