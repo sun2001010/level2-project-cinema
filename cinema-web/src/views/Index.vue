@@ -10,8 +10,8 @@
       <router-link to="/cinema">
         <lay-menu-item>影院</lay-menu-item>
       </router-link>
-      <router-link to="/rank">
-        <lay-menu-item>排行</lay-menu-item>
+      <router-link to="/order">
+        <lay-menu-item>订单</lay-menu-item>
       </router-link>
       <lay-menu-item class="input">
         <lay-input placeholder="搜索影片、影院"></lay-input>
