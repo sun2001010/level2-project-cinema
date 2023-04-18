@@ -26,3 +26,6 @@ export const getOrderInfo = (id,page=1,limit=10) => {
 export  const getFilmInfo=(name)=>{
     return post ('/order/film',name)
 }
+export  const getTicketSeat=(name)=>{
+    return post ('/order/seat',name)
+}

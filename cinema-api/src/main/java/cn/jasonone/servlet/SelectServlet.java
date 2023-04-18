@@ -35,6 +35,7 @@ public class SelectServlet extends HttpServlet {
                 .setPrettyPrinting()
                 .create();
         String body = req.getBody();
+        System.out.println(body);
         List<Seat> info = seatService.getInfo(Integer.parseInt(body));
         Map<String,Object> result = new HashMap<>();
         result.put("code", 200);
@@ -44,6 +45,14 @@ public class SelectServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getInfo((BodyHttpServletRequestWrapper) req, resp);
+        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
+        seatService.setSqlSession(sqlSession);
+        try {
+            getInfo((BodyHttpServletRequestWrapper) req, resp);
+            sqlSession.commit();
+        }catch (IOException e){
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

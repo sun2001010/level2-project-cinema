@@ -38,6 +38,9 @@
     <select id="getFilmByName" resultType="cn.jasonone.bean.Films">
             select * from films where f_name=#{fName,jdbcType=VARCHAR}
     </select>
+    <select id="getTicketSeat" resultType="cn.jasonone.bean.OrderDetail">
+        select * from orderdetail where o_id=#{oId}
+    </select>
 
 
     <insert id="buy">

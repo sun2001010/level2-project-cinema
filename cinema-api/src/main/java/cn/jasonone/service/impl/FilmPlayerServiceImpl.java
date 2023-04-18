@@ -18,6 +18,7 @@ public class FilmPlayerServiceImpl implements FilmPlayerService {
         FilmPlayerMapper mapper = sqlSession.getMapper(FilmPlayerMapper.class);
         List filmPlayerList = mapper.findAll(filmPlayer);
         PageHelper.startPage(pageInfo,pageNum);
+        PageHelper.clearPage();
         return new PageInfo<FilmPlayer>(filmPlayerList);
     }
 

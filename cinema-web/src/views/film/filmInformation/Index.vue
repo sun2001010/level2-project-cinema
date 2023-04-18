@@ -18,7 +18,20 @@
 import Header from "./Header.vue";
 import Content from "./Content.vue";
 import Right from "./Right.vue";
-
+import {onMounted} from "vue";
+// onMounted(()=>{
+// flash()
+// })
+// function flash(){
+//   if (window.location.href.indexOf("#reloaded") === -1) {
+//
+//     window.location.href = window.location.href + "#reloaded";
+//
+//     window.location.reload();
+//
+//   }
+//
+// }
 </script>
 
 <style scoped lang="scss">

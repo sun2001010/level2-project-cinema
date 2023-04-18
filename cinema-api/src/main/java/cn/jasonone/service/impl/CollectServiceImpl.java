@@ -19,6 +19,7 @@ public class CollectServiceImpl implements CollectService {
         CollectMapper mapper = sqlSession.getMapper(CollectMapper.class);
         List<Collect> collectList = mapper.findAll(collect);
         PageHelper.startPage(pageInfo,pageNum);
+        PageHelper.clearPage();
         return new PageInfo<Collect>(collectList);
     }
 

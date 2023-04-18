@@ -102,6 +102,19 @@ public class OrderServiceImpl implements OrderService {
            }
        }
    }
+
+    @Override
+    public List<OrderDetail> getTicketSeat(Integer oid) throws IOException {
+        try (InputStream is = Resources.getResourceAsStream("mybatis-config.xml")) {
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
+            try (SqlSession session = sqlSessionFactory.openSession()) {
+                OrderMapper mapper = session.getMapper(OrderMapper.class);
+                session.commit();
+                return mapper.getTicketSeat(oid);
+            }
+        }
+    }
+
     @Override
     public void setSqlSession(SqlSession session) {
 

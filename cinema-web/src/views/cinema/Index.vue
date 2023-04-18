@@ -94,12 +94,32 @@
 import {onMounted, reactive, ref} from "vue";
 import {autoPosition, buyTicket, findCinema, findHall, position} from "./api.js"
 import {layer} from "@layui/layui-vue";
+import {getSeatInfo} from "../select/api.js";
+import router from "../../config/router.js";
+let film=JSON.parse(sessionStorage.getItem("filmInfo"));
+let buydata = reactive(
+    {
+      uId:1,
+      fName:'',
+      oType:'',
+      startTime:'',
+      endTime:'',
+      oPrice:'',
+      chName:'',
+      cName:'',
+      cAddress:'',
+      hId:''
+
+    }
+)
+const selectInfo = reactive([
+
+])
 
 let cities=reactive(["长沙",'郴州','衡阳','娄底','冷水江','邵阳','常德','新疆','黑龙江','青海','吉林',
   '沈阳','武汉','成都','广州','北京','贵州','西安','上海','郑州'])
 let cinemaName=reactive([])
 let cinemaAddress=reactive([])
-let cinemaAddress1 = reactive([])
 let cinema=reactive([])
 let cinemaName1=reactive([])
 let lookTime=reactive(['8:00-10:00','10:00-12:00','12:00-14:00','14:00-16:00',
@@ -170,6 +190,7 @@ onMounted(()=>{
     for (let j of hall){
       hallName.push(j.hName)
     }
+    hallName=["全部",...hallName]
     let set = new Set(hallName)
     hallName = Array.from(set)
   }).catch(error=>{
@@ -259,16 +280,49 @@ function selectLookTime(index3,item){
   ChangeLookTimeColor.value=index3
   cinemaInfo.lookTime=item
 }
-//选座购票
 function selectSeat(){
-  console.log(cinemaInfo)
+
   for (let i of hall){
     if ((cinemaInfo.cName===i.cName)&&(cinemaInfo.hallName===i.hName)){
       cinemaInfo.hId=i.hId
     }
   }
+  console.log(cinemaInfo.hId)
   sessionStorage.setItem("cinemaInfo", JSON.stringify(cinemaInfo))
+  getInfo(cinemaInfo.hId)
 }
+//得到影厅座位数据
+function getInfo(id) {
+  console.log(id)
+  getSeatInfo(id).then((res)=>{
+    for (let r of res.data) {
+      if (selectInfo.length<res.data.length) {
+        selectInfo.push(r)
+      }
+    }
+    buydata.uId=1
+    buydata.hId=cinemaInfo.hId
+    buydata.fName=film.fName
+    buydata.oType=film.oType
+    buydata.oPrice =film.fPrice
+    buydata.chName=cinemaInfo.hallName
+    buydata.cName=cinemaInfo.cName
+    buydata.cAddress=cinemaInfo.cAddress
+    buydata.startTime='2023-04-13 10:26:13',
+    buydata.endTime='2023-04-13 10:26:13'
+    console.log(buydata)
+    sessionStorage.setItem("selectInfo", JSON.stringify(selectInfo));
+    sessionStorage.setItem("buyInfo", JSON.stringify(buydata));
+    router.push('/select')
+  }).catch(error=>{
+    if (error.code===401){
+      layer.msg("请先登录")
+    }
+    else {layer.msg("错误")}
+  })
+}
+//选座购票
+
 function arrDelete(arr, func) {
   // 遍历取到每个对象和对应下标，通过自定义的函数判断该对象是否删除，
   arr.forEach((item1, i) => {
