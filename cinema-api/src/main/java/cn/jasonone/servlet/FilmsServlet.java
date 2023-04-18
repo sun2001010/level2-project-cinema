@@ -34,7 +34,7 @@ public class FilmsServlet extends HttpServlet {
                     selectById((BodyHttpServletRequestWrapper) req, resp);
                     break;
                 default:
-                    super.doGet(req,resp);
+                    super.doPost(req,resp);
             }
             sqlSession.commit();
         }catch (IOException e){
@@ -133,14 +133,16 @@ public class FilmsServlet extends HttpServlet {
         resp.getWriter().write(gson.toJson(result));
     }
     private void selectById(BodyHttpServletRequestWrapper req,HttpServletResponse resp)throws IOException{
+        BodyHttpServletRequestWrapper bodyReq = req;
         Gson gson = new Gson();
-        String body = req.getBody();
-        System.out.println(body);
-        Films films1 = filmsService.selectById(Integer.valueOf(body));
+        String body = bodyReq.getBody();
+        System.out.println(Integer.valueOf(body));
+        Films films = filmsService.selectById(Integer.valueOf(body));
+
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200);
         result.put("msg", "查询成功");
-        result.put("data", films1);
+        result.put("data", films);
         resp.getWriter().write(gson.toJson(result));
     }
     private void updateById(BodyHttpServletRequestWrapper req,HttpServletResponse resp)throws IOException{
@@ -148,6 +150,7 @@ public class FilmsServlet extends HttpServlet {
         String body = req.getBody();
         Films films = gson.fromJson(body, Films.class);
         filmsService.updateById(films);
+
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200);
         result.put("msg", "修改成功");

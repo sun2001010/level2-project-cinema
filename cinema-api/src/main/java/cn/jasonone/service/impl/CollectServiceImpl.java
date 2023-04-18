@@ -27,4 +27,10 @@ public class CollectServiceImpl implements CollectService {
         CollectMapper mapper = sqlSession.getMapper(CollectMapper.class);
         mapper.addCollect(collect);
     }
+
+    @Override
+    public int findNum(String fName) {
+        CollectMapper mapper = sqlSession.getMapper(CollectMapper.class);
+        return mapper.findNum(fName);
+    }
 }

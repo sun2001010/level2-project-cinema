@@ -49,13 +49,12 @@
 
 
 <script setup>
-import {findAll, findOne} from "./page.js";
+import {findAll, findOne, selectCollectNum} from "./page.js";
 import {onMounted, reactive, ref} from "vue";
 import {layer} from "@layui/layui-vue";
 import router from "../../config/router.js";
 sessionStorage.removeItem("filmInfo");
 let filmsInfo=ref()
-
 
 const active4 = ref("1")
 const arrays = ref([])
@@ -76,17 +75,26 @@ setTimeout(() => {
 //跳转页面并发送数据
 function jump(item){
   sessionStorage.removeItem('FilmName')
-  sessionStorage.setItem('FilmName',item.fId)
+  sessionStorage.setItem('FId',item.fId)
+  sessionStorage.setItem('FilmName',item.fName)
+
   findOne(item.fId).then(res=>{
     filmsInfo.value=res.data
     sessionStorage.setItem('filmInfo',JSON.stringify(filmsInfo.value))
-    router.push("/filmInformation")
+    selectCollectNum(item.fName).then(res=>{
+      const col=sessionStorage.setItem('collectNum',JSON.stringify(res.data))
+      console.log(col)
+      router.push("/filmInformation")
+    }).catch(err=>{
+      layer.msg("错误")
+    })
   }).catch(err=>{
     layer.msg("错误")
   })
 }
 
 const url="src/views/film/filmInformation/images/film/"
+
 const columns=[
   {title:'ID',key:'fId'},
   {title: '电影名',key: 'fName'},

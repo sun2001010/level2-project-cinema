@@ -1,6 +1,7 @@
 package cn.jasonone.servlet;
 
 import cn.jasonone.bean.Collect;
+import cn.jasonone.bean.Films;
 import cn.jasonone.filter.BodyHttpServletRequestWrapper;
 import cn.jasonone.service.CollectService;
 import cn.jasonone.service.impl.CollectServiceImpl;
@@ -33,9 +34,7 @@ public class CollectServlet extends HttpServlet {
                 case "/collect/select":
                     select((BodyHttpServletRequestWrapper) req, resp);
                     break;
-                case "/collect/add":
-                    add((BodyHttpServletRequestWrapper) req, resp);
-                    break;
+
                 default:
                     super.doGet(req, resp);
             }
@@ -43,6 +42,49 @@ public class CollectServlet extends HttpServlet {
             sqlSession.commit();
         } catch (IOException e) {
             // 如果有异常，回滚事务
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
+        collectService.setSqlSession(sqlSession);
+        try {
+            String requestURI = req.getRequestURI();
+            //去除contentPath
+            requestURI = requestURI.substring(req.getContextPath().length());
+            switch (requestURI) {
+                case "/collect/findNum":
+                    findNum((BodyHttpServletRequestWrapper) req, resp);
+                    break;
+                default:
+                    super.doPost(req,resp);
+            }
+            sqlSession.commit();
+        }catch (IOException e){
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SqlSession sqlSession = (SqlSession) req.getAttribute("sqlSession");
+        collectService.setSqlSession(sqlSession);
+        try {
+            String requestURI = req.getRequestURI();
+            //去除contentPath
+            switch (requestURI) {
+                case "/collect/add":
+                    add((BodyHttpServletRequestWrapper) req, resp);
+                    break;
+
+                default:
+                    super.doPut(req,resp);
+            }
+
+            sqlSession.commit();
+        }catch (IOException e){
             sqlSession.rollback();
             throw new RuntimeException(e);
         }
@@ -79,6 +121,20 @@ public class CollectServlet extends HttpServlet {
         Map<String,Object> result = new HashMap<>();
         result.put("code", 200);
         result.put("msg", "收藏成功");
+        resp.getWriter().write(gson.toJson(result));
+    }
+
+    private void findNum(BodyHttpServletRequestWrapper req, HttpServletResponse resp) throws IOException {
+
+        BodyHttpServletRequestWrapper bodyReq = req;
+        Gson gson = new Gson();
+        String body = bodyReq.getBody();
+        int num = collectService.findNum(body);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("code", 200);
+        result.put("msg", "查询成功");
+        result.put("data", num);
         resp.getWriter().write(gson.toJson(result));
     }
 }

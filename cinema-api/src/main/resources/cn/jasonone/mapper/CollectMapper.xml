@@ -86,12 +86,17 @@
         from collection;
     </select>
 
+
     <insert id="addCollect">
-    insert into collection value(
-        null,
-        '3',
-        '2',
-        '3',
-        col_time);
+        insert into `collection` values (null,#{uName},#{fName},#{oType},#{colTime})
+
     </insert>
+
+    <select id="findNum" parameterType="java.lang.String" resultType="integer">
+        select
+            count(*)
+        from collection
+        where f_name = #{fName,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

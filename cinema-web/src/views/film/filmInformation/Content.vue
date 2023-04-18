@@ -10,7 +10,7 @@
       <div class="dy">
         <span>导演</span>
         <div class="dy-img">
-          <img src="./images/director/{{filmInfo.directorImage}}"> <br>
+          <img :src=url+filmInfo.directorImage> <br>
           <span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{filmInfo.director}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
         </div>
       </div >
@@ -37,8 +37,9 @@
 <script setup>
 import Comments from "./comments.vue";
 import {selectByPrimaryKey} from "./api.js";
+const url="src/views/film/filmInformation/images/director/"
 
-const item = JSON.parse(sessionStorage.getItem('FilmName'));
+/*const item = JSON.parse(sessionStorage.getItem('FilmName'));*/
 const filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
 
 

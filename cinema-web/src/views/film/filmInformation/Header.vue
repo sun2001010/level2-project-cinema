@@ -29,14 +29,13 @@
 
 <script setup>
 import {ref} from "vue";
-import {buy} from "../../Order/api.js";
 import router from "../../../config/router.js";
 let filmInfos=ref()
 
 const all2 = ref(4);
 const length = ref(10)
 
-const item = JSON.parse(sessionStorage.getItem('FilmName'));
+const item = JSON.parse(sessionStorage.getItem('FId'));
 filmInfos = JSON.parse(sessionStorage.getItem('filmInfo'));
 const url="src/views/film/filmInformation/images/film/"
 console.log(filmInfos)
@@ -44,6 +43,8 @@ console.log(filmInfos)
 function selectCinema() {
   router.push("/cinema")
 }
+
+
 </script>
 
 <style scoped lang="scss">
