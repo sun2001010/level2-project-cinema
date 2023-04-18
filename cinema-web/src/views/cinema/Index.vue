@@ -80,7 +80,7 @@
           <p style="font-size: 18px">{{ item.cName }}</p>
           <p>地址：{{ item.cAddress }}</p>
         </div>
-        <div class="price">32.0</div>
+        <div class="price">{{item.cLevel}}</div>
         <div class="data1">
           <lay-button type="danger" radius @click="selectSeat">选座购票</lay-button>
         </div>
@@ -260,13 +260,8 @@ function selectLookTime(index3,item){
 }
 //选座购票
 function selectSeat(){
-  console.log(cinemaInfo)
-  // buyTicket(cinemaInfo.value).then(res=>{
-  //   console.log("")
-  // }).catch(err=>{
-  //   layer.msg("buy ticket error")
-  // })
-  sessionStorage.setItem("cinemaInfo",JSON.stringify(cinemaInfo))
+    console.log(cinemaInfo)
+    sessionStorage.setItem("cinemaInfo", JSON.stringify(cinemaInfo))
 }
 function arrDelete(arr, func) {
   // 遍历取到每个对象和对应下标，通过自定义的函数判断该对象是否删除，
