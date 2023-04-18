@@ -21,7 +21,7 @@
         <lay-icon type="layui-icon-search" size="18px"></lay-icon>
       </lay-button>
     </lay-menu-item>
-    <router-link to="/login">
+    <router-link to="/userlogin">
       <lay-menu-item>登录</lay-menu-item>
     </router-link>
   </lay-menu>

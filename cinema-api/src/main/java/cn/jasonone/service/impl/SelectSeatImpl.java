@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class SelectSeatImpl implements SelectSeatService {
+public class  SelectSeatImpl implements SelectSeatService {
     @Setter
     private SqlSession sqlSession;
     @Override

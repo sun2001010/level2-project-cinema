@@ -80,7 +80,8 @@
           <lay-input v-model="fName" placeholder="请输入影片名"></lay-input>
         </lay-form-item>
         <lay-form-item label="影片图片:">
-          <lay-input v-model="fImage" placeholder="请上传影片图片"></lay-input>
+          <lay-upload field="file" @done="" multiple>
+        </lay-upload>
         </lay-form-item>
         <lay-form-item label="影片类型:">
           <lay-input v-model="oType" placeholder="请输入影片类型"></lay-input>
@@ -123,24 +124,13 @@ let directorImage
 let fContent
 let fTime
 let fPrice
-function onUpdate1(row){
-  fId = row.fId
-  fName = row.fName
-  fImage = row.fImage
-  oType = row.oType
-  director = row.director
-  directorImage = row.directorImage
-  fContent = row.fContent
-  fTime = row.fTime
-  fPrice = row.fPrice
-  console.log(fId)
-}
+
 //定义表格的数据
 const data = reactive([])
 //定义表格的列
 const columns = reactive([
   {
-    title: '影片id',
+    title: '影片ID',
     key: 'fId',
     width:80,
     align:'center',
@@ -289,10 +279,6 @@ function onUpdate(){
 }
 let data1 = reactive([])
 function selectId(){
-  // selectById(query).then(res=>{
-  //   data.length = 0
-  //   data.push(...res.data.list)
-  // })
   console.log(query.id)
   console.log(data)
   data1=[...data]

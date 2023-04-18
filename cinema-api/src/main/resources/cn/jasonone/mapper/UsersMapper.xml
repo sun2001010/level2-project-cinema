@@ -27,16 +27,21 @@
         where  u_id = #{uId,jdbcType=INTEGER} 
     </select>
 
+    <select id="findByUName" resultType="cn.jasonone.bean.Users">
+        select <include refid="Base_Column_List"></include>
+        from users where u_name = #{uName,jdbcType=VARCHAR}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from users
         where  u_id = #{uId,jdbcType=INTEGER} 
     </delete>
     <insert id="insert" keyColumn="u_id" keyProperty="uId" parameterType="cn.jasonone.bean.Users" useGeneratedKeys="true">
         insert into users
-        ( u_id,u_name,u_password
+        ( u_name,u_password
         ,u_confidentiality,u_salt,u_phone
         ,u_email)
-        values (#{uId,jdbcType=INTEGER},#{uName,jdbcType=VARCHAR},#{uPassword,jdbcType=VARCHAR}
+        values (#{uName,jdbcType=VARCHAR},#{uPassword,jdbcType=VARCHAR}
         ,#{uConfidentiality,jdbcType=VARCHAR},#{uSalt,jdbcType=VARCHAR},#{uPhone,jdbcType=VARCHAR}
         ,#{uEmail,jdbcType=VARCHAR})
     </insert>

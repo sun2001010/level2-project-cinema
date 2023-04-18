@@ -24,6 +24,11 @@
         from session
         where  se_id = #{seId,jdbcType=INTEGER} 
     </select>
+    <select id="findAll" resultType="cn.jasonone.bean.Session">
+        select
+        <include refid="Base_Column_List" />
+        from session
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from session

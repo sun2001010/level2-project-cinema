@@ -14,6 +14,18 @@ const routes = [
         }
     },
     {
+        path: '/register',
+        name: 'register',
+        component: () => import('../views/register/Index.vue'),
+        meta: {noLogin: true}
+    },
+    {
+        path: '/userLogin',
+        name: 'userLogin',
+        component: () => import('../views/login/userLogin/Index.vue'),
+        meta: {noLogin: true}
+    },
+    {
         path: '/',
         name: 'main',
         component: () => import('../views/Index.vue'),
@@ -60,11 +72,6 @@ const routes = [
                 name: 'plating',
                 component: () => import('../views/admin/plating/Index.vue')
             },
-            {
-                path: '/rowSeats',
-                name: 'rowSeats',
-                component: () => import('../views/admin/rowSeats/Index.vue')
-            }
         ]
     },
     {

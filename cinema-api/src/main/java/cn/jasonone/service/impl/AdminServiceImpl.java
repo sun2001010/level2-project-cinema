@@ -37,7 +37,8 @@ public class AdminServiceImpl implements AdminService {
                 user.setASalt(null);
                 return user;
             }
+            return null;
         }
-        return user;
+        return null;
     }
 }
