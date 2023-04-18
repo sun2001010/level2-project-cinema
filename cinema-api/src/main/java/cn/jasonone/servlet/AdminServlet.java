@@ -81,11 +81,6 @@ public class AdminServlet extends HttpServlet {
         Admin admin = gson.fromJson(body, Admin.class);
         admin = adminService.login(admin);
         Map<String,Object> result = new HashMap<>();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if(admin == null){
             result.put("code", 400);
             result.put("msg", "用户名或密码错误");
@@ -97,7 +92,6 @@ public class AdminServlet extends HttpServlet {
             token.put("exp", System.currentTimeMillis()+1000*60*30);
             String jwtPassword = req.getServletContext().getInitParameter("jwt_password");
             String token1 = JWTUtil.createToken(token, jwtPassword.getBytes());
-
             result.put("code", 200);
             result.put("msg", "登录成功");
             result.put("data", admin);
