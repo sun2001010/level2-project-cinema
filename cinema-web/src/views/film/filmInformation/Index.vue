@@ -17,7 +17,7 @@
 <script setup>
 import Header from "./Header.vue";
 import Content from "./Content.vue";
-import Right from "./Right.vue";
+// import Right from "./Right.vue";
 import {onMounted} from "vue";
 // onMounted(()=>{
 // flash()
