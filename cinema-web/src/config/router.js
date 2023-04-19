@@ -29,6 +29,7 @@ const routes = [
         path: '/',
         name: 'main',
         component: () => import('../views/Index.vue'),
+        meta: {noLogin: true},
         children: [
             {
                 path: '/home',
@@ -92,20 +93,20 @@ const router = createRouter({
 })
 
 // 导航守卫
-// router.beforeEach((to, from) => {
-//     // 如果是目标路由不需要登录,则直接跳转
-//     NProgress.start()
-//     if(to.meta.noLogin){
-//         return true;
-//     }
-//     const loginInfo  = useLogin();
-//     if(loginInfo.isLogin()){
-//         return true;
-//     }else{
-//         // 如果没有登录,则跳转到登录页面
-//         return {name: "login"};
-//     }
-// })
+router.beforeEach((to, from) => {
+    // 如果是目标路由不需要登录,则直接跳转
+    NProgress.start()
+    if(to.meta.noLogin){
+        return true;
+    }
+    const loginInfo  = useLogin();
+    if(loginInfo.isLogin()){
+        return true;
+    }else{
+        // 如果没有登录,则跳转到登录页面
+        return {name: "userLogin"};
+    }
+})
 router.afterEach((to, from) => {
     NProgress.done()
 })

@@ -23,6 +23,6 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
 
-    Users findByUName(String uName);
+    Users findByUName(Users users);
 
 }

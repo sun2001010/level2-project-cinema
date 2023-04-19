@@ -22,5 +22,5 @@ public interface AdminMapper {
 
     int updateByPrimaryKey(Admin record);
 
-    Admin findByAName(String aName);
+    Admin findByAName(Admin admin);
 }

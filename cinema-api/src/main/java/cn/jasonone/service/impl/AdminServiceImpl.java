@@ -15,7 +15,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin login(Admin admin) {
         AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
-        Admin user = mapper.findByAName(admin.getAName());
+        Admin user = mapper.findByAName(admin);
 
         return user;
     }

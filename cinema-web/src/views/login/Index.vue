@@ -26,10 +26,7 @@
               </lay-col>
             </lay-row>
             <lay-row space="10" class="form-item">
-              <lay-col class="btns" lg="12" md="12" sm="24" xs="24">
-                <lay-button border="blue" fluid @click="onRegister">注册</lay-button>
-              </lay-col>
-              <lay-col class="btns" lg="12" md="12" sm="24" xs="24">
+              <lay-col class="btns" lg="24" md="24" sm="24" xs="24">
                 <lay-button type="normal" fluid @click="onLogin">登录</lay-button>
               </lay-col>
               <lay-button-container class="bts">
@@ -41,19 +38,6 @@
       </lay-col>
     </lay-row>
   </div>
-<!--  <div class="login">-->
-<!--    <lay-form class="login1">-->
-<!--      <lay-form-item label="用户名">-->
-<!--        <lay-input v-model="userInfo.username" placeholder="请输入用户名"></lay-input>-->
-<!--      </lay-form-item>-->
-<!--      <lay-form-item label="密&ensp;&ensp;码">-->
-<!--        <lay-input v-model="userInfo.password" placeholder="请输入密码"></lay-input>-->
-<!--      </lay-form-item>-->
-<!--      <lay-form-item class="btns">-->
-<!--        <lay-button type="primary" @click="onLogin">登录</lay-button>-->
-<!--      </lay-form-item>-->
-<!--    </lay-form>-->
-<!--  </div>-->
 </template>
 
 <script setup>

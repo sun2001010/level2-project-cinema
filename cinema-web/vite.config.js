@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
@@ -10,10 +9,20 @@ export default defineConfig({
     // 代理,用来解决跨域问题
     proxy: {
       '/api': {
-        target: 'http://localhost:81',
+        target: 'http://localhost:8000',
         changeOrigin: true,
         // 将路径中的/api重写为空 : /api/admin/login => /admin/login
         rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/baiduapi':{
+        target: 'https://api.map.baidu.com/geocoding/v3',
+        changeOrigin:true,
+        rewrite: (path) => path.replace(/^\/baiduapi/, '')
+      },
+      '/local':{
+        target: 'https://api.map.baidu.com/location',
+        changeOrigin:true,
+        rewrite: (path) => path.replace(/^\/local/, '')
       }
     }
   }

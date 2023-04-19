@@ -80,8 +80,7 @@
           <lay-input v-model="fName" placeholder="请输入影片名"></lay-input>
         </lay-form-item>
         <lay-form-item label="影片图片:">
-          <lay-upload field="file" @done="" multiple>
-        </lay-upload>
+          <lay-input v-model="fImage" placeholder="请输入影片图片"></lay-input>
         </lay-form-item>
         <lay-form-item label="影片类型:">
           <lay-input v-model="oType" placeholder="请输入影片类型"></lay-input>

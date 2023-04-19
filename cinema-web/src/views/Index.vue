@@ -21,7 +21,7 @@
           <lay-icon type="layui-icon-search" size="18px"></lay-icon>
         </lay-button>
       </lay-menu-item>
-      <lay-menu-item>登录/注册</lay-menu-item>
+      <lay-menu-item @click="handoff">登录/注册</lay-menu-item>
     </lay-menu>
   </lay-header>
   <lay-body>
@@ -31,9 +31,13 @@
 
 <script setup>
 import {ref} from "vue";
+import router from "../config/router.js";
 
 const selectedKey = ref("5")
 const openKeys = ref(["7"])
+function handoff(){
+  router.push({name:"userLogin"})
+}
 </script>
 
 <style scoped lang="scss">

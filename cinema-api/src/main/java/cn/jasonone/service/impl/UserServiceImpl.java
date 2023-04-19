@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     public Users login(Users users) {
         UsersMapper mapper = sqlSession.getMapper(UsersMapper.class);
         System.out.println(users);
-        Users user = mapper.findByUName(users.getUName());
+        Users user = mapper.findByUName(users);
         System.out.println(users.getUName());
         System.out.println(user);
 //        if(user != null){

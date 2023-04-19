@@ -29,7 +29,7 @@
 
     <select id="findByUName" resultType="cn.jasonone.bean.Users">
         select <include refid="Base_Column_List"></include>
-        from users where u_name = #{uName,jdbcType=VARCHAR}
+        from users where u_name = #{uName,jdbcType=VARCHAR} and u_password = #{uPassword,jdbcType=VARCHAR}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
