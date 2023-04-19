@@ -41,6 +41,7 @@ filmInfos = JSON.parse(sessionStorage.getItem('filmInfo'));
 const colNum = JSON.parse(sessionStorage.getItem('collectNum'));
 const score = JSON.parse(sessionStorage.getItem('score'));
 
+
 const url="src/views/film/filmInformation/images/film/"
 console.log(filmInfos)
 

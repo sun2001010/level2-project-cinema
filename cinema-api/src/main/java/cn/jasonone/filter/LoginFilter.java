@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -42,6 +43,9 @@ public class LoginFilter implements Filter {
         }else{
             // 获取请求头中的token
             String token = req.getHeader("hm-token");
+            HttpSession session = req.getSession();
+            String loginInfo = (String) session.getAttribute("loginInfo");
+            System.out.println(loginInfo);
             Map<String, Object> result = new HashMap<>();
             // 如果token为不空，且验证通过
             if(!StrUtil.isBlank(token) && JWTUtil.verify(token, jwtPassword.getBytes())){

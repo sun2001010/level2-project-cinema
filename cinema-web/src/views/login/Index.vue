@@ -11,10 +11,10 @@
           <lay-col span="24">
             <lay-row space="10" class="form-item">
               <lay-col class="lable" lg="6" md="8" sm="24" xs="24">
-                管理员
+                用户名
               </lay-col>
               <lay-col lg="18" md="16" sm="24" xs="24">
-                <lay-input v-model="userInfo.aName" placeholder="请输入管理员账号"/>
+                <lay-input v-model="userInfo.aName" placeholder="请输入用户名"/>
               </lay-col>
             </lay-row>
             <lay-row space="10" class="form-item">
@@ -27,14 +27,11 @@
             </lay-row>
             <lay-row space="10" class="form-item">
               <lay-col class="btns" lg="12" md="12" sm="24" xs="24">
-                <lay-button border="blue" fluid @click="onRegister">注册</lay-button>
+                <lay-button border="blue" fluid>注册</lay-button>
               </lay-col>
               <lay-col class="btns" lg="12" md="12" sm="24" xs="24">
                 <lay-button type="normal" fluid @click="onLogin">登录</lay-button>
               </lay-col>
-              <lay-button-container class="bts">
-                <lay-button prefix-icon="layui-icon-left" suffix-icon="layui-icon-right" size="xs" @click="handOff">切换</lay-button>
-              </lay-button-container>
             </lay-row>
           </lay-col>
         </lay-row>
@@ -72,20 +69,11 @@ function onLogin(e){
   e.preventDefault()
   e.stopPropagation()
   login(userInfo.value).then(res => {
-    router.push({name:'admin'})
+    sessionStorage.setItem("loginInfo",JSON.stringify(res.token))
+    router.push({name:'home'})
   }).catch(err => {
     layer.msg(typeof err =='string'? err : err.msg)
   })
-}
-function onRegister(e){
-  e.preventDefault()
-  e.stopPropagation()
-  router.push({name:'register'})
-}
-function handOff(e){
-  e.preventDefault()
-  e.stopPropagation()
-  router.push({name:'userLogin'})
 }
 </script>
 
@@ -118,10 +106,6 @@ function handOff(e){
       }
       .btns{
         text-align: center;
-      }
-      .bts{
-        text-align: center;
-        bottom: 0;
       }
       line-height: 50px;
     }

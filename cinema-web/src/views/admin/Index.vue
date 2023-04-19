@@ -5,17 +5,21 @@
         <div class="title">猫耳电影</div>
         <lay-dropdown updateAtScroll>
           <lay-button type="primary">
-            <router-link to="/login">
-            <div class="name">退出登录</div>
-            </router-link>
+            <div class="name">Admin</div>
             <div class="avatar"></div>
           </lay-button>
+          <template #content>
+            <lay-dropdown-menu>
+              <lay-dropdown-menu-item>个人中心</lay-dropdown-menu-item>
+              <lay-dropdown-menu-item>退出登录</lay-dropdown-menu-item>
+            </lay-dropdown-menu>
+          </template>
         </lay-dropdown>
       </div>
     </lay-header>
     <lay-layout>
       <lay-side>
-        <lay-menu :selected-key="selectedKey" @change-selected-Key="changeSelectedKey" v-model:open-keys="openKeys" @change-open-keys="changeOpenKeys" :tree="true">
+        <lay-menu :selected-key="selectedKey" :open-keys="openKeys">
           <lay-sub-menu id="system-manager">
             <template #title>
               系统管理
@@ -25,6 +29,9 @@
             </router-link>
             <router-link to="/plating">
               <lay-menu-item>排片</lay-menu-item>
+            </router-link>
+            <router-link to="/rowSeats">
+              <lay-menu-item>排座</lay-menu-item>
             </router-link>
           </lay-sub-menu>
         </lay-menu>
@@ -42,12 +49,6 @@ import {list} from "./api.js";
 
 const selectedKey = ref('cinema-manage')
 const openKeys = ref(['system-manage'])
-const changeSelectedKey = (val) => {
-  selectedKey.value = val;
-}
-const changeOpenKeys = (val) => {
-  openKeys2.value = val;
-}
 //定义表格的数据
 const data = reactive([])
 //定义表格的列
@@ -100,7 +101,12 @@ function reLode(){
     data.push(...res.data)
   })
 }
-
+// function onChangeSelected(key){
+//   selectedKey.value = key;
+// }
+//
+//
+// const select = ref(0);
 
 </script>
 

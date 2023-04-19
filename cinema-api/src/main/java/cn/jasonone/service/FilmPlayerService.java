@@ -13,5 +13,4 @@ public interface FilmPlayerService {
     PageInfo<FilmPlayer> FilmPlayerSelect(FilmPlayer filmPlayer, int pageInfo, int pageNum);
 
     List<String> findPlayerName(String playerName);
-
 }

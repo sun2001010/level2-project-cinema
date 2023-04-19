@@ -1,9 +1,6 @@
 package cn.jasonone.mapper;
 
-import cn.jasonone.bean.Films;
 import cn.jasonone.bean.Session;
-
-import java.util.List;
 
 /**
 * @author Administrator
@@ -25,5 +22,4 @@ public interface SessionMapper {
 
     int updateByPrimaryKey(Session record);
 
-    List<Session> findAll(Session session);
 }

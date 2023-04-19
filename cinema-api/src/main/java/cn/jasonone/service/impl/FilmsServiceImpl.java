@@ -38,8 +38,9 @@ public class FilmsServiceImpl implements FilmsService {
     }
 
     @Override
-    public void selectById(Integer fId) {
-        sqlSession.getMapper(FilmsMapper.class).selectByPrimaryKey(Long.valueOf(fId));
+    public Films selectById(Integer fId) {
+
+        return sqlSession.getMapper(FilmsMapper.class).selectByPrimaryKey(Long.valueOf(fId));
     }
 
 

@@ -1,7 +1,6 @@
 package cn.jasonone.mapper;
 
 import cn.jasonone.bean.Users;
-import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator
@@ -22,7 +21,5 @@ public interface UsersMapper {
     int updateByPrimaryKeySelective(Users record);
 
     int updateByPrimaryKey(Users record);
-
-    Users findByUName(String uName);
 
 }
