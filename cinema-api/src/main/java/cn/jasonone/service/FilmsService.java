@@ -15,7 +15,7 @@ public interface FilmsService {
 
     void deleteById(Integer fId);
 
-    void selectById(Integer fId);
+    Films selectById(Integer fId);
 
     void updateById(Films films);
 

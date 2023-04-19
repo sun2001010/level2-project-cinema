@@ -123,7 +123,7 @@ function jump(item){
       layer.msg("错误")
     })
   }).catch(err=>{
-    layer.msg("错误")
+    layer.msg("？")
   })
 }
 

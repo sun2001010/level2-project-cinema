@@ -6,8 +6,8 @@
 
     <resultMap id="BaseResultMap" type="cn.jasonone.bean.Session">
             <id property="seId" column="se_id" jdbcType="INTEGER"/>
-            <result property="seStarttime" column="se_starttime" jdbcType="TIMESTAMP"/>
-            <result property="seEndtime" column="se_endtime" jdbcType="TIMESTAMP"/>
+            <result property="seStarttime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="seEndtime" column="end_time" jdbcType="TIMESTAMP"/>
             <result property="fName" column="f_name" jdbcType="VARCHAR"/>
             <result property="chName" column="ch_name" jdbcType="VARCHAR"/>
             <result property="cName" column="c_name" jdbcType="VARCHAR"/>
@@ -23,11 +23,6 @@
         <include refid="Base_Column_List" />
         from session
         where  se_id = #{seId,jdbcType=INTEGER} 
-    </select>
-    <select id="findAll" resultType="cn.jasonone.bean.Session">
-        select
-        <include refid="Base_Column_List" />
-        from session
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
